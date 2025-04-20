@@ -1,0 +1,22 @@
+nexthire/                  # Root folder
+├── public/                # Public files
+│   ├── index.html         # The main HTML file
+│   └── assets/            # Static assets (logo, images)
+├── src/                   # Source code
+│   ├── assets/            # Global assets (e.g., fonts, images)
+│   ├── components/        # Reusable components (Header, Footer, JobCard)
+│   ├── context/           # React Context for global state (auth, etc.)
+│   ├── hooks/             # Custom hooks (useAuth, useJobData)
+│   ├── pages/             # Pages (Home, JobListing, Login, etc.)
+│   ├── routes/            # Routing logic (App.js or Router.js)
+│   ├── services/          # API calls (authService, jobService)
+│   ├── styles/            # Tailwind CSS + custom styles
+│   ├── App.js             # Main component, handles routing
+│   └── index.js           # Entry point for React (ReactDOM.render)
+├── .gitignore             # Files to ignore (node_modules, build)
+├── package.json           # Project dependencies, scripts
+├── tailwind.config.js     # Tailwind CSS configuration
+├── postcss.config.js      # PostCSS config for Tailwind
+├── .env                   # Environment variables (API keys)
+├── README.md              # Project description, instructions
+└── .eslint.json           # ESLint config for code quality
