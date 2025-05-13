@@ -59,97 +59,102 @@ const EmployerDashboard = () => {
     return <p className="text-center text-gray-500">Loading data...</p>;
   }
 
-  return (
-    <div className="flex min-h-screen bg-[#f9fafb]">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md p-6 hidden md:block">
-        <div className="text-2xl font-bold text-gray-800 mb-10">
-          <span className="text-green-700">Next</span>Hire
-        </div>
-        <nav className="flex flex-col gap-6 text-gray-700">
-          <Link to="/dashboard/employer" className="flex items-center gap-3 hover:text-green-700">
-            <LayoutDashboard size={20} /> Dashboard
-          </Link>
-          <Link to="/post-job" className="flex items-center gap-3 hover:text-green-700">
-            <Briefcase size={20} /> Post Job
-          </Link>
-          <Link to="/my-jobs" className="flex items-center gap-3 hover:text-green-700">
-            <Briefcase size={20} /> My Jobs
-          </Link>
-          <Link to="/applicants" className="flex items-center gap-3 hover:text-green-700">
-            <Users size={20} /> Applicants
-          </Link>
-          <Link to="/reports" className="flex items-center gap-3 hover:text-green-700">
-            <FileText size={20} /> Reports
-          </Link>
-          <Link to="/profile" className="flex items-center gap-3 hover:text-green-700">
-            <Users size={20} /> Profile Settings
-          </Link>
-          <Link to="/inbox" className="flex items-center gap-3 hover:text-green-700">
-            <FileText size={20} /> Inbox
-          </Link>
-          <Link to="/notifications" className="flex items-center gap-3 hover:text-green-700">
-            <BarChart size={20} /> Notifications
-          </Link>
-          <Link
-            to="/login"
-            className="flex items-center gap-3 text-red-600 hover:text-red-800 mt-auto"
-            onClick={logout}
-          >
-            <LogOut size={20} /> Logout
-          </Link>
-        </nav>
-      </aside>
+ // শুধু return এর JSX অংশ দেখাচ্ছি, কারণ logic অংশে কোনো রেসপন্সিভ ইস্যু ছিল না।
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 md:p-10">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">👔 Employer Dashboard</h1>
+return (
+  <div className="flex flex-col md:flex-row min-h-screen bg-[#f9fafb]">
+    {/* Sidebar */}
+    <aside className="w-full md:w-64 bg-white shadow-md p-6 hidden md:block">
+      <div className="text-2xl font-bold text-gray-800 mb-10">
+        <span className="text-green-700">Next</span>Hire
+      </div>
+      <nav className="flex flex-col gap-6 text-gray-700">
+        <Link to="/dashboard/employer" className="flex items-center gap-3 hover:text-green-700">
+          <LayoutDashboard size={20} /> Dashboard
+        </Link>
+        <Link to="/post-job" className="flex items-center gap-3 hover:text-green-700">
+          <Briefcase size={20} /> Post Job
+        </Link>
+        <Link to="/my-jobs" className="flex items-center gap-3 hover:text-green-700">
+          <Briefcase size={20} /> My Jobs
+        </Link>
+        <Link to="/applicants" className="flex items-center gap-3 hover:text-green-700">
+          <Users size={20} /> Applicants
+        </Link>
+        <Link to="/reports" className="flex items-center gap-3 hover:text-green-700">
+          <FileText size={20} /> Reports
+        </Link>
+        <Link to="/profile" className="flex items-center gap-3 hover:text-green-700">
+          <Users size={20} /> Profile Settings
+        </Link>
+        <Link to="/inbox" className="flex items-center gap-3 hover:text-green-700">
+          <FileText size={20} /> Inbox
+        </Link>
+        <Link to="/notifications" className="flex items-center gap-3 hover:text-green-700">
+          <BarChart size={20} /> Notifications
+        </Link>
+        <Link
+          to="/login"
+          className="flex items-center gap-3 text-red-600 hover:text-red-800 mt-auto"
+          onClick={logout}
+        >
+          <LogOut size={20} /> Logout
+        </Link>
+      </nav>
+    </aside>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <StatCard title="Total Jobs" value={jobs.length} icon={<Briefcase size={24} />} color="green" />
-          <StatCard title="Applicants" value={applicants.length} icon={<Users size={24} />} color="blue" />
-        </div>
+    {/* Main Content */}
+    <main className="flex-1 p-4 sm:p-6 md:p-10">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-6">
+        👔 Employer Dashboard
+      </h1>
 
-        {/* Actions */}
-        <div className="flex justify-end mb-6">
-          <Link to="/post-job">
-            <button className="flex items-center gap-2 px-5 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition font-semibold">
-              <Plus size={18} /> Post New Job
-            </button>
-          </Link>
-        </div>
+      {/* Stats Section */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+        <StatCard title="Total Jobs" value={jobs.length} icon={<Briefcase size={24} />} color="green" />
+        <StatCard title="Applicants" value={applicants.length} icon={<Users size={24} />} color="blue" />
+      </div>
 
-        {/* Recent Applicants */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">📋 Recent Applicants</h2>
-          <table className="w-full text-left text-sm text-gray-700">
-            <thead className="text-gray-500 border-b">
-              <tr>
-                <th className="py-2">Name</th>
-                <th className="py-2">Job</th>
-                <th className="py-2">Applied Date</th>
-                <th className="py-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {applicants.map((applicant) => (
-                <ApplicantRow
-                  key={applicant._id}
-                  id={applicant._id}
-                  name={applicant.name}
-                  job={applicant.job}
-                  date={applicant.date}
-                  status={applicant.status}
-                  onStatusChange={updateApplicantStatus}
-                />
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </main>
-    </div>
-  );
+      {/* Actions */}
+      <div className="flex justify-end mb-6">
+        <Link to="/post-job">
+          <button className="flex items-center gap-2 px-4 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition text-sm sm:text-base font-semibold">
+            <Plus size={18} /> Post New Job
+          </button>
+        </Link>
+      </div>
+
+      {/* Recent Applicants */}
+      <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border overflow-x-auto">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-800 mb-4">📋 Recent Applicants</h2>
+        <table className="min-w-full text-left text-sm text-gray-700">
+          <thead className="text-gray-500 border-b">
+            <tr>
+              <th className="py-2 pr-4">Name</th>
+              <th className="py-2 pr-4">Job</th>
+              <th className="py-2 pr-4">Applied Date</th>
+              <th className="py-2 pr-4">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {applicants.map((applicant) => (
+              <ApplicantRow
+                key={applicant._id}
+                id={applicant._id}
+                name={applicant.name}
+                job={applicant.job}
+                date={applicant.date}
+                status={applicant.status}
+                onStatusChange={updateApplicantStatus}
+              />
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+);
+
 };
 
 const StatCard = ({ title, value, icon, color }) => {

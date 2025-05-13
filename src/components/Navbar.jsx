@@ -1,74 +1,103 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Import the AuthContext
+import { useAuth } from "../context/AuthContext"; // AuthContext import
+import { Menu, X } from "lucide-react"; // Hamburger icons
 
 const Navbar = () => {
-  const { user, logout } = useAuth();  // Accessing context
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");  // Redirect if no user is found
+      navigate("/login");
     }
   }, [user, navigate]);
 
   const handleLogout = () => {
-    logout();  // Use logout function from context
+    logout();
     navigate("/home");
   };
 
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+
   return (
-    <nav className="bg-[#f2f7f6] shadow px-8 py-4 flex items-center justify-between">
-      {/* Logo */}
-      <div className="flex items-center text-2xl font-bold text-gray-800">
-        <span className="text-green-700 text-3xl mr-1">Next</span>Hire
-      </div>
+    <nav className="bg-[#f2f7f6] shadow px-4 md:px-8 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        {/* Logo */}
+        <div className="text-2xl font-bold text-gray-800 flex items-center">
+          <span className="text-green-700 text-3xl mr-1">Next</span>Hire
+        </div>
 
-      {/* Navigation Links */}
-      <ul className="flex items-center gap-6 text-gray-700 font-medium">
-        <li><Link to="/home" className="hover:text-green-700">Home</Link></li>
-        <li><Link to="/jobs" className="hover:text-green-700">Jobs</Link></li>
-        <li><Link to="/candidates" className="hover:text-green-700">Candidates</Link></li>
-        <li><Link to="/pages" className="hover:text-green-700">Pages</Link></li>
-        <li><Link to="/blogs" className="hover:text-green-700">Blogs</Link></li>
+        {/* Hamburger Menu (Mobile) */}
+        <div className="md:hidden">
+          <button onClick={toggleMenu} className="text-gray-700 focus:outline-none">
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
 
-        {user && user.role === "Employer" && (
-          <li>
-            <Link to="/dashboard/employer" className="hover:text-green-700">
-              Employer Dashboard
-            </Link>
+        {/* Navigation Links */}
+        <ul className={`md:flex gap-6 text-gray-700 font-medium absolute md:static bg-[#f2f7f6] top-16 left-0 w-full md:w-auto px-6 md:px-0 py-6 md:py-0 transition-all duration-300 ${menuOpen ? "block" : "hidden"} md:block`}>
+          <li><Link to="/home" className="hover:text-green-700 block py-2">Home</Link></li>
+          <li><Link to="/jobs" className="hover:text-green-700 block py-2">Jobs</Link></li>
+          <li><Link to="/candidates" className="hover:text-green-700 block py-2">Candidates</Link></li>
+          <li><Link to="/pages" className="hover:text-green-700 block py-2">Pages</Link></li>
+          <li><Link to="/blogs" className="hover:text-green-700 block py-2">Blogs</Link></li>
+
+          {user?.role === "Employer" && (
+            <li>
+              <Link to="/dashboard/employer" className="hover:text-green-700 block py-2">
+                Employer Dashboard
+              </Link>
+            </li>
+          )}
+
+          {user?.role === "Candidate" && (
+            <li>
+              <Link to="/dashboard/candidate" className="hover:text-green-700 block py-2">
+                Candidate Dashboard
+              </Link>
+            </li>
+          )}
+
+          {/* Logout or Login (shown on mobile inside menu) */}
+          <li className="md:hidden">
+            {!user ? (
+              <Link to="/login" className="text-gray-700 hover:text-green-700 block py-2">
+                Login
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="text-gray-700 hover:text-green-700 block py-2"
+              >
+                Logout
+              </button>
+            )}
           </li>
-        )}
+        </ul>
 
-        {user && user.role === "Candidate" && (
-          <li>
-            <Link to="/dashboard/candidate" className="hover:text-green-700">
-              Candidate Dashboard
+        {/* Right Side (shown only in desktop) */}
+        <div className="hidden md:flex items-center gap-6">
+          {!user ? (
+            <Link to="/login" className="text-gray-700 hover:text-green-700 font-medium">
+              Login
             </Link>
-          </li>
-        )}
-      </ul>
+          ) : (
+            <button
+              onClick={handleLogout}
+              className="text-gray-700 hover:text-green-700 font-medium"
+            >
+              Logout
+            </button>
+          )}
 
-      {/* Right Side */}
-      <div className="flex items-center gap-6">
-        {!user ? (
-          <Link to="/login" className="text-gray-700 hover:text-green-700 font-medium">
-            Login
+          <Link to="/post-job">
+            <button className="bg-green-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-800 transition">
+              Post a job
+            </button>
           </Link>
-        ) : (
-          <button
-            onClick={handleLogout}
-            className="text-gray-700 hover:text-green-700 font-medium"
-          >
-            Logout
-          </button>
-        )}
-
-        <Link to="/post-job">
-          <button className="bg-green-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-800 transition">
-            Post a job
-          </button>
-        </Link>
+        </div>
       </div>
     </nav>
   );

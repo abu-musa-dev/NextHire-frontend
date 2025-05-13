@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
 
@@ -19,12 +19,12 @@ const Jobs = () => {
         setJobs([]);
       });
   }, []);
-
+const navigate = useNavigate();
   const handleApplyClick = (job) => {
     if (job.status === "Paused" || job.status === "Closed") {
       alert("This job is not accepting applications right now.");
     } else {
-      window.location.href = `/apply/${job._id}`;
+     navigate(`/apply/${job._id}`);
     }
   };
 

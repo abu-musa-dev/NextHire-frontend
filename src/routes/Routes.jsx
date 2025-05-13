@@ -19,7 +19,7 @@ import Inbox from "../pages/Inbox";
 import Notifications from "../pages/Notifications";
 import SavedJobs from "../pages/SavedJobs";
 import ResumeBuilder from "../pages/ResumeBuilder";
-// import JobDetails from "../pages/JobDetails";
+import JobDetails from "../pages/JobDetails";
 import Dashboard from "../pages/Dashboard";
 
 const router = createBrowserRouter([
@@ -88,7 +88,7 @@ const router = createBrowserRouter([
         element: <ProfileEmployer />,
       },
       {
-        path: "/apply/:jobId",
+        path: "/apply/:id",
         element: <ApplyPage />,
       },
       {
@@ -115,10 +115,10 @@ const router = createBrowserRouter([
         path: "/resume",
         element: <ResumeBuilder />,
       },
-      // {
-      //   path: "/job/:id",
-      //   element: <JobDetails />,
-      // },
+      {
+        path: "/job/:id",
+        element: <JobDetails />,
+      },
     ],
   },
 ]);
