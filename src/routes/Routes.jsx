@@ -21,6 +21,7 @@ import SavedJobs from "../pages/SavedJobs";
 import ResumeBuilder from "../pages/ResumeBuilder";
 import JobDetails from "../pages/JobDetails";
 import Dashboard from "../pages/Dashboard";
+import NotFound from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -119,8 +120,14 @@ const router = createBrowserRouter([
         path: "/job/:id",
         element: <JobDetails />,
       },
+     
     ],
+    
   },
+   {
+        path: "*",
+        element: <NotFound></NotFound>
+      },
 ]);
 
 export default router;

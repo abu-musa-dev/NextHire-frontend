@@ -1,16 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Bookmark, ClipboardList, BarChart, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // adjust path as needed
+import { useAuth } from "../context/AuthContext"; // Adjust path if needed
 
 const CandidateDashboard = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const [applicationCount, setApplicationCount] = useState(0);
+  const [savedJobsCount, setSavedJobsCount] = useState(0);
+  const [profileViews, setProfileViews] = useState(0);
+
   useEffect(() => {
     if (!user || user.role !== "Candidate") {
       navigate("/login");
+      return;
     }
+
+    const fetchCounts = async () => {
+      try {
+        // Fetch Applications
+        const appRes = await fetch(`http://localhost:5000/applications?email=${user.email}`);
+        const apps = await appRes.json();
+        setApplicationCount(apps.length);
+
+        // Fetch Saved Jobs
+        const savedRes = await fetch(`http://localhost:5000/savedJobs?email=${user.email}`);
+        const savedJobs = await savedRes.json();
+        setSavedJobsCount(savedJobs.length);
+
+        // Fetch Profile Views
+        const profileRes = await fetch(`http://localhost:5000/profileViews?email=${user.email}`);
+        const profileData = await profileRes.json();
+        setProfileViews(profileData.views || 0); // assuming response is { views: number }
+
+      } catch (error) {
+        console.error("Error fetching dashboard stats:", error);
+      }
+    };
+
+    fetchCounts();
   }, [user, navigate]);
 
   return (
@@ -38,9 +67,9 @@ const CandidateDashboard = () => {
 
         {/* Stats Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <StatCard title="Saved Jobs" value="8" icon={<Bookmark size={24} />} color="purple" />
-          <StatCard title="Applications" value="5" icon={<ClipboardList size={24} />} color="blue" />
-          <StatCard title="Profile Views" value="120" icon={<BarChart size={24} />} color="green" />
+          <StatCard title="Saved Jobs" value={savedJobsCount} icon={<Bookmark size={24} />} color="purple" />
+          <StatCard title="Applications" value={applicationCount} icon={<ClipboardList size={24} />} color="blue" />
+          <StatCard title="Profile Views" value={profileViews} icon={<BarChart size={24} />} color="green" />
         </div>
 
         {/* Section Cards */}

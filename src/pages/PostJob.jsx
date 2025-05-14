@@ -11,6 +11,7 @@ const PostJob = () => {
     description: "",
     logoUrl: "",
     price: "",
+    category: "", // Added category field
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,7 +38,16 @@ const PostJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.title || !form.location || !form.type || !form.description || !form.price || !form.logoUrl) {
+    // Form validation including category
+    if (
+      !form.title ||
+      !form.location ||
+      !form.type ||
+      !form.description ||
+      !form.price ||
+      !form.logoUrl ||
+      !form.category // check category
+    ) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -57,6 +67,7 @@ const PostJob = () => {
         body: JSON.stringify({
           ...form,
           createdBy: userEmail,
+          createdAt: new Date().toISOString(), // Added createdAt
         }),
       });
 
@@ -74,6 +85,7 @@ const PostJob = () => {
           description: "",
           logoUrl: "",
           price: "",
+          category: "", // reset category too
         });
       } else {
         Swal.fire({
@@ -123,7 +135,7 @@ const PostJob = () => {
           />
         </div>
 
-        {/* Type */}
+        {/* Job Type */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Job Type</label>
           <select
@@ -140,6 +152,19 @@ const PostJob = () => {
             <option value="Part-time">Part-time</option>
             <option value="Internship">Internship</option>
           </select>
+        </div>
+
+        {/* Category */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Job Category</label>
+          <input
+            name="category"
+            type="text"
+            value={form.category}
+            onChange={handleChange}
+            className="mt-1 w-full border px-4 py-2 rounded-md"
+            required
+          />
         </div>
 
         {/* Description */}
