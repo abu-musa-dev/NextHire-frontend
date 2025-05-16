@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
-  Briefcase,
-  Users,
-  BarChart,
-  Plus,
   LayoutDashboard,
-  LogOut,
+  FilePlus,
+  ClipboardList,
+  Users,
   FileText,
+  UserCog,
+  Inbox,
+  Briefcase,
+  Bell,
+  Plus,
+  LogOut,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -119,13 +123,14 @@ const EmployerDashboard = () => {
 const Sidebar = ({ logout }) => {
   const links = [
     { to: "/dashboard/employer", icon: <LayoutDashboard size={20} />, label: "Dashboard" },
-    { to: "/post-job", icon: <Briefcase size={20} />, label: "Post Job" },
-    { to: "/my-jobs", icon: <Briefcase size={20} />, label: "My Jobs" },
+    { to: "/post-job", icon: <FilePlus size={20} />, label: "Post Job" },
+    { to: "/my-jobs", icon: <ClipboardList size={20} />, label: "My Jobs" },
     { to: "/applicants", icon: <Users size={20} />, label: "Applicants" },
     { to: "/reports", icon: <FileText size={20} />, label: "Reports" },
-    { to: "/profile", icon: <Users size={20} />, label: "Profile Settings" },
-    { to: "/inbox", icon: <FileText size={20} />, label: "Inbox" },
-    { to: "/notifications", icon: <BarChart size={20} />, label: "Notifications" },
+    { to: "/profile", icon: <UserCog size={20} />, label: "Profile Settings" },
+    { to: "/inbox", icon: <Inbox size={20} />, label: "Inbox" },
+    { to: "/services", icon: <Briefcase size={20} />, label: "Services" },
+    { to: "/notifications", icon: <Bell size={20} />, label: "Notifications" },
   ];
 
   return (
@@ -139,7 +144,11 @@ const Sidebar = ({ logout }) => {
             {icon} {label}
           </Link>
         ))}
-        <Link to="/login" onClick={logout} className="flex items-center gap-3 text-red-600 hover:text-red-800 mt-auto">
+        <Link
+          to="/login"
+          onClick={logout}
+          className="flex items-center gap-3 text-red-600 hover:text-red-800 mt-auto"
+        >
           <LogOut size={20} /> Logout
         </Link>
       </nav>

@@ -22,6 +22,9 @@ import ResumeBuilder from "../pages/ResumeBuilder";
 import JobDetails from "../pages/JobDetails";
 import Dashboard from "../pages/Dashboard";
 import NotFound from "../pages/NotFound";
+import ServiceDetails from "../pages/ServiceDetails";
+import PopularServices from "../components/PopularServices";
+import Home from "../components/Home";
 
 const router = createBrowserRouter([
   {
@@ -32,9 +35,14 @@ const router = createBrowserRouter([
       
     ),
     children: [
+      
       {
         path: "/home",
-        element: <Hero />,
+        element: <Home></Home>
+      },
+      {
+        path: "/home",
+        element: <PopularServices></PopularServices>
       },
       {
         path: "/login",
@@ -119,6 +127,10 @@ const router = createBrowserRouter([
       {
         path: "/job/:id",
         element: <JobDetails />,
+      },
+      {
+        path: "/services/:id",
+        element: <ServiceDetails></ServiceDetails>
       },
      
     ],

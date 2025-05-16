@@ -1,0 +1,353 @@
+[
+  {
+    "id": 1,
+    "category": "Blog Editor",
+    "title": "eBook Writer for Professionally Written eBook for Any Specific Genre",
+    "user": {
+      "name": "David Lee",
+      "avatar": "/user1.png",
+      "rating": 5.0,
+      "reviews": 1
+    },
+    "price": 350,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 2,
+    "category": "UI/UX Designer",
+    "title": "Responsive Squarespace website design or Squarespace redesign",
+    "user": {
+      "name": "Candidate",
+      "avatar": "/user2.png",
+      "rating": 5.0,
+      "reviews": 1
+    },
+    "price": 222,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 3,
+    "category": "UI/UX Designer",
+    "title": "Remote Desktop (RDP) GUI setup on your linux server",
+    "user": {
+      "name": "Candidate",
+      "avatar": "/user2.png",
+      "rating": 5.0,
+      "reviews": 1
+    },
+    "price": 120,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 4,
+    "category": "Mobile App Developer",
+    "title": "Day could way culture lay month he three",
+    "user": {
+      "name": "Aaron Jackson",
+      "avatar": "/user3.png",
+      "rating": 4.9,
+      "reviews": 16
+    },
+    "price": 465,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 5,
+    "category": "Web Developer",
+    "title": "Group treat series husband",
+    "user": {
+      "name": "Judy Peterson",
+      "avatar": "/user3.png",
+      "rating": 4.8,
+      "reviews": 20
+    },
+    "price": 131,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 6,
+    "category": "Graphic Designer",
+    "title": "Thought attack air heart let",
+    "user": {
+      "name": "Mark Gonzalez",
+      "avatar": "/user3.png",
+      "rating": 5.0,
+      "reviews": 10
+    },
+    "price": 253,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 7,
+    "category": "Web Developer",
+    "title": "Trade college successful during any always reach hair",
+    "user": {
+      "name": "Aaron Martinez",
+      "avatar": "/user2.png",
+      "rating": 4.7,
+      "reviews": 1
+    },
+    "price": 339,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 8,
+    "category": "SEO Specialist",
+    "title": "Discover structure positive skill I seven",
+    "user": {
+      "name": "Colleen Weber MD",
+      "avatar": "/user3.png",
+      "rating": 4.6,
+      "reviews": 8
+    },
+    "price": 499,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 9,
+    "category": "Content Writer",
+    "title": "Government light will writer",
+    "user": {
+      "name": "Cory Holland",
+      "avatar": "/user2.png",
+      "rating": 4.5,
+      "reviews": 18
+    },
+    "price": 111,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 10,
+    "category": "Content Writer",
+    "title": "Away American quite table dark to him prepare",
+    "user": {
+      "name": "Tiffany Rhodes",
+      "avatar": "/user3.png",
+      "rating": 4.8,
+      "reviews": 17
+    },
+    "price": 396,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 11,
+    "category": "Web Developer",
+    "title": "Late minute identify son compare bad station",
+    "user": {
+      "name": "Kristin Spencer",
+      "avatar": "/user2.png",
+      "rating": 4.8,
+      "reviews": 18
+    },
+    "price": 446,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 12,
+    "category": "SEO Specialist",
+    "title": "Thought program commercial despite guess range agreement",
+    "user": {
+      "name": "Chelsea James",
+      "avatar": "/user2.png",
+      "rating": 4.5,
+      "reviews": 16
+    },
+    "price": 190,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 13,
+    "category": "Content Writer",
+    "title": "Tell both popular experience tax throw remain",
+    "user": {
+      "name": "Tony Smith",
+      "avatar": "/user3.png",
+      "rating": 4.8,
+      "reviews": 7
+    },
+    "price": 244,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 14,
+    "category": "SEO Specialist",
+    "title": "Pm contain strategy life",
+    "user": {
+      "name": "Tiffany Robinson",
+      "avatar": "/user3.png",
+      "rating": 4.9,
+      "reviews": 9
+    },
+    "price": 469,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 15,
+    "category": "Graphic Designer",
+    "title": "So best through government fill big media analysis under",
+    "user": {
+      "name": "John Stein",
+      "avatar": "/user1.png",
+      "rating": 4.8,
+      "reviews": 5
+    },
+    "price": 188,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 16,
+    "category": "SEO Specialist",
+    "title": "Face organization political market recent energy PM",
+    "user": {
+      "name": "Timothy Reid",
+      "avatar": "/user1.png",
+      "rating": 4.6,
+      "reviews": 8
+    },
+    "price": 395,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 17,
+    "category": "Content Writer",
+    "title": "Even approach form approach any the box eye population",
+    "user": {
+      "name": "Haley Perez",
+      "avatar": "/user3.png",
+      "rating": 4.5,
+      "reviews": 19
+    },
+    "price": 444,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 18,
+    "category": "Data Analyst",
+    "title": "Him or seem dream season maybe drug economy",
+    "user": {
+      "name": "Jonathan Peterson",
+      "avatar": "/user2.png",
+      "rating": 4.7,
+      "reviews": 5
+    },
+    "price": 346,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 19,
+    "category": "UI/UX Designer",
+    "title": "As yourself situation they ask",
+    "user": {
+      "name": "Michael Serrano",
+      "avatar": "/user3.png",
+      "rating": 4.7,
+      "reviews": 4
+    },
+    "price": 314,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 20,
+    "category": "UI/UX Designer",
+    "title": "Tell anything whose what nor deal own discuss simply",
+    "user": {
+      "name": "Robin Whitehead",
+      "avatar": "/user1.png",
+      "rating": 4.7,
+      "reviews": 19
+    },
+    "price": 224,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 21,
+    "category": "Web Developer",
+    "title": "Drive sport vote consider herself",
+    "user": {
+      "name": "Dennis Lynn",
+      "avatar": "/user3.png",
+      "rating": 4.5,
+      "reviews": 10
+    },
+    "price": 276,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 22,
+    "category": "Web Developer",
+    "title": "Wind scene question firm pass",
+    "user": {
+      "name": "Raymond Roth",
+      "avatar": "/user2.png",
+      "rating": 4.6,
+      "reviews": 20
+    },
+    "price": 377,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 23,
+    "category": "Data Analyst",
+    "title": "Song board identify animal some mention direction by campaign",
+    "user": {
+      "name": "Kathryn Sims",
+      "avatar": "/user2.png",
+      "rating": 4.8,
+      "reviews": 15
+    },
+    "price": 146,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 24,
+    "category": "UI/UX Designer",
+    "title": "Reality charge after floor clearly safe to social structure",
+    "user": {
+      "name": "Stefanie Shea",
+      "avatar": "/user2.png",
+      "rating": 4.9,
+      "reviews": 15
+    },
+    "price": 408,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 25,
+    "category": "Graphic Designer",
+    "title": "Sense others pass involve",
+    "user": {
+      "name": "Evelyn Brock",
+      "avatar": "/user3.png",
+      "rating": 4.7,
+      "reviews": 1
+    },
+    "price": 239,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 26,
+    "category": "UI/UX Designer",
+    "title": "Give throughout purpose ahead shoulder public large to",
+    "user": {
+      "name": "Joyce Martinez",
+      "avatar": "/user2.png",
+      "rating": 4.7,
+      "reviews": 17
+    },
+    "price": 179,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  },
+  {
+    "id": 27,
+    "category": "Content Writer",
+    "title": "Especially those top collection concern much painting must",
+    "user": {
+      "name": "Natalie Mack",
+      "avatar": "/user3.png",
+      "rating": 4.7,
+      "reviews": 13
+    },
+    "price": 218,
+    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+  }
+]

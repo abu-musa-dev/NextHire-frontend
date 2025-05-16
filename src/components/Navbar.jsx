@@ -37,7 +37,11 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <ul className={`md:flex gap-6 text-gray-700 font-medium absolute md:static bg-[#f2f7f6] top-16 left-0 w-full md:w-auto px-6 md:px-0 py-6 md:py-0 transition-all duration-300 ${menuOpen ? "block" : "hidden"} md:block`}>
+        <ul
+          className={`md:flex gap-6 text-gray-700 font-medium absolute md:static bg-[#f2f7f6] top-16 left-0 w-full md:w-auto px-6 md:px-0 py-6 md:py-0 transition-all duration-300 ${
+            menuOpen ? "block" : "hidden"
+          } md:block`}
+        >
           <li><Link to="/home" className="hover:text-green-700 block py-2">Home</Link></li>
           <li><Link to="/jobs" className="hover:text-green-700 block py-2">Jobs</Link></li>
           <li><Link to="/candidates" className="hover:text-green-700 block py-2">Candidates</Link></li>
@@ -77,7 +81,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Right Side (shown only in desktop) */}
+        {/* Right Side (Desktop Only) */}
         <div className="hidden md:flex items-center gap-6">
           {!user ? (
             <Link to="/login" className="text-gray-700 hover:text-green-700 font-medium">
@@ -92,11 +96,19 @@ const Navbar = () => {
             </button>
           )}
 
-          <Link to="/post-job">
-            <button className="bg-green-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-800 transition">
-              Post a job
-            </button>
-          </Link>
+          {user?.role === "Employer" ? (
+            <Link to="/post-job">
+              <button className="bg-green-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-800 transition">
+                Post a job
+              </button>
+            </Link>
+          ) : user?.role === "Candidate" ? (
+            <Link to="/update-profile">
+              <button className="bg-green-700 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-800 transition">
+                Update Profile
+              </button>
+            </Link>
+          ) : null}
         </div>
       </div>
     </nav>
