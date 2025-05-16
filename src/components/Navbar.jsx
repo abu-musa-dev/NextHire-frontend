@@ -44,9 +44,9 @@ const Navbar = () => {
         >
           <li><Link to="/home" className="hover:text-green-700 block py-2">Home</Link></li>
           <li><Link to="/jobs" className="hover:text-green-700 block py-2">Jobs</Link></li>
-          <li><Link to="/candidates" className="hover:text-green-700 block py-2">Candidates</Link></li>
-          <li><Link to="/pages" className="hover:text-green-700 block py-2">Pages</Link></li>
-          <li><Link to="/blogs" className="hover:text-green-700 block py-2">Blogs</Link></li>
+          <li><Link to="/services" className="hover:text-green-700 block py-2">Services</Link></li>
+          <li><Link to="/about" className="hover:text-green-700 block py-2">Aboutus</Link></li>
+          {/* <li><Link to="/blogs" className="hover:text-green-700 block py-2">Blogs</Link></li> */}
 
           {user?.role === "Employer" && (
             <li>

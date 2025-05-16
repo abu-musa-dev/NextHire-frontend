@@ -9,9 +9,11 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext"; // useAuth হুক import করো
 
-// আপনার publishable key
-const stripePromise = loadStripe("pk_test_51RP7yDPxJ2tzs3FjjIXxvHucL6O0fWhA0VwPQ945DclhCMcJfHevKlIbEjRQAE13n8ZK3jENF5fJVqBiG2n1PQpS00LMAdJeHQ");
+const stripePromise = loadStripe(
+  "pk_test_51RP7yDPxJ2tzs3FjjIXxvHucL6O0fWhA0VwPQ945DclhCMcJfHevKlIbEjRQAE13n8ZK3jENF5fJVqBiG2n1PQpS00LMAdJeHQ"
+);
 
 const CheckoutForm = ({ amount, onSuccess }) => {
   const stripe = useStripe();
@@ -24,24 +26,24 @@ const CheckoutForm = ({ amount, onSuccess }) => {
     setLoading(true);
     setError(null);
 
-    // Backend এ থেকে clientSecret নিয়ে আসে
-    const { data } = await axios.post("http://localhost:5000/create-payment-intent", {
-      amount
-    });
+    try {
+      const { data } = await axios.post("http://localhost:5000/create-payment-intent", { amount });
+      const clientSecret = data.clientSecret;
 
-    const clientSecret = data.clientSecret;
+      const result = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      });
 
-    // Card এন্ট্রি থেকে payment confirm করে
-    const result = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: elements.getElement(CardElement),
+      if (result.error) {
+        setError(result.error.message);
+      } else if (result.paymentIntent.status === "succeeded") {
+        onSuccess();
       }
-    });
-
-    if (result.error) {
-      setError(result.error.message);
-    } else if (result.paymentIntent.status === "succeeded") {
-      onSuccess();
+    } catch (err) {
+      setError("Payment failed. Please try again.");
+      console.error(err);
     }
 
     setLoading(false);
@@ -67,6 +69,8 @@ const ServiceDetails = () => {
   const [service, setService] = useState(null);
   const [paid, setPaid] = useState(false);
 
+  const { user, loading: authLoading } = useAuth(); // useAuth হুক থেকে user আর loading নেওয়া
+
   useEffect(() => {
     fetch("/services.json")
       .then((res) => res.json())
@@ -74,6 +78,17 @@ const ServiceDetails = () => {
         setService(data.find((s) => s.id === Number(id)));
       });
   }, [id]);
+
+  if (authLoading) return <p>Checking authentication...</p>;
+
+  // ইউজার লগইন করা আছে কিনা এবং রোল চেক করা
+  if (!user || user.role !== "Employer") {
+    return (
+      <div className="max-w-3xl mx-auto p-8 mt-20 bg-red-100 text-red-700 rounded-lg text-center font-semibold shadow">
+        Access Denied. Only logged-in employers can view this page.
+      </div>
+    );
+  }
 
   if (!service) return <p>Loading service details...</p>;
 
@@ -83,10 +98,7 @@ const ServiceDetails = () => {
       <p className="mb-6">Category: {service.category}</p>
       {!paid ? (
         <Elements stripe={stripePromise}>
-          <CheckoutForm
-            amount={service.price * 100}
-            onSuccess={() => setPaid(true)}
-          />
+          <CheckoutForm amount={service.price * 100} onSuccess={() => setPaid(true)} />
         </Elements>
       ) : (
         <div className="p-6 bg-green-100 text-green-800 rounded-lg text-center">

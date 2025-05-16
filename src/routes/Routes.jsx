@@ -25,6 +25,8 @@ import NotFound from "../pages/NotFound";
 import ServiceDetails from "../pages/ServiceDetails";
 import PopularServices from "../components/PopularServices";
 import Home from "../components/Home";
+import FreelancerDetails from "../components/FreelancerDetails";
+import AboutUs from "../components/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -132,7 +134,19 @@ const router = createBrowserRouter([
         path: "/services/:id",
         element: <ServiceDetails></ServiceDetails>
       },
-     
+      {
+        path: "/services",
+        element: <PopularServices></PopularServices>
+      },
+      {
+        path: "/freelancer/:id",
+        element: <FreelancerDetails></FreelancerDetails>
+      },
+      {
+        path: "/about",
+        element: <AboutUs></AboutUs>
+      }
+      
     ],
     
   },
