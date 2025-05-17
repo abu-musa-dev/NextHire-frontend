@@ -22,7 +22,7 @@ const Hero = () => {
   ];
 
   return (
-    <section className="bg-[#fdf8ed] min-h-screen flex items-center justify-center px-6 py-12">
+    <section className="bg-[#fdf8ed] min-h-screen flex items-center justify-center px-6 ">
       <div className="mx-auto w-3/4 flex flex-col md:flex-row items-center justify-between">
         {/* Left Text Content */}
         <div className="max-w-xl">

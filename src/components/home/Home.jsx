@@ -7,6 +7,7 @@ import BusinessBanner from "./BusinessBanner";
 import NewsletterSubscribe from "../layout/NewsletterSubscribe";
 import Pricing from "./Pricing";
 import { Helmet } from "react-helmet-async";
+import TopCategories from "./TopCategories";
 
 const Home = () => {
   return (
@@ -20,11 +21,13 @@ const Home = () => {
       </Helmet>
       <div>
         <Hero></Hero>
+        <TopFreelancers></TopFreelancers>
+        <TopCategories></TopCategories>
         <PopularServices></PopularServices>
         <Pricing></Pricing>
-        <TopFreelancers></TopFreelancers>
         <FreelanceBanner></FreelanceBanner>
         <BusinessBanner></BusinessBanner>
+        
         <NewsletterSubscribe></NewsletterSubscribe>
       </div>
     </>

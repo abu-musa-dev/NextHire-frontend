@@ -35,8 +35,15 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
+  // Determine background color
+  const getBgColor = () => {
+    if (darkMode) return "bg-gray-900 text-white";
+    if (location.pathname === "/home") return "bg-[#fdf8ed] text-gray-800";
+    return "bg-white text-gray-800";
+  };
+
   return (
-    <nav className={`${darkMode ? "bg-gray-900 text-white" : "bg-[#f2f7f6] text-gray-800"} shadow px-4 md:px-8 py-4`}>
+    <nav className={`${getBgColor()} shadow px-4 md:px-8 py-4`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="text-2xl font-bold flex items-center">
@@ -54,12 +61,20 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links */}
-        <ul className={`md:flex gap-6 font-medium absolute md:static ${darkMode ? "bg-gray-900 text-white" : "bg-[#f2f7f6] text-gray-700"} top-16 left-0 w-full md:w-auto px-6 md:px-0 py-6 md:py-0 transition-all duration-300 ${menuOpen ? "block" : "hidden"} md:block`}>
+        <ul
+          className={`md:flex gap-6 font-medium absolute md:static 
+            ${getBgColor()} 
+            top-16 left-0 w-full md:w-auto px-6 md:px-0 py-6 md:py-0 
+            transition-all duration-300 
+            ${menuOpen ? "block" : "hidden"} md:block`}
+        >
           {navLinks.map((link, index) => (
             <li key={index}>
               <Link
                 to={link.path}
-                className={`block py-2 hover:text-green-700 ${isActive(link.path) ? "text-green-700 font-semibold" : ""}`}
+                className={`block py-2 hover:text-green-700 transition-colors duration-200 ${
+                  isActive(link.path) ? "text-green-700 font-semibold" : ""
+                }`}
               >
                 {link.name}
               </Link>
@@ -89,10 +104,7 @@ const Navbar = () => {
                 Login
               </Link>
             ) : (
-              <button
-                onClick={handleLogout}
-                className="block py-2 hover:text-green-700"
-              >
+              <button onClick={handleLogout} className="block py-2 hover:text-green-700">
                 Logout
               </button>
             )}
