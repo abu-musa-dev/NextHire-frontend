@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Pencil, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
-import { useAuth } from "../context/AuthContext"; // Import useAuth from context
+import { useAuth } from "../../context/AuthContext"; // Import useAuth from context
 
 const MyJobs = () => {
   const { user, token } = useAuth(); // Get user and token from context

@@ -14,7 +14,7 @@ import {
   LogOut,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const EmployerDashboard = () => {
   const [applicants, setApplicants] = useState([]);

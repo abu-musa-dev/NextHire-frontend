@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth, updateEmail, updateProfile } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { auth, storage } from '../firebase'; // সঠিকভাবে auth এবং storage ইম্পোর্ট করুন
+import { auth, storage } from '../../firebase'; // সঠিকভাবে auth এবং storage ইম্পোর্ট করুন
 
 const ProfileEmployer = () => {
   const [profile, setProfile] = useState({

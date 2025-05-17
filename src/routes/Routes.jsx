@@ -1,32 +1,34 @@
 import { createBrowserRouter } from "react-router-dom";
-import MainLayout from "../components/MainLayout";
-import Hero from "../components/Hero";
-import Login from "../pages/Login";
-import RegisterEmployee from "../pages/RegisterEmployee";
-import RegisterJobSeeker from "../pages/RegisterJobSeeker";
-import EmployerDashboard from "../pages/EmployerDashboard";
-import CandidateDashboard from "../pages/CandidateDashboard";
-import Applicants from "../pages/Applicants";
-import PostJob from "../pages/PostJob";
-import Jobs from "../pages/Jobs";
-import ApplyPage from "../pages/ApplyPage";
-import Applications from "../pages/Applications";
+import MainLayout from "../components/layout/MainLayout";
+import Hero from "../components/home/Hero";
+import Login from "../pages/Auth/Login";
+import RegisterEmployee from "../pages/Auth/RegisterEmployee";
+import RegisterJobSeeker from "../pages/Auth/RegisterJobSeeker";
+import EmployerDashboard from "../pages/Dashboards/EmployerDashboard";
+import CandidateDashboard from "../pages/Dashboards/CandidateDashboard";
+import Applicants from "../pages/Applicant/Applicants";
+import PostJob from "../pages/Job/PostJob";
+import Jobs from "../pages/Job/Jobs";
+import ApplyPage from "../pages/Job/ApplyPage";
+import Applications from "../pages/Applicant/Applications";
 import PrivateRoute from "../routes/PrivateRoute"; // Import PrivateRoute
-import MyJobs from "../pages/MyJobs";
-import ProfileEmployer from "../pages/ProfileEmployer";
-import Reports from "../pages/Reports";
-import Inbox from "../pages/Inbox";
-import Notifications from "../pages/Notifications";
-import SavedJobs from "../pages/SavedJobs";
-import ResumeBuilder from "../pages/ResumeBuilder";
-import JobDetails from "../pages/JobDetails";
-import Dashboard from "../pages/Dashboard";
-import NotFound from "../pages/NotFound";
-import ServiceDetails from "../pages/ServiceDetails";
-import PopularServices from "../components/PopularServices";
-import Home from "../components/Home";
-import FreelancerDetails from "../components/FreelancerDetails";
-import AboutUs from "../components/AboutUs";
+import MyJobs from "../pages/Job/MyJobs";
+import ProfileEmployer from "../pages/Profile/ProfileEmployer";
+import Reports from "../pages/Report/Reports";
+import Inbox from "../pages/Notifications/Inbox";
+import Notifications from "../pages/Notifications/Notifications";
+import SavedJobs from "../pages/Profile/SavedJobs";
+import ResumeBuilder from "../pages/Profile/ResumeBuilder";
+import JobDetails from "../pages/Job/JobDetails";
+import Dashboard from "../pages/Dashboards/Dashboard";
+import NotFound from "../pages/Misc/NotFound";
+import ServiceDetails from "../pages/Profile/ServiceDetails";
+import PopularServices from "../components/home/PopularServices";
+import Home from "../components/home/Home";
+import FreelancerDetails from "../components/home/FreelancerDetails";
+import AboutUs from "../components/shared/AboutUs";
+import Contact from "../components/shared/Contact";
+// import  GrDashboard  from "../pages/Dashboards";
 
 const router = createBrowserRouter([
   {
@@ -145,6 +147,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutUs></AboutUs>
+      },
+      {
+        path: "/contact",
+        element: <Contact></Contact>
       }
       
     ],

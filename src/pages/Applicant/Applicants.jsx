@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { app } from "../firebase";
-import ApplicantRow from "../pages/ApplicantRow";
+import { app } from "../../firebase";
+import ApplicantRow from "./ApplicantRow";
 
 const Applicants = () => {
   const auth = getAuth(app);

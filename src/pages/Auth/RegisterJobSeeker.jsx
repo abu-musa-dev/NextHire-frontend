@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; // import firebase configuration
+import { auth } from "../../firebase"; // import firebase configuration
 
 import axios from "axios";
 import Swal from "sweetalert2";

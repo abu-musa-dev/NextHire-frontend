@@ -9,7 +9,7 @@ import {
   useElements
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { useAuth } from "../context/AuthContext"; // useAuth হুক import করো
+import { useAuth } from "../../context/AuthContext"; // useAuth হুক import করো
 
 const stripePromise = loadStripe(
   "pk_test_51RP7yDPxJ2tzs3FjjIXxvHucL6O0fWhA0VwPQ945DclhCMcJfHevKlIbEjRQAE13n8ZK3jENF5fJVqBiG2n1PQpS00LMAdJeHQ"

@@ -13,7 +13,7 @@ import {
   LogOut
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext"; // Adjust path if needed
+import { useAuth } from "../../context/AuthContext"; // Adjust path if needed
 
 const CandidateDashboard = () => {
   const { user, logout } = useAuth();
