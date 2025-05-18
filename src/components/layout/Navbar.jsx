@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Menu, X, Moon, Sun } from "lucide-react";
 
@@ -9,12 +9,6 @@ const Navbar = () => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
 
   const handleLogout = () => {
     logout();
@@ -35,7 +29,6 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path;
 
-  // Determine background color
   const getBgColor = () => {
     if (darkMode) return "bg-gray-900 text-white";
     if (location.pathname === "/home") return "bg-[#fdf8ed] text-gray-800";
@@ -50,7 +43,7 @@ const Navbar = () => {
           <span className="text-green-700 text-3xl mr-1">Next</span>Hire
         </div>
 
-        {/* Hamburger Menu (Mobile) */}
+        {/* Mobile Menu Buttons */}
         <div className="md:hidden flex items-center gap-4">
           <button onClick={toggleDarkMode} className="focus:outline-none">
             {darkMode ? <Sun size={22} /> : <Moon size={22} />}
@@ -97,7 +90,7 @@ const Navbar = () => {
             </li>
           )}
 
-          {/* Logout/Login on Mobile */}
+          {/* Mobile Login/Logout */}
           <li className="md:hidden">
             {!user ? (
               <Link to="/login" className="block py-2 hover:text-green-700">
@@ -111,7 +104,7 @@ const Navbar = () => {
           </li>
         </ul>
 
-        {/* Right Side (Desktop Only) */}
+        {/* Desktop Right Side */}
         <div className="hidden md:flex items-center gap-6">
           <button onClick={toggleDarkMode} className="focus:outline-none">
             {darkMode ? <Sun size={22} /> : <Moon size={22} />}

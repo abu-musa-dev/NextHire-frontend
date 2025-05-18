@@ -1,14 +1,14 @@
 
 [
   {
-    "name": "Messi",
+    "name": "Musa",
     "role": "Designer",
     "location": "Ab e Kamari",
     "rating": 5.0,
     "description": "Do you need a professional, branded and aesthetic looking shopify ecommerce website or landing page built with shogun,pagefly,gempages and zipify? I will design a stunning...",
     "tags": ["Figma Design", "Product Manager", "Sketch", "UI/UX Design"],
     "price": "$3,000/month",
-    "img": "https://i.pravatar.cc/150?img=3"
+    "img": "https://i.imgur.com/phZP5Rm.png"
   },
   {
     "name": "Kevin Ble",
@@ -24,10 +24,10 @@
     "name": "Kianna",
     "role": "Customer Service",
     "location": "Chicago",
-    "rating": 3.3,
+    "rating": 5.0,
     "description": "An English Native with a passion for words! My love for writing, editing, proofreading, and content creating has translated to my career. I have a...",
     "tags": ["Customer Support", "Supporter", "Technical Support"],
     "price": "$25/day",
-    "img": "https://i.pravatar.cc/150?img=8"
+    "img": "https://i.imgur.com/HIEBX1l.png"
   }
 ]

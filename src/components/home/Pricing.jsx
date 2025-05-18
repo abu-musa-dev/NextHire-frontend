@@ -1,56 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircle } from "lucide-react";
-
-const plans = [
-  {
-    name: "TRIAL",
-    price: "Free",
-    duration: "/month",
-    features: [
-      "1 service posting",
-      "1 featured service",
-      "1 jobs applied",
-      "1 jobs wishlist",
-      "1 company follow",
-    ],
-    buttonStyle: "border border-gray-400 text-gray-800 bg-white hover:bg-gray-50",
-    recommended: false,
-  },
-  {
-    name: "EXTENDED",
-    price: "$350.00",
-    duration: "/year",
-    features: [
-      "88 service posting",
-      "60 featured service",
-      "88 jobs applied",
-      "78 jobs wishlist",
-      "90 company follow",
-    ],
-    buttonStyle: "bg-green-600 text-white hover:bg-green-700",
-    recommended: true,
-  },
-  {
-    name: "BASIC",
-    price: "$120.00",
-    duration: "/year",
-    features: [
-      "7 service posting",
-      "7 featured service",
-      "5 jobs applied",
-      "5 jobs wishlist",
-      "2 company follow",
-    ],
-    buttonStyle: "border border-gray-400 text-gray-800 bg-white hover:bg-gray-50",
-    recommended: false,
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 export default function Pricing() {
+  const [plans, setPlans] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("/pricing.json")
+      .then((res) => res.json())
+      .then((data) => setPlans(data))
+      .catch((err) => console.error("Failed to load pricing data:", err));
+  }, []);
+
+  if (!plans.length) return <div className="text-center py-20">Loading...</div>;
+
+  const handleGetStarted = (priceString) => {
+    // priceString যেমন "$350.00" সেটাকে সেন্টে রুপান্তর করা
+    // $350.00 => 35000 (cents)
+    const amount = Math.round(
+      parseFloat(priceString.replace(/[^0-9.]/g, "")) * 100
+    );
+    navigate("/payment", { state: { amount } });
+  };
+
   return (
     <section className="bg-[#f0f4f8] py-20 px-6">
       <div className="text-center mb-16">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">Simple, transparent pricing</h2>
+        <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          Simple, transparent pricing
+        </h2>
         <p className="text-lg text-gray-600">
           Our simple, per-job pricing scales with you.
         </p>
@@ -86,6 +65,7 @@ export default function Pricing() {
             </ul>
 
             <button
+              onClick={() => handleGetStarted(plan.price)}
               className={`w-full py-3 rounded-full font-semibold text-sm ${plan.buttonStyle}`}
             >
               Get Started

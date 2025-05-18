@@ -1,0 +1,26 @@
+[
+  {
+    "name": "TRIAL",
+    "price": "Free",
+    "duration": "/month",
+    "features": ["1 service posting", "1 featured service", "1 jobs applied", "1 jobs wishlist", "1 company follow"],
+    "buttonStyle": "border border-gray-400 text-gray-800 bg-white hover:bg-gray-50",
+    "recommended": false
+  },
+  {
+    "name": "EXTENDED",
+    "price": "$350.00",
+    "duration": "/year",
+    "features": ["88 service posting", "60 featured service", "88 jobs applied", "78 jobs wishlist", "90 company follow"],
+    "buttonStyle": "bg-green-600 text-white hover:bg-green-700",
+    "recommended": true
+  },
+  {
+    "name": "BASIC",
+    "price": "$120.00",
+    "duration": "/year",
+    "features": ["7 service posting", "7 featured service", "5 jobs applied", "5 jobs wishlist", "2 company follow"],
+    "buttonStyle": "border border-gray-400 text-gray-800 bg-white hover:bg-gray-50",
+    "recommended": false
+  }
+]

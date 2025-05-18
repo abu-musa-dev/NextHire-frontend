@@ -1,107 +1,107 @@
 [
   {
     "id": 1,
-    "category": "Blog Editor",
+    "category": "Customer Service",
     "title": "eBook Writer for Professionally Written eBook for Any Specific Genre",
     "user": {
       "name": "David Lee",
-      "avatar": "/user1.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 5.0,
       "reviews": 1
     },
     "price": 350,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/a78PWro.jpeg"
   },
   {
     "id": 2,
-    "category": "UI/UX Designer",
+    "category": "Customer Service",
     "title": "Responsive Squarespace website design or Squarespace redesign",
     "user": {
       "name": "Candidate",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/bbRmrub.png",
       "rating": 5.0,
       "reviews": 1
     },
     "price": 222,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/DQCJGYC.jpeg"
   },
   {
     "id": 3,
-    "category": "UI/UX Designer",
+    "category": "Designer",
     "title": "Remote Desktop (RDP) GUI setup on your linux server",
     "user": {
       "name": "Candidate",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/uejEl6V.png",
       "rating": 5.0,
       "reviews": 1
     },
     "price": 120,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/7YFJRDE.jpeg"
   },
   {
     "id": 4,
-    "category": "Mobile App Developer",
+    "category": "Designer",
     "title": "Day could way culture lay month he three",
     "user": {
       "name": "Aaron Jackson",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/w6cKUk7.png",
       "rating": 4.9,
       "reviews": 16
     },
     "price": 465,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2023/07/service_6-scaled.webp"
   },
   {
     "id": 5,
-    "category": "Web Developer",
+    "category": "Developer",
     "title": "Group treat series husband",
     "user": {
       "name": "Judy Peterson",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.8,
       "reviews": 20
     },
     "price": 131,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/cvSiLzr.jpeg"
   },
   {
     "id": 6,
-    "category": "Graphic Designer",
+    "category": "Product Manager",
     "title": "Thought attack air heart let",
     "user": {
       "name": "Mark Gonzalez",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/rsgFS6Y.png",
       "rating": 5.0,
       "reviews": 10
     },
     "price": 253,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/eoGruSl.jpeg"
   },
   {
     "id": 7,
-    "category": "Web Developer",
+    "category": "Writing & Translation",
     "title": "Trade college successful during any always reach hair",
     "user": {
       "name": "Aaron Martinez",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/x5QwhSE.png",
       "rating": 4.7,
       "reviews": 1
     },
     "price": 339,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/zXKOs6z.jpeg"
   },
   {
     "id": 8,
-    "category": "SEO Specialist",
+    "category": "Marketing & Sales",
     "title": "Discover structure positive skill I seven",
     "user": {
       "name": "Colleen Weber MD",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.6,
       "reviews": 8
     },
     "price": 499,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/XXQueul.jpeg"
   },
   {
     "id": 9,
@@ -109,12 +109,12 @@
     "title": "Government light will writer",
     "user": {
       "name": "Cory Holland",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/rsgFS6Y.png",
       "rating": 4.5,
       "reviews": 18
     },
     "price": 111,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/nGsckza.jpeg"
   },
   {
     "id": 10,
@@ -122,12 +122,12 @@
     "title": "Away American quite table dark to him prepare",
     "user": {
       "name": "Tiffany Rhodes",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/rsgFS6Y.png",
       "rating": 4.8,
       "reviews": 17
     },
     "price": 396,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/9YVYmY6.jpeg"
   },
   {
     "id": 11,
@@ -135,12 +135,12 @@
     "title": "Late minute identify son compare bad station",
     "user": {
       "name": "Kristin Spencer",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/m70Litj.png",
       "rating": 4.8,
       "reviews": 18
     },
     "price": 446,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/sI8xxqh.jpeg"
   },
   {
     "id": 12,
@@ -148,12 +148,12 @@
     "title": "Thought program commercial despite guess range agreement",
     "user": {
       "name": "Chelsea James",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/NRqz97n.png",
       "rating": 4.5,
       "reviews": 16
     },
     "price": 190,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/GuQbKqU.jpeg"
   },
   {
     "id": 13,
@@ -161,12 +161,12 @@
     "title": "Tell both popular experience tax throw remain",
     "user": {
       "name": "Tony Smith",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/QEkVqGl.png",
       "rating": 4.8,
       "reviews": 7
     },
     "price": 244,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/ggUDluO.jpeg"
   },
   {
     "id": 14,
@@ -174,12 +174,12 @@
     "title": "Pm contain strategy life",
     "user": {
       "name": "Tiffany Robinson",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.9,
       "reviews": 9
     },
     "price": 469,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/Ap2GWlC.jpeg"
   },
   {
     "id": 15,
@@ -187,12 +187,12 @@
     "title": "So best through government fill big media analysis under",
     "user": {
       "name": "John Stein",
-      "avatar": "/user1.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.8,
       "reviews": 5
     },
     "price": 188,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/dTxrfDt.jpeg"
   },
   {
     "id": 16,
@@ -200,12 +200,12 @@
     "title": "Face organization political market recent energy PM",
     "user": {
       "name": "Timothy Reid",
-      "avatar": "/user1.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.6,
       "reviews": 8
     },
     "price": 395,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/T9so8DV.jpeg"
   },
   {
     "id": 17,
@@ -213,12 +213,12 @@
     "title": "Even approach form approach any the box eye population",
     "user": {
       "name": "Haley Perez",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.5,
       "reviews": 19
     },
     "price": 444,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/ZIWotak.jpeg"
   },
   {
     "id": 18,
@@ -226,12 +226,12 @@
     "title": "Him or seem dream season maybe drug economy",
     "user": {
       "name": "Jonathan Peterson",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.7,
       "reviews": 5
     },
     "price": 346,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/zPzXfQH.jpeg"
   },
   {
     "id": 19,
@@ -239,12 +239,12 @@
     "title": "As yourself situation they ask",
     "user": {
       "name": "Michael Serrano",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.7,
       "reviews": 4
     },
     "price": 314,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/SSGLmQN.jpeg"
   },
   {
     "id": 20,
@@ -252,12 +252,12 @@
     "title": "Tell anything whose what nor deal own discuss simply",
     "user": {
       "name": "Robin Whitehead",
-      "avatar": "/user1.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.7,
       "reviews": 19
     },
     "price": 224,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/ynAKN9I.jpeg"
   },
   {
     "id": 21,
@@ -265,12 +265,12 @@
     "title": "Drive sport vote consider herself",
     "user": {
       "name": "Dennis Lynn",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.5,
       "reviews": 10
     },
     "price": 276,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/o8k6cNd.jpeg"
   },
   {
     "id": 22,
@@ -278,12 +278,12 @@
     "title": "Wind scene question firm pass",
     "user": {
       "name": "Raymond Roth",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.6,
       "reviews": 20
     },
     "price": 377,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/3YuPcXq.jpeg"
   },
   {
     "id": 23,
@@ -291,12 +291,12 @@
     "title": "Song board identify animal some mention direction by campaign",
     "user": {
       "name": "Kathryn Sims",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.8,
       "reviews": 15
     },
     "price": 146,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/WaY3Kir.jpeg"
   },
   {
     "id": 24,
@@ -304,12 +304,12 @@
     "title": "Reality charge after floor clearly safe to social structure",
     "user": {
       "name": "Stefanie Shea",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.9,
       "reviews": 15
     },
     "price": 408,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/YX1dFxw.jpeg"
   },
   {
     "id": 25,
@@ -317,12 +317,12 @@
     "title": "Sense others pass involve",
     "user": {
       "name": "Evelyn Brock",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.7,
       "reviews": 1
     },
     "price": 239,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/qJGjXBl.jpeg"
   },
   {
     "id": 26,
@@ -330,12 +330,12 @@
     "title": "Give throughout purpose ahead shoulder public large to",
     "user": {
       "name": "Joyce Martinez",
-      "avatar": "/user2.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.7,
       "reviews": 17
     },
     "price": 179,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/RA0l1S6.jpeg"
   },
   {
     "id": 27,
@@ -343,11 +343,11 @@
     "title": "Especially those top collection concern much painting must",
     "user": {
       "name": "Natalie Mack",
-      "avatar": "/user3.png",
+      "avatar": "https://i.imgur.com/HIEBX1l.png",
       "rating": 4.7,
       "reviews": 13
     },
     "price": 218,
-    "image": "https://i.ibb.co/cKPQj3Pd/Screenshot-2024-06-28-190856.png"
+    "image": "https://i.imgur.com/V58WYKy.jpeg"
   }
 ]

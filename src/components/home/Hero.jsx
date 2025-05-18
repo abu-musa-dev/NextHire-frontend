@@ -1,65 +1,76 @@
-import React from 'react';
+import React from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   const imageUrls = [
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-370.svg',
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-373.svg',
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-372.svg',
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-378.svg',
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-368.svg',
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-371.svg',
-    'https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-369.svg',
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-370.svg",
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-373.svg",
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-372.svg",
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-378.svg",
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-368.svg",
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-371.svg",
+    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-369.svg",
   ];
 
   const imagePositions = [
-    { size: 120, top: '10%', left: '10%' },
-    { size: 70, top: '5%', left: '70%' },
-    { size: 90, top: '30%', left: '80%' },
-    { size: 80, top: '60%', left: '10%' },
-    { size: 130, top: '40%', left: '30%' },
-    { size: 90, top: '60%', left: '70%' },
-    { size: 100, top: '20%', left: '50%' },
+    { size: 120, top: "10%", left: "10%" },
+    { size: 70, top: "5%", left: "70%" },
+    { size: 90, top: "30%", left: "80%" },
+    { size: 80, top: "60%", left: "10%" },
+    { size: 130, top: "40%", left: "30%" },
+    { size: 90, top: "60%", left: "70%" },
+    { size: 100, top: "20%", left: "50%" },
   ];
 
-  return (
-    <section className="bg-[#fdf8ed] min-h-screen flex items-center justify-center px-6 ">
-      <div className="mx-auto w-3/4 flex flex-col md:flex-row items-center justify-between">
-        {/* Left Text Content */}
-        <div className="max-w-xl">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Find a <span className="text-green-600 italic">freelancer</span> <br />
-            you'll love
-          </h1>
-          <p className="text-gray-600 mb-8">
-            Over 1200+ expert freelancers are waiting for you
-          </p>
+  const handleStartClick = () => {
+    navigate("/signup");
+  };
 
-          {/* Search Bar */}
-          <div className="bg-white rounded-full shadow-md flex items-center p-2 w-full max-w-xl mb-4">
-            <input
-              type="text"
-              placeholder="Service title..."
-              className="flex-grow px-4 py-2 outline-none bg-transparent text-gray-700"
-            />
-            <select className="bg-transparent px-4 py-2 outline-none text-gray-700">
-              <option>All Categories</option>
-            </select>
-            <button className="bg-green-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-green-700 transition">
-              Search
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-6 md:px-16 bg-gradient-to-br from-[#fdf8ed] to-[#fff] overflow-hidden">
+      {/* Glow effect */}
+      <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-green-300 opacity-30 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-[-150px] right-[-150px] w-[300px] h-[300px] bg-yellow-200 opacity-30 rounded-full blur-2xl"></div>
+
+      <div className="relative z-10 w-full max-w-7xl flex flex-col md:flex-row items-center justify-between gap-10 py-20">
+        {/* Left Text Content */}
+        <motion.div
+          className="max-w-xl text-center md:text-left"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
+            Hire your <span className="text-green-600 italic">dream freelancer</span>
+          </h1>
+          <p className="text-gray-700 text-lg mb-6">
+            Browse thousands of talented professionals ready to bring your vision to life.
+          </p>
+          <div className="flex justify-center md:justify-start gap-4">
+            <button
+              onClick={handleStartClick}
+              className="bg-green-600 text-white px-6 py-3 rounded-full font-semibold shadow hover:bg-green-700 transition"
+            >
+              Get Started
+            </button>
+            <button className="bg-white text-green-600 border border-green-600 px-6 py-3 rounded-full font-semibold shadow hover:bg-green-50 transition">
+              Learn More
             </button>
           </div>
-
-          {/* Popular Searches */}
-          <p className="text-sm text-gray-600">
-            Popular Searches: <span className="font-semibold text-black">WordPress</span>,{' '}
-            <span className="font-semibold text-black">Audio Production & Editing</span>
-          </p>
-        </div>
+        </motion.div>
 
         {/* Right Image Bubbles */}
-        <div className="relative mt-12 md:mt-0 md:ml-16 w-full max-w-lg h-[500px]">
+        <motion.div
+          className="relative w-full max-w-lg h-[500px]"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7 }}
+        >
           {imagePositions.map((img, index) => (
-            <img
+            <motion.img
               key={index}
               src={imageUrls[index]}
               alt={`Freelancer ${index}`}
@@ -70,9 +81,11 @@ const Hero = () => {
                 top: img.top,
                 left: img.left,
               }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.3 }}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

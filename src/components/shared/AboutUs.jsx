@@ -1,8 +1,8 @@
 import React from 'react';
-// import MissionSection from './MissionSection';
-// import TeamSection from './TeamSection';
-// import Locations from './Locations';
-// import Testimonials from './testimonials';
+import MissionSection from '../home/MissionSection';
+import TeamSection from '../home/TeamSection';
+import Locations from '../home/Locations';
+import Testimonials from '../home/testimonials';
 
 
 const AboutUs = () => {
@@ -41,10 +41,10 @@ const AboutUs = () => {
           />
         </div>
       </div>
-      {/* <MissionSection></MissionSection>
+      <MissionSection></MissionSection>
       <TeamSection></TeamSection>
       <Locations></Locations>
-      <Testimonials></Testimonials> */}
+      <Testimonials></Testimonials>
     </section>
     
   );

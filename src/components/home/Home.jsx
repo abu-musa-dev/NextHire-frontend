@@ -3,7 +3,7 @@ import Hero from "./Hero";
 import PopularServices from "./PopularServices";
 import TopFreelancers from "./TopFreelancers";
 import FreelanceBanner from "./FreelanceBanner";
-import BusinessBanner from "./BusinessBanner";
+// import BusinessBanner from "./BusinessBanner";
 import NewsletterSubscribe from "../layout/NewsletterSubscribe";
 import Pricing from "./Pricing";
 import { Helmet } from "react-helmet-async";
@@ -26,8 +26,7 @@ const Home = () => {
         <PopularServices></PopularServices>
         <Pricing></Pricing>
         <FreelanceBanner></FreelanceBanner>
-        <BusinessBanner></BusinessBanner>
-        
+        {/* <BusinessBanner></BusinessBanner> */}
         <NewsletterSubscribe></NewsletterSubscribe>
       </div>
     </>

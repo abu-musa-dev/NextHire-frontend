@@ -1,6 +1,8 @@
+// TopCategories.jsx
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, PenLine, Code2, Database, ShoppingBag } from 'lucide-react';
 
-const categories = [
+const rawCategories = [
   {
     icon: <Database className="text-green-600" size={24} />,
     title: 'Customer Service',
@@ -23,11 +25,19 @@ const categories = [
   },
   {
     icon: <Database className="text-green-600" size={24} />,
-    title: 'Customer Service',
+    title: 'Marketing & Sales',
   },
 ];
 
+const categories = Array.from(new Map(rawCategories.map(item => [item.title, item])).values());
+
 export default function TopCategories() {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navigate(`/services?category=${encodeURIComponent(category)}`);
+  };
+
   return (
     <section className="bg-[#f1f6f4] py-16 px-4 text-center">
       <h2 className="text-3xl font-semibold text-gray-800">Top categories</h2>
@@ -38,7 +48,8 @@ export default function TopCategories() {
         {categories.map((cat, index) => (
           <div
             key={index}
-            className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md flex items-center justify-between"
+            className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md flex items-center justify-between cursor-pointer"
+            onClick={() => handleCategoryClick(cat.title)}
           >
             <div className="flex items-center gap-4">
               <div className="bg-yellow-100 rounded-full p-2">

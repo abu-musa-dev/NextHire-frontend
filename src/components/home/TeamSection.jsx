@@ -3,14 +3,15 @@ import React, { useState } from "react";
 const TeamSection = () => {
   const teamMembers = [
     {
-      name: "Alexander Hipp",
+      name: "Abu Musa",
       title: "Co-Founder",
-      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+      image: "https://i.imgur.com/phZP5Rm.png",
     },
     {
       name: "Julian Wan",
       title: "Head of Marketing",
-      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+      
     },
     {
       name: "Nicolas Horn",
@@ -30,7 +31,7 @@ const TeamSection = () => {
     {
       name: "Maya Singh",
       title: "Data Scientist",
-      image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+      image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
     },
   ];
 

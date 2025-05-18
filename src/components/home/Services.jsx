@@ -1,10 +1,18 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Star } from "lucide-react";
-import { Link } from "react-router-dom";
 
-const PopularServices = () => {
+const Services = () => {
+  const location = useLocation();
   const [services, setServices] = useState([]);
-  const [filter, setFilter] = useState("Featured");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const categoryFromURL = queryParams.get("category") || "";
+    setSelectedCategory(categoryFromURL);
+  }, [location.search]);
 
   useEffect(() => {
     fetch("/services.json")
@@ -13,46 +21,40 @@ const PopularServices = () => {
       .catch((err) => console.error(err));
   }, []);
 
-  const sortedServices = useMemo(() => {
-    if (!services) return [];
-
-    switch (filter) {
-      case "Newest":
-        return [...services].sort((a, b) => b.id - a.id);
-      case "Top rate":
-        return [...services].sort((a, b) => b.user.rating - a.user.rating);
-      case "Featured":
-      default:
-        return services;
-    }
-  }, [services, filter]);
+  const filteredServices = services.filter((service) => {
+    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory
+      ? service.category.toLowerCase() === selectedCategory.toLowerCase()
+      : true;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold text-gray-900">Popular Services</h2>
-        <p className="text-gray-600 mt-2 text-base">Browse services loved by our community</p>
+        <h2 className="text-4xl font-bold text-gray-900">All Services</h2>
+        <p className="text-gray-600 mt-2 text-base">Explore all available services</p>
 
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
-          {["Featured", "Newest", "Top rate"].map((item) => (
-            <button
-              key={item}
-              onClick={() => setFilter(item)}
-              className={`px-5 py-2.5 rounded-full font-medium transition text-sm ${
-                filter === item
-                  ? "bg-green-600 text-white shadow-md"
-                  : "bg-white border border-gray-300 text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              {item}
-            </button>
-          ))}
+        <div className="mt-6 max-w-md mx-auto">
+          <input
+            type="text"
+            placeholder="Search services..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-600"
+          />
         </div>
+
+        {selectedCategory && (
+          <p className="mt-4 text-sm text-green-600 font-medium">
+            Showing results for category: <strong>{selectedCategory}</strong>
+          </p>
+        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        {sortedServices.length > 0 ? (
-          sortedServices.slice(0, 3).map((service) => (
+        {filteredServices.length > 0 ? (
+          filteredServices.map((service) => (
             <Link
               to={`/services/${service.id}`}
               key={service.id}
@@ -89,7 +91,9 @@ const PopularServices = () => {
 
                 <div className="mt-4 border-t pt-3 text-sm text-gray-500 flex justify-between items-center">
                   <span>Starting at</span>
-                  <span className="text-green-600 font-semibold text-lg">${service.price}</span>
+                  <span className="text-green-600 font-semibold text-lg">
+                    ${service.price}
+                  </span>
                 </div>
               </div>
             </Link>
@@ -102,4 +106,4 @@ const PopularServices = () => {
   );
 };
 
-export default PopularServices;
+export default Services;
