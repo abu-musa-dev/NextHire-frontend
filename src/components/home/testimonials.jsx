@@ -8,14 +8,21 @@ const testimonials = [
     title: 'CTO of Behand',
     image: 'https://randomuser.me/api/portraits/men/32.jpg',
     message:
-      '“ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ”',
+      'Working with this platform has been a game-changer. The hiring process is now faster and more efficient for our entire team.',
   },
   {
     name: 'Selena Gomez',
-    title: 'CTO of Behand',
+    title: 'Nurse Manager at MedicaCare',
     image: 'https://randomuser.me/api/portraits/women/44.jpg',
     message:
-      '“ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ”',
+      'I found the perfect opportunity within days. Their focus on healthcare hiring really makes a difference.',
+  },
+  {
+    name: 'Michael Lee',
+    title: 'HR Director at Wellness Inc.',
+    image: 'https://randomuser.me/api/portraits/men/68.jpg',
+    message:
+      'Seamless, professional, and effective. Highly recommend this platform to any healthcare organization.',
   },
 ];
 
@@ -38,23 +45,28 @@ export default function Testimonials() {
     <section className="bg-[#f9fafb] py-16 text-center">
       <div className="max-w-4xl mx-auto px-4">
         <p className="text-sm uppercase text-gray-500 mb-2">People Love Us</p>
-        <h2 className="text-2xl font-semibold mb-8">What our customers says</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold mb-10">What our customers say</h2>
 
         <div className="relative flex justify-center items-center gap-6">
+          {/* Left Button */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 bg-white border rounded-full p-2 shadow hover:bg-gray-100"
+            className="absolute -left-4 sm:left-0 bg-white border rounded-full p-2 shadow hover:bg-gray-100 transition"
+            aria-label="Previous testimonial"
           >
             <ChevronLeft size={20} />
           </button>
 
-          <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-md">
-            <p className="text-gray-600 mb-4">{testimonials[currentIndex].message}</p>
+          {/* Testimonial Box */}
+          <div className="bg-white rounded-xl shadow-lg p-6 md:p-8 w-full max-w-md transition-all duration-500 ease-in-out">
+            <p className="text-gray-600 italic mb-4 transition-opacity duration-300">
+              “{testimonials[currentIndex].message}”
+            </p>
             <div className="flex items-center gap-4 mt-4">
               <img
                 src={testimonials[currentIndex].image}
-                alt={testimonials[currentIndex].name}
-                className="w-12 h-12 rounded-full object-cover"
+                alt={`${testimonials[currentIndex].name} profile`}
+                className="w-12 h-12 rounded-full object-cover border"
               />
               <div className="text-left">
                 <h4 className="font-semibold text-gray-800">{testimonials[currentIndex].name}</h4>
@@ -66,20 +78,23 @@ export default function Testimonials() {
             </div>
           </div>
 
+          {/* Right Button */}
           <button
             onClick={nextSlide}
-            className="absolute right-0 bg-white border rounded-full p-2 shadow hover:bg-gray-100"
+            className="absolute -right-4 sm:right-0 bg-white border rounded-full p-2 shadow hover:bg-gray-100 transition"
+            aria-label="Next testimonial"
           >
             <ChevronRight size={20} />
           </button>
         </div>
 
+        {/* Indicator Dots */}
         <div className="mt-6 flex justify-center gap-2">
           {testimonials.map((_, idx) => (
             <span
               key={idx}
-              className={`h-2 w-2 rounded-full ${
-                idx === currentIndex ? 'bg-green-600' : 'bg-gray-300'
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? 'bg-green-600 scale-125' : 'bg-gray-300'
               }`}
             ></span>
           ))}

@@ -12,6 +12,8 @@ import {
   Bell,
   Plus,
   LogOut,
+  Menu,
+  X
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -20,6 +22,7 @@ const EmployerDashboard = () => {
   const [applicants, setApplicants] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -27,14 +30,12 @@ const EmployerDashboard = () => {
   const email = user?.email;
   const role = user?.role;
 
-  // Redirect if not employer
   useEffect(() => {
     if (!user || role !== "Employer") {
       navigate("/login");
     }
   }, [user, role, navigate]);
 
-  // Fetch jobs and applicants
   useEffect(() => {
     const fetchData = async () => {
       if (!email) return;
@@ -54,24 +55,43 @@ const EmployerDashboard = () => {
     fetchData();
   }, [email]);
 
-  if (loading) return <p className="text-center text-gray-500">Loading...</p>;
+  if (loading) return <p className="text-center text-gray-500 mt-20">Loading...</p>;
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-[#f9fafb]">
+    <div className="flex flex-col md:flex-row min-h-screen bg-[#f9fafb] relative">
+
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        className={`md:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-full shadow-md ${
+          sidebarOpen ? "hidden" : "block"
+        }`}
+        aria-label="Open sidebar menu"
+      >
+        <Menu size={24} />
+      </button>
+
+      {/* Overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Sidebar */}
-      <Sidebar logout={logout} />
+      <Sidebar logout={logout} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-6 md:p-10">
+      <main className="flex-1 p-4 sm:p-6 md:p-10 mt-16 md:mt-0">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">👔 Employer Dashboard</h1>
 
-        {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
           <StatCard title="Total Jobs" value={jobs.length} icon={<Briefcase size={24} />} color="green" />
           <StatCard title="Applicants" value={applicants.length} icon={<Users size={24} />} color="blue" />
         </div>
 
-        {/* Post Job Button */}
         <div className="flex justify-end mb-6">
           <Link to="/post-job">
             <button className="flex items-center gap-2 px-4 py-2 bg-green-700 text-white rounded-full hover:bg-green-800 transition text-sm font-semibold">
@@ -80,7 +100,6 @@ const EmployerDashboard = () => {
           </Link>
         </div>
 
-        {/* Applicants Table */}
         <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border overflow-x-auto">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">📋 Recent Applicants</h2>
           <table className="min-w-full text-left text-sm text-gray-700">
@@ -120,7 +139,7 @@ const EmployerDashboard = () => {
 };
 
 // Sidebar component
-const Sidebar = ({ logout }) => {
+const Sidebar = ({ logout, sidebarOpen, setSidebarOpen }) => {
   const links = [
     { to: "/dashboard/employer", icon: <LayoutDashboard size={20} />, label: "Dashboard" },
     { to: "/post-job", icon: <FilePlus size={20} />, label: "Post Job" },
@@ -134,24 +153,44 @@ const Sidebar = ({ logout }) => {
   ];
 
   return (
-    <aside className="w-full md:w-64 bg-white shadow-md p-6 hidden md:block">
-      <div className="text-2xl font-bold text-gray-800 mb-10">
-        <span className="text-green-700">Next</span>Hire
+    <aside
+      className={`bg-white shadow-md p-6 w-64 fixed md:static top-14 left-0 h-full z-40 transform transition-transform duration-300 ${
+        sidebarOpen ? "translate-x-0" : "-translate-x-full"
+      } md:translate-x-0 flex flex-col justify-between`}
+    >
+      {/* Close button for mobile */}
+      <button
+        onClick={() => setSidebarOpen(false)}
+        className="md:hidden absolute top-4 right-4 bg-gray-100 p-2 rounded-full shadow"
+        aria-label="Close sidebar menu"
+      >
+        <X size={20} />
+      </button>
+
+      <div>
+        <div className="text-2xl font-bold text-gray-800 mb-8">
+          <span className="text-green-700">Next</span>Hire
+        </div>
+        <nav className="flex flex-col gap-6 text-gray-700 font-medium">
+          {links.map(({ to, icon, label }) => (
+            <Link
+              key={to}
+              to={to}
+              onClick={() => setSidebarOpen(false)}
+              className="flex items-center gap-3 hover:text-green-700"
+            >
+              {icon} {label}
+            </Link>
+          ))}
+        </nav>
       </div>
-      <nav className="flex flex-col gap-6 text-gray-700">
-        {links.map(({ to, icon, label }) => (
-          <Link key={to} to={to} className="flex items-center gap-3 hover:text-green-700">
-            {icon} {label}
-          </Link>
-        ))}
-        <Link
-          to="/login"
-          onClick={logout}
-          className="flex items-center gap-3 text-red-600 hover:text-red-800 mt-auto"
-        >
-          <LogOut size={20} /> Logout
-        </Link>
-      </nav>
+
+      <button
+        onClick={logout}
+        className="flex items-center gap-2 text-red-600 hover:text-red-800 font-medium mt-8"
+      >
+        <LogOut size={20} /> Logout
+      </button>
     </aside>
   );
 };

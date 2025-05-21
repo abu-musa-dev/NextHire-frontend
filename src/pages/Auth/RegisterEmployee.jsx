@@ -57,8 +57,8 @@ console.log("Sending formData:", formData);
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-white p-6 rounded-lg shadow-md">
-      <div className="flex justify-between items-center mb-4">
+    <div className="w-full mb-10 mt-10 max-w-sm mx-auto bg-white p-6 rounded-lg shadow-md">
+      <div className="flex justify-between  items-center mb-4">
         <div className="flex space-x-6 border-b w-full pb-2">
           <Link to="/login">
             <span className="text-gray-400 cursor-pointer">Log in</span>

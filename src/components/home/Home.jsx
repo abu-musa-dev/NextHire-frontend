@@ -8,6 +8,8 @@ import NewsletterSubscribe from "../layout/NewsletterSubscribe";
 import Pricing from "./Pricing";
 import { Helmet } from "react-helmet-async";
 import TopCategories from "./TopCategories";
+import NewSeoServices from "./NewSeoServices";
+import CustomSpinner from "./CustomSpinner";
 
 const Home = () => {
   return (
@@ -22,11 +24,14 @@ const Home = () => {
       <div>
         <Hero></Hero>
         <TopFreelancers></TopFreelancers>
+        <CustomSpinner></CustomSpinner>
         <TopCategories></TopCategories>
         <PopularServices></PopularServices>
         <Pricing></Pricing>
         <FreelanceBanner></FreelanceBanner>
         {/* <BusinessBanner></BusinessBanner> */}
+        <NewSeoServices></NewSeoServices>
+        
         <NewsletterSubscribe></NewsletterSubscribe>
       </div>
     </>

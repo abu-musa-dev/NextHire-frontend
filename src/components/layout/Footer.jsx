@@ -11,7 +11,7 @@ const Footer = () => {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris risus, lobortis a commodo at, varius sit amet ipsum.
           </p>
           <p className="mb-1 font-semibold">T. (00) 658 54332</p>
-          <p className="font-semibold">E. hello@uxper.co</p>
+          <p className="font-semibold">E. next@hire.co</p>
         </div>
         <div>
           <h4 className="font-semibold mb-2">Company</h4>
@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="text-center text-xs text-gray-500 mt-12">
-        © 2023 Uxper. All Right Reserved.
+        © 2025 Next-Hire. All Right Reserved.
       </div>
     </footer>
   );

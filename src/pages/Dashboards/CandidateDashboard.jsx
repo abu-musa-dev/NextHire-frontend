@@ -10,10 +10,12 @@ import {
   Bell,
   MessageSquare,
   Settings,
-  LogOut
+  LogOut,
+  Menu,
+  X,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext"; // Adjust path if needed
+import { useAuth } from "../../context/AuthContext";
 
 const CandidateDashboard = () => {
   const { user, logout } = useAuth();
@@ -22,6 +24,7 @@ const CandidateDashboard = () => {
   const [applicationCount, setApplicationCount] = useState(0);
   const [savedJobsCount, setSavedJobsCount] = useState(0);
   const [profileViews, setProfileViews] = useState(0);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!user || user.role !== "Candidate") {
@@ -50,15 +53,57 @@ const CandidateDashboard = () => {
     fetchCounts();
   }, [user, navigate]);
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSidebarOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const handleLogout = () => {
     logout();
     navigate("/home");
   };
 
   return (
-    <div className="flex min-h-screen bg-[#f9fafb]">
+    <div className="min-h-screen bg-[#f9fafb] flex flex-col md:flex-row relative">
+
+      {/* Mobile Menu Button (hamburger) */}
+      <button
+        onClick={() => setSidebarOpen(true)}
+        className={`md:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-full shadow-md ${
+          sidebarOpen ? "hidden" : "block"
+        }`}
+        aria-label="Open sidebar menu"
+      >
+        <Menu size={24} />
+      </button>
+
+      {/* Overlay when sidebar is open */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 bg-white shadow-md p-6 hidden md:flex flex-col justify-between">
+      <aside
+        className={`bg-white shadow-md p-6 w-64 fixed md:static top-14 left-0 h-full z-40 transform transition-transform duration-300 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 flex flex-col justify-between`}
+      >
+        {/* Close button inside sidebar for mobile */}
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="md:hidden absolute top-4 right-4 bg-gray-100 p-2 rounded-full shadow"
+          aria-label="Close sidebar menu"
+        >
+          <X size={20} />
+        </button>
+
         <div>
           <div className="text-2xl font-bold text-gray-800 mb-8 flex items-center gap-2">
             <User size={28} /> Candidate
@@ -91,7 +136,6 @@ const CandidateDashboard = () => {
           </nav>
         </div>
 
-        {/* Logout button */}
         <button
           onClick={handleLogout}
           className="flex items-center gap-2 text-red-600 hover:text-red-800 font-medium mt-8"
@@ -101,31 +145,21 @@ const CandidateDashboard = () => {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">🎯 Candidate Dashboard</h1>
+      <main className="flex-1 p-6 md:p-8 mt-16 md:mt-0">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">🎯 Candidate Dashboard</h1>
 
-        {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           <StatCard title="Saved Jobs" value={savedJobsCount} icon={<Bookmark size={24} />} color="purple" />
           <StatCard title="Applications" value={applicationCount} icon={<ClipboardList size={24} />} color="blue" />
           <StatCard title="Profile Views" value={profileViews} icon={<BarChart size={24} />} color="green" />
         </div>
 
-        {/* Section Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <div className="bg-white p-6 rounded-2xl shadow-sm border hover:shadow-md transition">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Saved Jobs</h2>
-            <p className="text-gray-600">Jobs you've saved for future reference or application.</p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl shadow-sm border hover:shadow-md transition">
-            <h2 className="text-xl font-semibold text-gray-800 mb-2">Applications</h2>
-            <p className="text-gray-600">Track the progress of the jobs you've applied to.</p>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <SectionCard title="Saved Jobs" description="Jobs you've saved for future reference or application." />
+          <SectionCard title="Applications" description="Track the progress of the jobs you've applied to." />
         </div>
 
-        {/* Extra Features Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <FeatureCard title="Resume Builder" description="Create or upload a professional resume to boost your profile visibility." />
           <FeatureCard title="Job Alerts" description="Set up job alerts to get notified about relevant new opportunities." />
           <FeatureCard title="Messages" description="Communicate with recruiters and track conversations here." />
@@ -156,11 +190,13 @@ const StatCard = ({ title, value, icon, color }) => {
   );
 };
 
-const FeatureCard = ({ title, description }) => (
+const SectionCard = ({ title, description }) => (
   <div className="bg-white p-6 rounded-2xl shadow-sm border hover:shadow-md transition">
     <h2 className="text-xl font-semibold text-gray-800 mb-2">{title}</h2>
     <p className="text-gray-600">{description}</p>
   </div>
 );
+
+const FeatureCard = SectionCard;
 
 export default CandidateDashboard;

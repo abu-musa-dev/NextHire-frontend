@@ -29,6 +29,7 @@ import AboutUs from "../components/shared/AboutUs";
 import Contact from "../components/shared/Contact";
 import Services from "../components/home/Services";
 import PaymentPage from "../components/home/PaymentPage";
+import NewSeoServices from "../components/home/NewSeoServices";
 
 const router = createBrowserRouter([
   {
@@ -135,6 +136,10 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: <Services></Services>
+      },
+      {
+        path: "services",
+        element: <NewSeoServices></NewSeoServices>
       },
       {
         path: "freelancer/:id",
