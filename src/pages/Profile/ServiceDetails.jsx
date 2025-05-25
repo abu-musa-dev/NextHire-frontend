@@ -1,4 +1,3 @@
-// src/pages/ServiceDetails.jsx
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
@@ -6,10 +5,12 @@ import {
   Elements,
   CardElement,
   useStripe,
-  useElements
+  useElements,
 } from "@stripe/react-stripe-js";
 import axios from "axios";
-import { useAuth } from "../../context/AuthContext"; // useAuth হুক import করো
+import { useAuth } from "../../context/AuthContext";
+import Login from "../Auth/Login"; // 👉 Login component import করো
+import CustomSpinner from "../../components/shared/CustomSpinner";
 
 const stripePromise = loadStripe(
   "pk_test_51RP7yDPxJ2tzs3FjjIXxvHucL6O0fWhA0VwPQ945DclhCMcJfHevKlIbEjRQAE13n8ZK3jENF5fJVqBiG2n1PQpS00LMAdJeHQ"
@@ -27,7 +28,9 @@ const CheckoutForm = ({ amount, onSuccess }) => {
     setError(null);
 
     try {
-      const { data } = await axios.post("http://localhost:5000/create-payment-intent", { amount });
+      const { data } = await axios.post("http://localhost:5000/create-payment-intent", {
+        amount,
+      });
       const clientSecret = data.clientSecret;
 
       const result = await stripe.confirmCardPayment(clientSecret, {
@@ -68,24 +71,43 @@ const ServiceDetails = () => {
   const { id } = useParams();
   const [service, setService] = useState(null);
   const [paid, setPaid] = useState(false);
+  const [loadingSpinner, setLoadingSpinner] = useState(true); // 👈 New state for 2s spinner
 
-  const { user, loading: authLoading } = useAuth(); // useAuth হুক থেকে user আর loading নেওয়া
+  const { user, loading: authLoading } = useAuth();
 
   useEffect(() => {
+       window.scrollTo({ top: 0, behavior: "smooth" });
+    // ⏳ Simulate loading for 2 seconds
+    const timer = setTimeout(() => {
+      setLoadingSpinner(false);
+    }, 2000);
+
+    // Fetch the service
     fetch("/services.json")
       .then((res) => res.json())
       .then((data) => {
         setService(data.find((s) => s.id === Number(id)));
       });
+
+    return () => clearTimeout(timer);
   }, [id]);
+
+  // 🌀 Show spinner for 2 seconds
+  if (loadingSpinner) {
+    return (
+      <CustomSpinner></CustomSpinner>
+    );
+  }
 
   if (authLoading) return <p>Checking authentication...</p>;
 
-  // ইউজার লগইন করা আছে কিনা এবং রোল চেক করা
   if (!user || user.role !== "Employer") {
     return (
-      <div className="max-w-3xl mx-auto p-8 mt-20 bg-red-100 text-red-700 rounded-lg text-center font-semibold shadow">
-        Access Denied. Only logged-in employers can view this page.
+      <div className="max-w-3xl mx-auto p-8 mt-20">
+        <div className="bg-red-100 text-red-700 rounded-lg text-center font-semibold shadow p-6 mb-6">
+          Access Denied. Only logged-in employers can view this page.
+        </div>
+        <Login />
       </div>
     );
   }
@@ -93,7 +115,7 @@ const ServiceDetails = () => {
   if (!service) return <p>Loading service details...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-8 bg-white rounded-xl shadow-lg">
+    <div className="max-w-3xl mx-auto mt-10 mb-10 p-8 bg-white rounded-xl shadow-lg">
       <h1 className="text-3xl font-bold mb-4">{service.title}</h1>
       <p className="mb-6">Category: {service.category}</p>
       {!paid ? (

@@ -30,6 +30,7 @@ import Contact from "../components/shared/Contact";
 import Services from "../components/home/Services";
 import PaymentPage from "../components/home/PaymentPage";
 import NewSeoServices from "../components/home/NewSeoServices";
+import AddServices from "../components/home/AddServices";
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,10 @@ const router = createBrowserRouter([
       {
         path: "services",
         element: <Services></Services>
+      },
+      {
+        path: "addservices",
+        element: <AddServices></AddServices>
       },
       {
         path: "services",

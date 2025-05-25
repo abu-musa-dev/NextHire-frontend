@@ -130,6 +130,10 @@ const CandidateDashboard = () => {
             <Link to="#" className="flex items-center gap-2 hover:text-green-700">
               <MessageSquare size={18} /> Messages
             </Link>
+            <Link to="/addservices" className="flex items-center gap-2 hover:text-green-700">
+           <ClipboardList size={18} /> Add Services
+              </Link>
+
             <Link to="#" className="flex items-center gap-2 hover:text-green-700">
               <Settings size={18} /> Settings
             </Link>

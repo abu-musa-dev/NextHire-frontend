@@ -1,6 +1,7 @@
-// TopCategories.jsx
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, PenLine, Code2, Database, ShoppingBag } from 'lucide-react';
+import CustomSpinner from "../shared/CustomSpinner"; // Import your spinner
 
 const rawCategories = [
   {
@@ -33,13 +34,24 @@ const categories = Array.from(new Map(rawCategories.map(item => [item.title, ite
 
 export default function TopCategories() {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleCategoryClick = (category) => {
-    navigate(`/services?category=${encodeURIComponent(category)}`);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigate(`/services?category=${encodeURIComponent(category)}`);
+    }, 2000);
   };
 
   return (
-    <section className="bg-[#f1f6f4] py-16 px-4 text-center">
+    <section className="bg-[#f1f6f4] py-16 px-4 text-center relative min-h-[400px]">
+      {loading && (
+        <div className="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center z-50">
+          <CustomSpinner />
+        </div>
+      )}
+
       <h2 className="text-3xl font-semibold text-gray-800">Top categories</h2>
       <p className="text-gray-500 mt-2 mb-8">
         Easily find the right service from over 2000+ skills

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useAuth } from "../../context/AuthContext"; // Auth context
+import CustomSpinner from "../shared/CustomSpinner"; // Custom spinner
 
 export default function FreelancerDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth(); // context থেকে user
   const [freelancer, setFreelancer] = useState(null);
+  const [loading, setLoading] = useState(true); // loading state
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -12,19 +17,29 @@ export default function FreelancerDetails() {
     message: "",
   });
 
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // false দিয়ে শুরু করছি, পরিবর্তন করুন আপনার লজিক অনুযায়ী
-
+  // ২ সেকেন্ড delay + fetch data
   useEffect(() => {
-    fetch("/freelancers.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const selected = data[parseInt(id)];
-        setFreelancer(selected);
-      });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    const timer = setTimeout(() => {
+      fetch("/freelancers.json")
+        .then((res) => res.json())
+        .then((data) => {
+          const selected = data[parseInt(id)];
+          setFreelancer(selected);
+          setLoading(false);
+        });
+    }, 2000);
+
+    return () => clearTimeout(timer);
   }, [id]);
 
-  if (!freelancer) return <p className="text-center mt-10">Loading...</p>;
+  if (loading || !freelancer) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <CustomSpinner />
+      </div>
+    );
+  }
 
   const handleInputChange = (e) => {
     setFormData((prev) => ({
@@ -45,13 +60,11 @@ export default function FreelancerDetails() {
       return;
     }
 
-   
-
     Swal.fire({
       icon: "success",
       title: "Message Sent!",
       html: `<p>Your message to <strong>${freelancer.name}</strong> has been sent successfully.</p>`,
-      confirmButtonColor: '#22c55e',
+      confirmButtonColor: "#22c55e",
     });
 
     setFormData({ name: "", email: "", message: "" });
@@ -59,7 +72,7 @@ export default function FreelancerDetails() {
   };
 
   const handleMessageClick = () => {
-    if (!isLoggedIn) {
+    if (!user) {
       Swal.fire({
         icon: "warning",
         title: "Please Login",
@@ -70,12 +83,15 @@ export default function FreelancerDetails() {
         cancelButtonText: "Cancel",
       }).then((result) => {
         if (result.isConfirmed) {
-          // এখানে আপনি login পেজে রিডিরেক্ট করতে পারেন
-          // উদাহরণস্বরূপ, react-router ব্যবহার করলে:
-          window.location.href = "/login"; // অথবা useNavigate() ব্যবহার করতে পারেন
+          navigate("/login");
         }
       });
     } else {
+      setFormData((prev) => ({
+        ...prev,
+        name: user.name,
+        email: user.email,
+      }));
       setShowMessageForm(true);
     }
   };
@@ -106,7 +122,6 @@ export default function FreelancerDetails() {
             </div>
           </div>
 
-          {/* Message Button */}
           <button
             className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition"
             onClick={handleMessageClick}
@@ -133,6 +148,7 @@ export default function FreelancerDetails() {
         <div className="mt-6 text-xl font-bold text-green-600">{freelancer.price}</div>
       </div>
 
+      {/* Message Form */}
       {showMessageForm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">

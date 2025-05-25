@@ -17,17 +17,15 @@ const Login = () => {
   const handleEmailLogin = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = form.email.value;
+    const identifier = form.identifier.value; // email or username
     const password = form.password.value;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
+      // Step 1: Get user info by email or username
       const response = await fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: user.email }),
+        body: JSON.stringify({ identifier }),
       });
 
       if (!response.ok) {
@@ -36,7 +34,12 @@ const Login = () => {
       }
 
       const data = await response.json();
+      const email = data.userInfo.email;
 
+      // Step 2: Use real email to login via Firebase
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+      // Step 3: Save to localStorage and context
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.userInfo));
 
@@ -47,18 +50,18 @@ const Login = () => {
         userData: data.userInfo,
       });
 
+      // Success message
       await Swal.fire({
         icon: "success",
-        title: `Welcome, ${data.userInfo.name || 'User'}!`,
+        title: `Welcome, ${data.userInfo.firstName || 'User'}!`,
         html: `<p class="text-lg text-gray-700">You have successfully logged in as <strong>${data.role}</strong>.</p>`,
         showConfirmButton: true,
         confirmButtonText: "Continue",
         width: 450,
         padding: "2rem",
-        backdrop: `rgba(0,0,0,0.6) left top no-repeat`,
-        timer: undefined,
       });
 
+      // Redirect
       if (data.role === "Employer") {
         navigate("/dashboard/employer");
       } else if (data.role === "Candidate") {
@@ -73,7 +76,7 @@ const Login = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center bg-gray-100 py-12 px-4">
+    <div className="flex items-center justify-center bg-gray-100 py-12 px-4">
       <div className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
@@ -103,11 +106,13 @@ const Login = () => {
         {/* Login Form */}
         <form onSubmit={handleEmailLogin}>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label className="block text-sm font-medium mb-1">
+              Email or Username
+            </label>
             <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
+              type="text"
+              name="identifier"
+              placeholder="Enter email or username"
               className="w-full px-3 py-2 border border-gray-300 rounded-md"
               required
             />
@@ -136,7 +141,7 @@ const Login = () => {
             type="submit"
             className="w-full bg-green-700 text-white py-2 rounded-full mt-4 hover:bg-green-800 transition"
           >
-            Sign in with Email
+            Sign in
           </button>
         </form>
       </div>

@@ -9,7 +9,7 @@ import Pricing from "./Pricing";
 import { Helmet } from "react-helmet-async";
 import TopCategories from "./TopCategories";
 import NewSeoServices from "./NewSeoServices";
-import CustomSpinner from "./CustomSpinner";
+// import CustomSpinner from "./CustomSpinner";
 
 const Home = () => {
   return (
@@ -24,7 +24,7 @@ const Home = () => {
       <div>
         <Hero></Hero>
         <TopFreelancers></TopFreelancers>
-        <CustomSpinner></CustomSpinner>
+        {/* <CustomSpinner></CustomSpinner> */}
         <TopCategories></TopCategories>
         <PopularServices></PopularServices>
         <Pricing></Pricing>
