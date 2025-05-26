@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FiHeart } from "react-icons/fi"; // Outline
+import { FaHeart } from "react-icons/fa"; // Filled
+import Swal from "sweetalert2";  // <-- Import SweetAlert2
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -26,11 +29,29 @@ const Jobs = () => {
     let savedJobs = JSON.parse(localStorage.getItem("savedJobs") || "[]");
 
     if (wishlist.includes(job._id)) {
+      // যদি আগে থেকে আছে, তাহলে রিমুভ কর
       updatedWishlist = updatedWishlist.filter((id) => id !== job._id);
       savedJobs = savedJobs.filter((savedJob) => savedJob._id !== job._id);
+
+      Swal.fire({
+        icon: "info",
+        title: "Removed",
+        text: `${job.title} removed from saved jobs`,
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } else {
+      // না থাকলে যোগ কর
       updatedWishlist.push(job._id);
       savedJobs.push(job);
+
+      Swal.fire({
+        icon: "success",
+        title: "Saved!",
+        text: `${job.title} has been added to your saved jobs.`,
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
 
     setWishlist(updatedWishlist);
@@ -60,34 +81,43 @@ const Jobs = () => {
               key={job._id}
               className="relative border border-yellow-200 bg-white p-6 rounded-xl shadow hover:shadow-md transition"
             >
-              {/* Crown badge */}
+              {/* Crown badge & Heart icon */}
               <div className="absolute top-3 right-3 flex items-center gap-2">
                 <span className="text-yellow-500 text-xl">👑</span>
-                <button onClick={() => toggleWishlist(job)}>
-                  <span className="text-xl">{isInWishlist ? "💚" : "🤍"}</span>
+                <button
+                  onClick={() => toggleWishlist(job)}
+                  className="text-xl text-gray-700 hover:text-red-500"
+                  aria-label={
+                    isInWishlist ? "Remove from saved jobs" : "Save job"
+                  }
+                >
+                  {isInWishlist ? <FaHeart className="text-red-500" /> : <FiHeart />}
                 </button>
               </div>
 
-              {/* Logo */}
+              {/* Company Logo */}
               {job.logoUrl && (
                 <img
                   src={job.logoUrl}
-                  alt="Company Logo"
+                  alt={`${job.company} Logo`}
                   className="h-12 rounded-full w-12 object-contain mb-4"
                 />
               )}
 
-              {/* Title */}
+              {/* Job Title */}
               <h2 className="text-lg font-bold text-gray-800">{job.title}</h2>
+
+              {/* Company */}
+              <p className="text-sm text-gray-600">{job.company || "Unknown Company"}</p>
 
               {/* Location */}
               {job.location && (
-                  <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-1 rounded-full">
-                    📍 {job.location}
-                  </span>
-                )}
+                <span className="text-xs bg-green-100 text-green-700 font-semibold px-2 py-1 rounded-full">
+                  📍 {job.location}
+                </span>
+              )}
 
-              {/* Tags: type, location, salary, price */}
+              {/* Tags */}
               <div className="flex flex-wrap gap-2 mt-3">
                 {job.type && (
                   <span className="text-xs bg-purple-100 text-purple-700 font-semibold px-2 py-1 rounded-full">
@@ -106,7 +136,7 @@ const Jobs = () => {
                 )}
               </div>
 
-              {/* Deadline or Days Left */}
+              {/* Deadline */}
               {job.deadline && (
                 <p className="text-sm text-gray-600 mt-4 font-medium">
                   {Math.max(

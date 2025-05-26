@@ -5,12 +5,14 @@ const SavedJobs = () => {
   const [savedJobs, setSavedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // লোকালস্টোরেজ থেকে সেভড জবস লোড করা
   useEffect(() => {
     const storedJobs = JSON.parse(localStorage.getItem("savedJobs")) || [];
     setSavedJobs(storedJobs);
     setLoading(false);
   }, []);
 
+  // সেভড জব ডিলিট করার ফাংশন
   const handleRemove = (jobId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -50,8 +52,9 @@ const SavedJobs = () => {
             >
               <div>
                 <h2 className="text-lg font-semibold">{job.title}</h2>
-                <p className="text-sm text-gray-600">{job.company || "Unknown Company"}</p>
+                
                 <p className="text-sm text-gray-600">{job.location || "Unknown Location"}</p>
+                {/* আপনি চাইলে আরও ডিটেইলস এখানে দেখাতে পারেন */}
               </div>
               <button
                 onClick={() => handleRemove(job._id)}

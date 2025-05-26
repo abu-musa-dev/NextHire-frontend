@@ -98,7 +98,7 @@ const Navbar = () => {
           )}
 
           {user?.role === "Candidate" && (
-            <Link to="/update-profile">
+            <Link to="/updateProfile">
               <button className="bg-green-700 text-white px-5 py-2 rounded-full hover:bg-green-800 transition">
                 Update Profile
               </button>

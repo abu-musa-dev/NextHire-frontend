@@ -31,6 +31,8 @@ import Services from "../components/home/Services";
 import PaymentPage from "../components/home/PaymentPage";
 import NewSeoServices from "../components/home/NewSeoServices";
 import AddServices from "../components/home/AddServices";
+import CandidateProfile from "../pages/Profile/CandidateProfile";
+import Settings from "../pages/Profile/Seetings";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +125,14 @@ const router = createBrowserRouter([
         element: <SavedJobs />,
       },
       {
+        path: "updateProfile",
+        element: <CandidateProfile></CandidateProfile>
+      },
+      {
+        path: "/seetings",
+        element: <Settings></Settings>
+      },
+      {
         path: "resume",
         element: <ResumeBuilder />,
       },
@@ -132,6 +142,10 @@ const router = createBrowserRouter([
       },
       {
         path: "services/:id",
+        element: <ServiceDetails />,
+      },
+      {
+        path: "/service/:id",
         element: <ServiceDetails />,
       },
       {

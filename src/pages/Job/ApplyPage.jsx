@@ -102,11 +102,11 @@ const ApplyPage = () => {
     );
 
   return (
-    <div className="max-w-md mx-auto p-8 bg-white rounded-xl shadow-xl mt-16">
+    <div className="max-w-md mx-auto p-8 bg-white rounded-xl shadow-xl mt-16 mb-10">
       <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-900">
         Apply for <span className="text-green-600">{job.title}</span>
       </h2>
-
+       
       {success && (
         <div className="bg-green-100 border border-green-400 text-green-700 p-4 rounded mb-6 text-center font-semibold transition duration-500">
           🎉 Application submitted successfully! Redirecting...

@@ -42,7 +42,7 @@ const ResumeBuilder = () => {
   };
 
   return (
-    <div className="p-8 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
+    <div className="p-8 mt-10 mb-10 max-w-2xl mx-auto bg-white rounded-lg shadow-md">
       <h2 className="text-3xl font-semibold text-center mb-6">Resume Builder</h2>
 
       {/* Personal Information */}

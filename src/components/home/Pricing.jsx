@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext"; // ✅ Auth context import
 
 export default function Pricing() {
   const [plans, setPlans] = useState([]);
   const navigate = useNavigate();
+  const { user, loading } = useAuth(); // ✅ ইউজার ধরলাম
 
   useEffect(() => {
     fetch("/pricing.json")
@@ -16,8 +18,12 @@ export default function Pricing() {
   if (!plans.length) return <div className="text-center py-20">Loading...</div>;
 
   const handleGetStarted = (priceString) => {
-    // priceString যেমন "$350.00" সেটাকে সেন্টে রুপান্তর করা
-    // $350.00 => 35000 (cents)
+    // ✅ ক্যান্ডিডেট ছাড়া অন্য কেউ গেলে login পেজে
+    if (!user || user.role !== "Candidate") {
+      navigate("/login");
+      return;
+    }
+
     const amount = Math.round(
       parseFloat(priceString.replace(/[^0-9.]/g, "")) * 100
     );

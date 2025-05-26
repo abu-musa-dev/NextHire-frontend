@@ -69,7 +69,7 @@ const CandidateDashboard = () => {
   return (
     <div className="min-h-screen bg-[#f9fafb] flex flex-col md:flex-row relative">
 
-      {/* Mobile Menu Button (hamburger) */}
+      {/* Mobile Menu Button */}
       <button
         onClick={() => setSidebarOpen(true)}
         className={`md:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-full shadow-md ${
@@ -80,12 +80,11 @@ const CandidateDashboard = () => {
         <Menu size={24} />
       </button>
 
-      {/* Overlay when sidebar is open */}
+      {/* Overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
-          aria-hidden="true"
         />
       )}
 
@@ -95,11 +94,10 @@ const CandidateDashboard = () => {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } md:translate-x-0 flex flex-col justify-between`}
       >
-        {/* Close button inside sidebar for mobile */}
+        {/* Close button */}
         <button
           onClick={() => setSidebarOpen(false)}
           className="md:hidden absolute top-4 right-4 bg-gray-100 p-2 rounded-full shadow"
-          aria-label="Close sidebar menu"
         >
           <X size={20} />
         </button>
@@ -109,34 +107,14 @@ const CandidateDashboard = () => {
             <User size={28} /> Candidate
           </div>
           <nav className="space-y-4 text-gray-700 font-medium">
-            <Link to="#" className="flex items-center gap-2 hover:text-green-700">
-              <LayoutDashboard size={18} /> Dashboard
-            </Link>
-            <Link to="/savejobs" className="flex items-center gap-2 hover:text-green-700">
-              <Bookmark size={18} /> Saved Jobs
-            </Link>
-            <Link to="/applications" className="flex items-center gap-2 hover:text-green-700">
-              <ClipboardList size={18} /> Applications
-            </Link>
-            <Link to="#" className="flex items-center gap-2 hover:text-green-700">
-              <UserCircle size={18} /> Profile
-            </Link>
-            <Link to="/resume" className="flex items-center gap-2 hover:text-green-700">
-              <FileText size={18} /> Resume Builder
-            </Link>
-            <Link to="#" className="flex items-center gap-2 hover:text-green-700">
-              <Bell size={18} /> Job Alerts
-            </Link>
-            <Link to="#" className="flex items-center gap-2 hover:text-green-700">
-              <MessageSquare size={18} /> Messages
-            </Link>
-            <Link to="/addservices" className="flex items-center gap-2 hover:text-green-700">
-           <ClipboardList size={18} /> Add Services
-              </Link>
-
-            <Link to="#" className="flex items-center gap-2 hover:text-green-700">
-              <Settings size={18} /> Settings
-            </Link>
+            <NavItem to="#" icon={<LayoutDashboard size={18} />} label="Dashboard" />
+            <NavItem to="/savejobs" icon={<Bookmark size={18} />} label="Saved Jobs" />
+            <NavItem to="/applications" icon={<ClipboardList size={18} />} label="Applications" />
+            <NavItem to="/updateProfile" icon={<UserCircle size={18} />} label="Profile" />
+            <NavItem to="/resume" icon={<FileText size={18} />} label="Resume Builder" />
+            <NavItem to="#" icon={<Bell size={18} />} label="Job Alerts" />
+            <NavItem to="#" icon={<MessageSquare size={18} />} label="Messages" />
+            <NavItem to="/seetings" icon={<Settings size={18} />} label="Settings" />
           </nav>
         </div>
 
@@ -174,20 +152,32 @@ const CandidateDashboard = () => {
   );
 };
 
+// Reusable Components
+const NavItem = ({ to, icon, label }) => (
+  <Link
+    to={to}
+    className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-700 hover:bg-green-50 hover:text-green-700 transition"
+  >
+    {icon} {label}
+  </Link>
+);
+
 const StatCard = ({ title, value, icon, color }) => {
   const colorMap = {
-    green: "bg-green-100 text-green-700",
-    blue: "bg-blue-100 text-blue-700",
-    purple: "bg-purple-100 text-purple-700",
+    green: "from-green-100 to-green-200 text-green-700",
+    blue: "from-blue-100 to-blue-200 text-blue-700",
+    purple: "from-purple-100 to-purple-200 text-purple-700",
   };
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border hover:shadow-md transition">
-      <div className="flex items-center gap-4 mb-3">
-        <div className={`p-3 rounded-full ${colorMap[color]}`}>{icon}</div>
+    <div className="bg-white p-5 rounded-2xl shadow hover:shadow-lg transition border">
+      <div className="flex items-center gap-4">
+        <div className={`p-3 rounded-xl bg-gradient-to-br ${colorMap[color]} shadow-inner`}>
+          {icon}
+        </div>
         <div>
           <p className="text-sm text-gray-500">{title}</p>
-          <h3 className="text-xl font-bold text-gray-800">{value}</h3>
+          <h3 className="text-2xl font-bold text-gray-800">{value}</h3>
         </div>
       </div>
     </div>
@@ -195,9 +185,9 @@ const StatCard = ({ title, value, icon, color }) => {
 };
 
 const SectionCard = ({ title, description }) => (
-  <div className="bg-white p-6 rounded-2xl shadow-sm border hover:shadow-md transition">
-    <h2 className="text-xl font-semibold text-gray-800 mb-2">{title}</h2>
-    <p className="text-gray-600">{description}</p>
+  <div className="bg-white p-6 rounded-2xl border shadow hover:shadow-md transition">
+    <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
+    <p className="text-gray-600 mt-1">{description}</p>
   </div>
 );
 
