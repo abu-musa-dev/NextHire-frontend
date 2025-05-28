@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useAuth } from "../../context/AuthContext"; // Auth context
-import { useDarkMode } from "../../context/DarkModeContext"; // Dark mode context
-import CustomSpinner from "../shared/CustomSpinner"; // Custom spinner
+import { useAuth } from "../../context/AuthContext";
+import { useDarkMode } from "../../context/DarkModeContext";
+import CustomSpinner from "../shared/CustomSpinner";
 
 export default function FreelancerDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { darkMode } = useDarkMode(); // ✅ darkMode context
+  const { darkMode } = useDarkMode();
+
   const [freelancer, setFreelancer] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showMessageForm, setShowMessageForm] = useState(false);
@@ -21,6 +22,7 @@ export default function FreelancerDetails() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+
     const timer = setTimeout(() => {
       fetch("http://localhost:5000/freelancers")
         .then((res) => res.json())
@@ -30,15 +32,12 @@ export default function FreelancerDetails() {
           setLoading(false);
         });
     }, 2000);
+
     return () => clearTimeout(timer);
   }, [id]);
 
   if (loading || !freelancer) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <CustomSpinner />
-      </div>
-    );
+    return <CustomSpinner />;
   }
 
   const handleInputChange = (e) => {
@@ -52,12 +51,11 @@ export default function FreelancerDetails() {
     e.preventDefault();
 
     if (!formData.name || !formData.email || !formData.message) {
-      Swal.fire({
+      return Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Please fill all fields!",
       });
-      return;
     }
 
     Swal.fire({
@@ -73,7 +71,7 @@ export default function FreelancerDetails() {
 
   const handleMessageClick = () => {
     if (!user) {
-      Swal.fire({
+      return Swal.fire({
         icon: "warning",
         title: "Please Login",
         text: "You must be logged in to send a message.",
@@ -86,14 +84,14 @@ export default function FreelancerDetails() {
           navigate("/login");
         }
       });
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        name: user.name,
-        email: user.email,
-      }));
-      setShowMessageForm(true);
     }
+
+    setFormData({
+      name: user.name,
+      email: user.email,
+      message: "",
+    });
+    setShowMessageForm(true);
   };
 
   return (
@@ -106,7 +104,9 @@ export default function FreelancerDetails() {
         <Link
           to="/"
           className={`underline mb-4 inline-block transition ${
-            darkMode ? "text-green-400 hover:text-green-300" : "text-green-600 hover:text-green-800"
+            darkMode
+              ? "text-green-400 hover:text-green-300"
+              : "text-green-600 hover:text-green-800"
           }`}
         >
           ← Back to list
@@ -160,7 +160,9 @@ export default function FreelancerDetails() {
             ))}
           </div>
 
-          <div className="mt-6 text-xl font-bold text-green-500">{freelancer.price}</div>
+          <div className="mt-6 text-xl font-bold text-green-500">
+            {freelancer.price}
+          </div>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 const Reports = () => {
-  const { isDarkMode } = useDarkMode();
+  const { darkMode } = useDarkMode();
   const [jobStats, setJobStats] = useState({ active: 0, paused: 0, closed: 0 });
 
   useEffect(() => {
@@ -45,17 +45,17 @@ const Reports = () => {
   return (
     <div
       className={`min-h-screen py-10 px-4 transition-colors duration-300 ${
-        isDarkMode ? "bg-gray-950 text-gray-100" : "bg-gray-50 text-gray-900"
+        darkMode ? "bg-gray-950 text-gray-100" : "bg-gray-50 text-gray-900"
       }`}
     >
       <div
         className={`max-w-4xl mx-auto p-6 rounded-2xl shadow-md border transition-colors duration-300 ${
-          isDarkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
+          darkMode ? "bg-gray-900 border-gray-700" : "bg-white border-gray-200"
         }`}
       >
         <h2
           className={`text-2xl font-extrabold mb-6 text-center ${
-            isDarkMode ? "text-gray-100" : "text-gray-900"
+            darkMode ? "text-gray-100" : "text-gray-900"
           }`}
         >
           📊 Job Status Breakdown
@@ -71,7 +71,7 @@ const Reports = () => {
               cy="50%"
               outerRadius={120}
               label={{
-                fill: isDarkMode ? "#e2e8f0" : "#1a202c",
+                fill: darkMode ? "#e2e8f0" : "#1a202c",
                 fontWeight: "700",
               }}
               labelLine={false}
@@ -82,15 +82,15 @@ const Reports = () => {
             </Pie>
             <Tooltip
               contentStyle={{
-                backgroundColor: isDarkMode ? "#2d3748" : "#fff",
-                color: isDarkMode ? "#fff" : "#000",
-                border: isDarkMode ? "1px solid #4a5568" : "1px solid #e2e8f0",
+                backgroundColor: darkMode ? "#2d3748" : "#fff",
+                color: darkMode ? "#fff" : "#000",
+                border: darkMode ? "1px solid #4a5568" : "1px solid #e2e8f0",
                 borderRadius: "8px",
               }}
             />
             <Legend
               verticalAlign="bottom"
-              wrapperStyle={{ color: isDarkMode ? "#e2e8f0" : "#1a202c", fontWeight: "700" }}
+              wrapperStyle={{ color: darkMode ? "#e2e8f0" : "#1a202c", fontWeight: "700" }}
             />
           </PieChart>
         </div>
@@ -98,14 +98,14 @@ const Reports = () => {
         <div className="mt-6">
           <h3
             className={`text-lg font-bold mb-2 text-center ${
-              isDarkMode ? "text-gray-100" : "text-gray-900"
+              darkMode ? "text-gray-100" : "text-gray-900"
             }`}
           >
             Job Status Summary
           </h3>
           <ul
             className={`list-disc pl-6 space-y-1 text-sm ${
-              isDarkMode ? "text-gray-300" : "text-gray-700"
+              darkMode ? "text-gray-300" : "text-gray-700"
             }`}
           >
             <li>✅ Active Jobs: {jobStats.active}</li>

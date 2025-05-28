@@ -22,6 +22,7 @@ const CheckoutForm = ({ amount, onSuccess }) => {
   const elements = useElements();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { darkMode } = useDarkMode();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,12 +56,27 @@ const CheckoutForm = ({ amount, onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <CardElement options={{ hidePostalCode: true }} />
+      <CardElement
+        options={{
+          style: {
+            base: {
+              fontSize: "16px",
+              color: darkMode ? "#fff" : "#32325d",
+              "::placeholder": {
+                color: "#aab7c4",
+              },
+            },
+            invalid: {
+              color: "#fa755a",
+            },
+          },
+        }}
+      />
       {error && <p className="text-red-600">{error}</p>}
       <button
         type="submit"
         disabled={!stripe || loading}
-        className="w-full bg-green-700 text-white py-3 rounded-lg disabled:opacity-50"
+        className="w-full bg-green-700 hover:bg-green-800 transition text-white py-3 rounded-lg font-semibold disabled:opacity-50"
       >
         {loading ? "Processing..." : `Pay $${(amount / 100).toFixed(2)}`}
       </button>
@@ -93,10 +109,7 @@ const ServiceDetails = () => {
     return () => clearTimeout(timer);
   }, [id]);
 
-  if (loadingSpinner) {
-    return <CustomSpinner />;
-  }
-
+  if (loadingSpinner) return <CustomSpinner />;
   if (authLoading) return <p>Checking authentication...</p>;
 
   if (!user || user.role !== "Employer") {
@@ -115,26 +128,51 @@ const ServiceDetails = () => {
   return (
     <div
       className={`min-h-screen px-4 py-10 ${
-        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-900"
       }`}
     >
-      <div
-        className={`max-w-3xl mx-auto mt-10 mb-10 p-8 rounded-xl shadow-lg ${
-          darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
-        }`}
-      >
-        <h1 className="text-3xl font-bold mb-4">{service.title}</h1>
-        <p className="mb-6">Category: {service.category}</p>
-
-        {!paid ? (
-          <Elements stripe={stripePromise}>
-            <CheckoutForm amount={service.price * 100} onSuccess={() => setPaid(true)} />
-          </Elements>
-        ) : (
-          <div className="p-6 bg-green-100 text-green-800 rounded-lg text-center">
-            Payment Successful! Thank you.
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10">
+        {/* Service Info Card */}
+        <div
+          className={`p-6 rounded-xl shadow-xl ${
+            darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
+          }`}
+        >
+          {/* Image */}
+          {service.image && (
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-60 object-cover rounded-lg mb-4"
+            />
+          )}
+          <h1 className="text-3xl font-bold mb-2">{service.title}</h1>
+          <p className="text-sm text-gray-400 mb-2">Category: {service.category}</p>
+          <p className="mb-4 text-base">
+            {service.description || "No description available."}
+          </p>
+          <div className="text-xl font-semibold">
+            Price: <span className="text-green-600">${service.price}</span>
           </div>
-        )}
+        </div>
+
+        {/* Payment Section */}
+        <div
+          className={`p-6 rounded-xl shadow-xl ${
+            darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
+          }`}
+        >
+          <h2 className="text-2xl font-semibold mb-4">Secure Payment</h2>
+          {!paid ? (
+            <Elements stripe={stripePromise}>
+              <CheckoutForm amount={service.price * 100} onSuccess={() => setPaid(true)} />
+            </Elements>
+          ) : (
+            <div className="p-6 bg-green-100 text-green-800 rounded-lg text-center">
+              ✅ Payment Successful! Thank you.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

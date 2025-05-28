@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 const PostJob = () => {
-  const [form, setForm] = useState({
-    title: "",
-    location: "",
-    type: "",
-    description: "",
-    logoUrl: "",
-    price: "",
-    category: "",
-  });
-
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -33,14 +23,19 @@ const PostJob = () => {
     }
   }, [userEmail, navigate]);
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.title || !form.location || !form.type || !form.description || !form.price || !form.logoUrl || !form.category) {
+    const form = e.target;
+    const title = form.title.value.trim();
+    const location = form.location.value.trim();
+    const type = form.type.value.trim();
+    const category = form.category.value.trim();
+    const description = form.description.value.trim();
+    const logoUrl = form.logoUrl.value.trim();
+    const price = form.price.value.trim();
+
+    if (!title || !location || !type || !category || !description || !logoUrl || !price) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -58,7 +53,13 @@ const PostJob = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...form,
+          title,
+          location,
+          type,
+          category,
+          description,
+          logoUrl,
+          price,
           createdBy: userEmail,
           createdAt: new Date().toISOString(),
         }),
@@ -71,15 +72,7 @@ const PostJob = () => {
           icon: "success",
           title: "Job posted!",
         });
-        setForm({
-          title: "",
-          location: "",
-          type: "",
-          description: "",
-          logoUrl: "",
-          price: "",
-          category: "",
-        });
+        form.reset();
       } else {
         Swal.fire({
           icon: "error",
@@ -101,14 +94,15 @@ const PostJob = () => {
   return (
     <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-[#f9fafb] text-gray-900"} p-8 min-h-screen`}>
       <h1 className="text-3xl font-bold mb-6">📄 Post a New Job</h1>
-      <form onSubmit={handleSubmit} className={`${darkMode ? "bg-gray-800" : "bg-white"} p-6 rounded-xl shadow space-y-4`}>
+      <form
+        onSubmit={handleSubmit}
+        className={`${darkMode ? "bg-gray-800" : "bg-white"} p-6 rounded-xl shadow space-y-4`}
+      >
         <div>
           <label className="block text-sm font-medium">Job Title</label>
           <input
             name="title"
             type="text"
-            value={form.title}
-            onChange={handleChange}
             className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
@@ -119,8 +113,6 @@ const PostJob = () => {
           <input
             name="location"
             type="text"
-            value={form.location}
-            onChange={handleChange}
             className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
@@ -130,8 +122,6 @@ const PostJob = () => {
           <label className="block text-sm font-medium">Job Type</label>
           <select
             name="type"
-            value={form.type}
-            onChange={handleChange}
             className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           >
@@ -149,8 +139,6 @@ const PostJob = () => {
           <input
             name="category"
             type="text"
-            value={form.category}
-            onChange={handleChange}
             className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
@@ -160,12 +148,10 @@ const PostJob = () => {
           <label className="block text-sm font-medium">Job Description</label>
           <textarea
             name="description"
-            value={form.description}
-            onChange={handleChange}
-            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             rows="4"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
-          />
+          ></textarea>
         </div>
 
         <div>
@@ -173,8 +159,6 @@ const PostJob = () => {
           <input
             name="logoUrl"
             type="text"
-            value={form.logoUrl}
-            onChange={handleChange}
             className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
@@ -185,8 +169,6 @@ const PostJob = () => {
           <input
             name="price"
             type="number"
-            value={form.price}
-            onChange={handleChange}
             className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />

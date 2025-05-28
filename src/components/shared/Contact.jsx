@@ -1,28 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
-import { useDarkMode } from "../../context/DarkModeContext"; // path adjust করো
+import { useDarkMode } from "../../context/DarkModeContext"; 
 
 const Contact = () => {
   const { darkMode } = useDarkMode();
 
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const form = e.target;
+    const firstName = form.firstName.value;
+    const lastName = form.lastName.value;
+    const email = form.email.value;
+    const phone = form.phone.value;
+    const message = form.message.value;
+
+    //  API call 
+    console.log({ firstName, lastName, email, phone, message });
 
     Swal.fire({
       icon: "success",
@@ -32,13 +27,7 @@ const Contact = () => {
       showConfirmButton: false,
     });
 
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
+    form.reset(); //reset from fild
   };
 
   return (
@@ -104,13 +93,11 @@ const Contact = () => {
             }`}
           >
             <h4 className="text-lg font-semibold mb-4">Send us a message</h4>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div className="flex gap-4">
                 <input
                   type="text"
                   name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
                   placeholder="First name"
                   className={`w-1/2 px-4 py-2 rounded border focus:outline-none transition ${
                     darkMode
@@ -122,9 +109,7 @@ const Contact = () => {
                 <input
                   type="text"
                   name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Lastname"
+                  placeholder="Last name"
                   className={`w-1/2 px-4 py-2 rounded border focus:outline-none transition ${
                     darkMode
                       ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
@@ -136,8 +121,6 @@ const Contact = () => {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
                 placeholder="Enter your email"
                 className={`w-full px-4 py-2 rounded border focus:outline-none transition ${
                   darkMode
@@ -149,8 +132,6 @@ const Contact = () => {
               <input
                 type="tel"
                 name="phone"
-                value={formData.phone}
-                onChange={handleChange}
                 placeholder="Enter your phone"
                 className={`w-full px-4 py-2 rounded border focus:outline-none transition ${
                   darkMode
@@ -161,8 +142,6 @@ const Contact = () => {
               <textarea
                 rows="4"
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
                 placeholder="Message"
                 className={`w-full px-4 py-2 rounded border focus:outline-none transition ${
                   darkMode

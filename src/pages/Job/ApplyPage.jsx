@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useDarkMode } from "../../context/DarkModeContext"; // your dark mode hook
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const ApplyPage = () => {
   const { id } = useParams();
@@ -14,6 +14,7 @@ const ApplyPage = () => {
   const [success, setSuccess] = useState(false);
   const [link, setLink] = useState("");
 
+  // loacal storage set context
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -26,6 +27,7 @@ const ApplyPage = () => {
     }
   }, []);
 
+  // data fetch
   useEffect(() => {
     if (id) {
       setLoading(true);
@@ -45,8 +47,8 @@ const ApplyPage = () => {
     }
   }, [id]);
 
-  // চেক ইউজার কি জবের মালিক
-  const isOwner = user && job && user._id === job.posterId;
+  // PostJob- 'createdBy' 
+  const isOwner = user && job && user.email === job.createdBy;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -67,11 +69,10 @@ const ApplyPage = () => {
     }
 
     const applicationData = {
-      applicantId: user._id,
-      jobId: job._id,
-      jobTitle: job.title,
-      applicantName: user.name,
       applicantEmail: user.email,
+      applicantName: user.name,
+      jobId: job._id || job.id,
+      jobTitle: job.title,
       link,
     };
 
