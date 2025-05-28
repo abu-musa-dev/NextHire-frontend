@@ -47,7 +47,7 @@ const AddServices = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/services", {
+      const res = await fetch("https://next-haire-backend-now.vercel.app/services", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

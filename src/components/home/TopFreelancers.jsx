@@ -71,7 +71,7 @@ export default function TopFreelancers() {
   const { darkMode } = useDarkMode(); // ✅ Get darkMode value
 
   useEffect(() => {
-    fetch("http://localhost:5000/freelancers")
+    fetch("https://next-haire-backend-now.vercel.app/freelancers")
       .then((res) => res.json())
       .then((data) => setFreelancers(data))
       .catch((err) => console.error("Failed to load freelancers:", err));

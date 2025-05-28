@@ -16,7 +16,7 @@ const MyJobs = () => {
       try {
         if (!user?.email || !token) return;
 
-        const res = await axios.get(`http://localhost:5000/jobs?email=${user.email}`, {
+        const res = await axios.get(`https://next-haire-backend-now.vercel.app/jobs?email=${user.email}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -44,7 +44,7 @@ const MyJobs = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/jobs/${id}`, {
+        await axios.delete(`https://next-haire-backend-now.vercel.app/jobs/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setJobs(jobs.filter((job) => job._id !== id));
@@ -59,7 +59,7 @@ const MyJobs = () => {
   const handleStatusChange = async (id, newStatus) => {
     try {
       await axios.patch(
-        `http://localhost:5000/jobs/${id}/status`,
+        `https://next-haire-backend-now.vercel.app/jobs/${id}/status`,
         { status: newStatus },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -87,7 +87,7 @@ const MyJobs = () => {
     if (newTitle) {
       try {
         await axios.patch(
-          `http://localhost:5000/jobs/${id}`,
+          `https://next-haire-backend-now.vercel.app/jobs/${id}`,
           { title: newTitle },
           {
             headers: { Authorization: `Bearer ${token}` },

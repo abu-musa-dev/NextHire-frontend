@@ -20,7 +20,7 @@ const Applications = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/applications?email=${user.email}`);
+      const res = await fetch(`https://next-haire-backend-now.vercel.app/applications?email=${user.email}`);
       if (!res.ok) throw new Error("Fetch failed");
       const data = await res.json();
       setApplications(data);

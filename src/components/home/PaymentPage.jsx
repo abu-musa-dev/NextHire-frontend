@@ -26,7 +26,7 @@ function CheckoutForm({ amount, onSuccess }) {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:5000/create-payment-intent",
+        "https://next-haire-backend-now.vercel.app/create-payment-intent",
         { amount }
       );
       const clientSecret = data.clientSecret;

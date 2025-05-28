@@ -25,7 +25,7 @@ const Applicants = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/applications/by-poster?email=${encodeURIComponent(user.email)}`
+        `https://next-haire-backend-now.vercel.app/applications/by-poster?email=${encodeURIComponent(user.email)}`
       );
       if (!res.ok) throw new Error("Fetch failed");
 
@@ -47,7 +47,7 @@ const Applicants = () => {
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      const res = await fetch(`http://localhost:5000/applications/${id}/status`, {
+      const res = await fetch(`https://next-haire-backend-now.vercel.app/applications/${id}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

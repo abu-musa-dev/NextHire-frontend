@@ -23,7 +23,7 @@ const Login = () => {
     const password = form.password.value;
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("https://next-haire-backend-now.vercel.app/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ identifier }),
@@ -82,7 +82,9 @@ const Login = () => {
     >
       <div
         className={`w-full max-w-sm p-6 rounded-lg shadow-md border ${
-          darkMode ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-300 text-black"
+          darkMode
+            ? "bg-gray-800 border-gray-700 text-white"
+            : "bg-white border-gray-300 text-black"
         }`}
       >
         {/* Header */}
@@ -100,7 +102,11 @@ const Login = () => {
               Log in
             </span>
             <Link to="/signup">
-              <span className={`${darkMode ? "text-gray-400" : "text-gray-500"} cursor-pointer`}>
+              <span
+                className={`${
+                  darkMode ? "text-gray-400" : "text-gray-500"
+                } cursor-pointer`}
+              >
                 Sign Up
               </span>
             </Link>
@@ -127,7 +133,9 @@ const Login = () => {
         {/* Login Form */}
         <form onSubmit={handleEmailLogin}>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-1">Email or Username</label>
+            <label className="block text-sm font-medium mb-1">
+              Email or Username
+            </label>
             <input
               type="text"
               name="identifier"

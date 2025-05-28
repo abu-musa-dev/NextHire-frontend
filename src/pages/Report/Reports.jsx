@@ -10,7 +10,7 @@ const Reports = () => {
   useEffect(() => {
     const fetchJobStats = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/jobs/stats", {
+        const res = await axios.get("https://next-haire-backend-now.vercel.app/jobs/stats", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

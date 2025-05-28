@@ -39,7 +39,7 @@ const RegisterEmployee = () => {
       };
 
       console.log("Sending formData:", formData);
-      const res = await axios.post("http://localhost:5000/employers/register", formData);
+      const res = await axios.post("https://next-haire-backend-now.vercel.app/employers/register", formData);
 
       Swal.fire({
         icon: "success",

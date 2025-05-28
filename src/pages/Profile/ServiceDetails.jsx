@@ -30,7 +30,7 @@ const CheckoutForm = ({ amount, onSuccess }) => {
     setError(null);
 
     try {
-      const { data } = await axios.post("http://localhost:5000/create-payment-intent", {
+      const { data } = await axios.post("https://next-haire-backend-now.vercel.app/create-payment-intent", {
         amount,
       });
       const clientSecret = data.clientSecret;
@@ -100,7 +100,7 @@ const ServiceDetails = () => {
       setLoadingSpinner(false);
     }, 2000);
 
-    fetch("http://localhost:5000/services")
+    fetch("https://next-haire-backend-now.vercel.app/services")
       .then((res) => res.json())
       .then((data) => {
         setService(data.find((s) => s.id === Number(id)));

@@ -36,15 +36,15 @@ const CandidateDashboard = () => {
 
     const fetchCounts = async () => {
       try {
-        const appRes = await fetch(`http://localhost:5000/applications?email=${user.email}`);
+        const appRes = await fetch(`https://next-haire-backend-now.vercel.app/applications?email=${user.email}`);
         const apps = await appRes.json();
         setApplicationCount(apps.length);
 
-        const savedRes = await fetch(`http://localhost:5000/savedJobs?email=${user.email}`);
+        const savedRes = await fetch(`https://next-haire-backend-now.vercel.app/savedJobs?email=${user.email}`);
         const savedJobs = await savedRes.json();
         setSavedJobsCount(savedJobs.length);
 
-        const profileRes = await fetch(`http://localhost:5000/profileViews?email=${user.email}`);
+        const profileRes = await fetch(`https://next-haire-backend-now.vercel.app/profileViews?email=${user.email}`);
         const profileData = await profileRes.json();
         setProfileViews(profileData.views || 0);
       } catch (error) {

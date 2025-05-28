@@ -43,8 +43,8 @@ const EmployerDashboard = () => {
       if (!email) return;
       try {
         const [applicantRes, jobRes] = await Promise.all([
-          axios.get(`http://localhost:5000/applications/by-poster?email=${encodeURIComponent(email)}`),
-          axios.get(`http://localhost:5000/jobs?email=${email}`),
+          axios.get(`https://next-haire-backend-now.vercel.app/applications/by-poster?email=${encodeURIComponent(email)}`),
+          axios.get(`https://next-haire-backend-now.vercel.app/jobs?email=${email}`),
         ]);
         setApplicants(applicantRes.data);
         setJobs(jobRes.data);

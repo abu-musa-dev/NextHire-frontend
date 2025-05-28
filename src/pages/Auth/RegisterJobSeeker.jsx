@@ -36,7 +36,7 @@ const RegisterJobSeeker = () => {
         uid: user.uid,
       };
 
-      const res = await axios.post("http://localhost:5000/jobseekers/register", newJobSeeker);
+      const res = await axios.post("https://next-haire-backend-now.vercel.app/jobseekers/register", newJobSeeker);
       console.log("Registered Job Seeker:", res.data);
 
       Swal.fire({

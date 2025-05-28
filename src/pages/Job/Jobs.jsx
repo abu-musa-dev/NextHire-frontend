@@ -12,7 +12,7 @@ const Jobs = () => {
   const { darkMode } = useDarkMode(); // useDarkMode context
 
   useEffect(() => {
-    fetch("http://localhost:5000/jobs")
+    fetch("https://next-haire-backend-now.vercel.app/jobs")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setJobs(data);

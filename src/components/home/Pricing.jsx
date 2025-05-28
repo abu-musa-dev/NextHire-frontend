@@ -11,7 +11,7 @@ export default function Pricing() {
   const { darkMode } = useDarkMode(); // ✅ use darkMode
 
   useEffect(() => {
-    fetch("http://localhost:5000/pricing")
+    fetch("https://next-haire-backend-now.vercel.app/pricing")
       .then((res) => res.json())
       .then((data) => setPlans(data))
       .catch((err) => console.error("Failed to load pricing data:", err));

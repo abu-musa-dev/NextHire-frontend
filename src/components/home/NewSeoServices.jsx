@@ -9,7 +9,7 @@ export default function NewSeoServices() {
   const { darkMode } = useDarkMode(); // Use dark mode state
 
   useEffect(() => {
-    fetch("http://localhost:5000/services")
+    fetch("https://next-haire-backend-now.vercel.app/services")
       .then((res) => res.json())
       .then((data) => setServices(data))
       .catch((err) => console.error("Error fetching services:", err));

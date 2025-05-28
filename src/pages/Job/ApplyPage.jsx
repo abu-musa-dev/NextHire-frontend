@@ -31,7 +31,7 @@ const ApplyPage = () => {
   useEffect(() => {
     if (id) {
       setLoading(true);
-      fetch(`http://localhost:5000/jobs/${id}`)
+      fetch(`https://next-haire-backend-now.vercel.app/jobs/${id}`)
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch job");
           return res.json();
@@ -76,7 +76,7 @@ const ApplyPage = () => {
       link,
     };
 
-    fetch("http://localhost:5000/applications", {
+    fetch("https://next-haire-backend-now.vercel.app/applications", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

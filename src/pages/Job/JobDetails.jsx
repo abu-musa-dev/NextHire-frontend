@@ -14,7 +14,7 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/jobs/${id}`);
+        const res = await fetch(`https://next-haire-backend-now.vercel.app/jobs/${id}`);
         if (res.ok) {
           const data = await res.json();
           setJob(data);
@@ -51,7 +51,7 @@ const JobDetails = () => {
       applicantEmail: user.email,
     };
 
-    fetch("http://localhost:5000/applications", {
+    fetch("https://next-haire-backend-now.vercel.app/applications", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(applicationData),

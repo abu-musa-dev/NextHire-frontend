@@ -24,7 +24,7 @@ export default function FreelancerDetails() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     const timer = setTimeout(() => {
-      fetch("http://localhost:5000/freelancers")
+      fetch("https://next-haire-backend-now.vercel.app/freelancers")
         .then((res) => res.json())
         .then((data) => {
           const selected = data[parseInt(id)];

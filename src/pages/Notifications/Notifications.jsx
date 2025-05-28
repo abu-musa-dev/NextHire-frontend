@@ -8,7 +8,7 @@ const Notifications = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/notifications?email=${userEmail}`);
+        const res = await axios.get(`https://next-haire-backend-now.vercel.app/notifications?email=${userEmail}`);
         setNotifications(res.data);
       } catch (error) {
         console.error("Error fetching notifications:", error);

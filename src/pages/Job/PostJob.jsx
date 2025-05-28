@@ -47,7 +47,7 @@ const PostJob = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/jobs", {
+      const res = await fetch("https://next-haire-backend-now.vercel.app/jobs", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
