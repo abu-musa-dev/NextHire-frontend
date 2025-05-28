@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
+import { useDarkMode } from '../../context/DarkModeContext';
 
 const CustomSpinner = () => {
+  const { darkMode } = useDarkMode();
+
   useEffect(() => {
     const style = document.createElement('style');
     style.innerHTML = `
@@ -32,10 +35,10 @@ const CustomSpinner = () => {
           transform: rotate(0deg);
         }
         60% {
-          transform: rotate(1440deg); /* 4 full spins = fast part */
+          transform: rotate(1440deg); /* 4 full spins */
         }
         100% {
-          transform: rotate(1620deg); /* only 0.5 spin = slow part */
+          transform: rotate(1620deg); /* 0.5 extra spin */
         }
       }
     `;
@@ -46,7 +49,7 @@ const CustomSpinner = () => {
   }, []);
 
   return (
-    <div className="spinner-wrapper">
+    <div className={`spinner-wrapper ${darkMode ? 'bg-gray-900' : 'bg-white'}`}>
       <div className="rotating-shape"></div>
     </div>
   );

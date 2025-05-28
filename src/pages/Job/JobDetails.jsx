@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // useNavigate import
+import { useParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useDarkMode } from "../../context/DarkModeContext"; // Update path if needed
 
 const JobDetails = () => {
-  const { id } = useParams(); // Get the job ID from the URL
+  const { id } = useParams();
   const [job, setJob] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state for better UX
-  const [user, setUser] = useState(null); // Store user details for application
-  const navigate = useNavigate(); // useNavigate hook for navigation
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const { darkMode } = useDarkMode();
 
-  // Fetch job details and user from localStorage
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -30,31 +31,19 @@ const JobDetails = () => {
 
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      setUser(JSON.parse(storedUser)); // Parse user from localStorage
+      setUser(JSON.parse(storedUser));
     }
 
     fetchJobDetails();
   }, [id]);
 
-  // Loading state UI
-  if (loading) {
-    return <p className="p-8 text-center text-gray-500">Loading job details...</p>;
-  }
-
-  // If no job is found, show error message
-  if (!job) {
-    return <p className="p-8 text-center text-red-500">Job not found.</p>;
-  }
-
-  // Handle apply action
   const handleApply = () => {
     if (!user) {
       Swal.fire("⚠️ Unauthorized", "You need to log in to apply.", "warning");
-      navigate("/login"); // Redirect to login page using useNavigate
+      navigate("/login");
       return;
     }
 
-    // Prepare application data
     const applicationData = {
       applicantId: user._id,
       jobId: job._id,
@@ -64,50 +53,75 @@ const JobDetails = () => {
 
     fetch("http://localhost:5000/applications", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(applicationData),
     })
       .then((res) => {
-        if (!res.ok) {
-          throw new Error("Application failed.");
-        }
+        if (!res.ok) throw new Error("Application failed.");
         return res.json();
       })
       .then((data) => {
-        Swal.fire("✅ Success", "You have applied for the job successfully!", "success");
-        console.log(data);
-        navigate("/applications"); // Redirect to applications page (or anywhere else)
+        Swal.fire({
+          icon: "success",
+          title: "✅ Success",
+          text: "You have applied for the job successfully!",
+          background: darkMode ? "#1f2937" : undefined,
+          color: darkMode ? "#fff" : undefined,
+        });
+        navigate("/applications");
       })
       .catch((err) => {
         console.error("Application error:", err);
-        Swal.fire("❌ Error", "Failed to apply. Please try again.", "error");
+        Swal.fire({
+          icon: "error",
+          title: "❌ Error",
+          text: "Failed to apply. Please try again.",
+          background: darkMode ? "#1f2937" : undefined,
+          color: darkMode ? "#fff" : undefined,
+        });
       });
   };
 
+  if (loading) {
+    return (
+      <p className={`p-8 text-center ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+        Loading job details...
+      </p>
+    );
+  }
+
+  if (!job) {
+    return (
+      <p className={`p-8 text-center ${darkMode ? "text-red-400" : "text-red-500"}`}>
+        Job not found.
+      </p>
+    );
+  }
+
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-gray-50 rounded-lg shadow-lg">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8 text-center">{job.jobTitle}</h1>
-      <p className="text-gray-700 mb-4">{job.description}</p>
-      
-      {/* Job Details Section */}
+    <div
+      className={`p-6 max-w-4xl mx-auto rounded-lg shadow-lg transition-colors duration-300 ${
+        darkMode ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-900"
+      }`}
+    >
+      <h1 className="text-3xl font-bold mb-8 text-center">{job.jobTitle}</h1>
+      <p className="mb-4">{job.description}</p>
+
       <div className="space-y-4">
-        <p className="text-lg text-gray-700">
+        <p className="text-lg">
           <strong>Company:</strong> {job.company}
         </p>
-        <p className="text-lg text-gray-700">
+        <p className="text-lg">
           <strong>Location:</strong> {job.location}
         </p>
-        <p className="text-lg text-gray-700">
+        <p className="text-lg">
           <strong>Salary:</strong> {job.salary || "Not specified"}
         </p>
-        <p className="text-lg text-gray-700">
+        <p className="text-lg">
           <strong>Job Type:</strong> {job.jobType}
         </p>
       </div>
 
-      {/* Apply Now Button */}
       <div className="mt-6 text-center">
         <button
           onClick={handleApply}

@@ -3,13 +3,26 @@ import MissionSection from '../home/MissionSection';
 import TeamSection from '../home/TeamSection';
 import Locations from '../home/Locations';
 import Testimonials from '../home/testimonials';
-
+import { useDarkMode } from '../../context/DarkModeContext';  // path adjust করো
 
 const AboutUs = () => {
+  const { darkMode } = useDarkMode();
+
   return (
-    <section className="text-center py-12 px-4 md:px-20 bg-white">
-      <p className="text-sm font-semibold text-gray-600 mb-2 uppercase">About Us</p>
-      <h2 className="text-2xl md:text-3xl font-bold mb-10">
+    <section
+      className={`text-center py-12 px-4 md:px-20 transition-colors duration-300 ${
+        darkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900"
+      }`}
+    >
+      <p className={`text-sm font-semibold mb-2 uppercase ${
+        darkMode ? "text-gray-400" : "text-gray-600"
+      }`}>
+        About Us
+      </p>
+
+      <h2 className={`text-2xl md:text-3xl font-bold mb-10 ${
+        darkMode ? "text-gray-100" : "text-gray-900"
+      }`}>
         We are transforming the way healthcare hires
       </h2>
 
@@ -41,12 +54,12 @@ const AboutUs = () => {
           />
         </div>
       </div>
-      <MissionSection></MissionSection>
-      <TeamSection></TeamSection>
-      <Locations></Locations>
-      <Testimonials></Testimonials>
+
+      <MissionSection />
+      <TeamSection />
+      <Locations />
+      <Testimonials />
     </section>
-    
   );
 };
 

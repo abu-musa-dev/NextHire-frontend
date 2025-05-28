@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { app } from "../../firebase";
 import ApplicantRow from "./ApplicantRow";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const Applicants = () => {
   const auth = getAuth(app);
@@ -9,13 +10,14 @@ const Applicants = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const { darkMode, toggleDarkMode } = useDarkMode();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       setUser(u);
     });
     return () => unsubscribe();
-  }, []);
+  }, [auth]);
 
   const fetchApplications = async () => {
     if (!user?.email) return;
@@ -63,19 +65,23 @@ const Applicants = () => {
   };
 
   return (
-    <div className="p-8 bg-[#f9fafb] min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">🧾 Applicants for My Posted Jobs</h1>
+    <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-[#f9fafb] text-gray-800"} p-8 min-h-screen`}>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">🧾 Applicants for My Posted Jobs</h1>
+      </div>
 
       {loading ? (
-        <p className="text-gray-600">Loading...</p>
+        <p className={`${darkMode ? "text-gray-300" : "text-gray-600"}`}>Loading...</p>
       ) : error ? (
         <p className="text-red-600">{error}</p>
       ) : applications.length === 0 ? (
-        <p className="text-gray-600">No one has applied for your posted jobs yet.</p>
+        <p className={`${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+          No one has applied for your posted jobs yet.
+        </p>
       ) : (
-        <div className="overflow-x-auto bg-white p-6 rounded-xl shadow-lg">
-          <table className="min-w-full text-left text-sm text-gray-700">
-            <thead className="bg-gray-200 text-gray-800 border-b">
+        <div className={`${darkMode ? "bg-gray-800 shadow-lg" : "bg-white shadow-lg"} overflow-x-auto p-6 rounded-xl`}>
+          <table className={`min-w-full text-left text-sm ${darkMode ? "text-gray-200" : "text-gray-700"}`}>
+            <thead className={`${darkMode ? "bg-gray-700 text-gray-300 border-gray-600" : "bg-gray-200 text-gray-800 border-gray-300"} border-b`}>
               <tr>
                 <th className="py-3 px-4">Applicant Name</th>
                 <th className="py-3 px-4">Job Title</th>
@@ -95,6 +101,7 @@ const Applicants = () => {
                   status={app.status || "Pending"}
                   onStatusChange={handleStatusChange}
                   resumeLink={app.link}
+                  darkMode={darkMode} // Pass darkMode prop if ApplicantRow needs styling
                 />
               ))}
             </tbody>

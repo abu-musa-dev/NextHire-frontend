@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/AuthContext"; // Auth context
+import { useDarkMode } from "../../context/DarkModeContext"; // Dark mode context
 import CustomSpinner from "../shared/CustomSpinner"; // Custom spinner
 
 export default function FreelancerDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth(); // context থেকে user
+  const { user } = useAuth();
+  const { darkMode } = useDarkMode(); // ✅ darkMode context
   const [freelancer, setFreelancer] = useState(null);
-  const [loading, setLoading] = useState(true); // loading state
+  const [loading, setLoading] = useState(true);
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -17,11 +19,10 @@ export default function FreelancerDetails() {
     message: "",
   });
 
-  // ২ সেকেন্ড delay + fetch data
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
     const timer = setTimeout(() => {
-      fetch("/freelancers.json")
+      fetch("http://localhost:5000/freelancers")
         .then((res) => res.json())
         .then((data) => {
           const selected = data[parseInt(id)];
@@ -29,7 +30,6 @@ export default function FreelancerDetails() {
           setLoading(false);
         });
     }, 2000);
-
     return () => clearTimeout(timer);
   }, [id]);
 
@@ -97,69 +97,90 @@ export default function FreelancerDetails() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto py-10 px-4 relative">
-      <Link
-        to="/"
-        className="text-green-600 underline mb-4 inline-block hover:text-green-800 transition"
-      >
-        ← Back to list
-      </Link>
+    <div
+      className={`min-h-screen px-4 py-10 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+    >
+      <div className="max-w-3xl mx-auto relative">
+        <Link
+          to="/"
+          className={`underline mb-4 inline-block transition ${
+            darkMode ? "text-green-400 hover:text-green-300" : "text-green-600 hover:text-green-800"
+          }`}
+        >
+          ← Back to list
+        </Link>
 
-      <div className="bg-white shadow-lg rounded-xl p-6 border border-gray-100">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <img
-              src={freelancer.img}
-              alt={freelancer.name}
-              className="w-20 h-20 rounded-full object-cover"
-            />
-            <div>
-              <h2 className="text-2xl font-bold text-gray-800">{freelancer.name}</h2>
-              <p className="text-green-600 font-medium">{freelancer.role}</p>
-              <p className="text-sm text-gray-500">
-                {freelancer.location} • ★ {freelancer.rating}
-              </p>
+        <div
+          className={`shadow-lg rounded-xl p-6 border ${
+            darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-100"
+          }`}
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <img
+                src={freelancer.img}
+                alt={freelancer.name}
+                className="w-20 h-20 rounded-full object-cover"
+              />
+              <div>
+                <h2 className="text-2xl font-bold">{freelancer.name}</h2>
+                <p className="text-green-500 font-medium">{freelancer.role}</p>
+                <p className="text-sm text-gray-400">
+                  {freelancer.location} • ★ {freelancer.rating}
+                </p>
+              </div>
             </div>
+
+            <button
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition"
+              onClick={handleMessageClick}
+            >
+              Message
+            </button>
           </div>
 
-          <button
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow-md transition"
-            onClick={handleMessageClick}
-          >
-            Message
-          </button>
-        </div>
+          <div className="mt-6">
+            <p className={`${darkMode ? "text-gray-200" : "text-gray-700"} leading-relaxed`}>
+              {freelancer.description}
+            </p>
+          </div>
 
-        <div className="mt-6">
-          <p className="text-gray-700 leading-relaxed">{freelancer.description}</p>
-        </div>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {freelancer.tags.map((tag, idx) => (
+              <span
+                key={idx}
+                className={`px-3 py-1 rounded-full text-sm ${
+                  darkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-700"
+                }`}
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {freelancer.tags.map((tag, idx) => (
-            <span
-              key={idx}
-              className="bg-gray-100 px-3 py-1 rounded-full text-sm text-gray-700"
-            >
-              #{tag}
-            </span>
-          ))}
+          <div className="mt-6 text-xl font-bold text-green-500">{freelancer.price}</div>
         </div>
-
-        <div className="mt-6 text-xl font-bold text-green-600">{freelancer.price}</div>
       </div>
 
-      {/* Message Form */}
       {showMessageForm && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6 relative">
+          <div
+            className={`rounded-lg shadow-lg max-w-md w-full p-6 relative ${
+              darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+            }`}
+          >
             <button
               onClick={() => setShowMessageForm(false)}
-              className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 font-bold text-lg"
+              className="absolute top-3 right-3 text-gray-400 hover:text-white font-bold text-lg"
               aria-label="Close"
             >
               &times;
             </button>
-            <h3 className="text-xl font-semibold mb-4">Send a message to {freelancer.name}</h3>
+            <h3 className="text-xl font-semibold mb-4">
+              Send a message to {freelancer.name}
+            </h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <input
                 type="text"
@@ -167,7 +188,11 @@ export default function FreelancerDetails() {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Your Name"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300"
+                }`}
                 required
               />
               <input
@@ -176,7 +201,11 @@ export default function FreelancerDetails() {
                 value={formData.email}
                 onChange={handleInputChange}
                 placeholder="Your Email"
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600"
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300"
+                }`}
                 required
               />
               <textarea
@@ -185,7 +214,11 @@ export default function FreelancerDetails() {
                 onChange={handleInputChange}
                 placeholder="Your Message"
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 resize-none"
+                className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-green-600 resize-none ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300"
+                }`}
                 required
               />
               <button

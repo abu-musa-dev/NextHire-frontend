@@ -1,9 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useDarkMode } from "../../context/DarkModeContext"; // ✅ import dark mode context
 
 const Hero = () => {
   const navigate = useNavigate();
+  const { darkMode } = useDarkMode(); // ✅ get current dark mode state
 
   const imageUrls = [
     "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-370.svg",
@@ -30,7 +32,13 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-6 md:px-16 bg-gradient-to-br from-[#fdf8ed] to-[#fff] overflow-hidden">
+    <section
+      className={`relative min-h-screen flex items-center justify-center px-6 md:px-16 overflow-hidden transition-colors duration-500 ${
+        darkMode
+          ? "bg-gradient-to-br from-gray-900 to-gray-800"
+          : "bg-gradient-to-br from-[#fdf8ed] to-[#fff]"
+      }`}
+    >
       {/* Glow effect */}
       <div className="absolute top-[-200px] left-[-200px] w-[400px] h-[400px] bg-green-300 opacity-30 rounded-full blur-3xl"></div>
       <div className="absolute bottom-[-150px] right-[-150px] w-[300px] h-[300px] bg-yellow-200 opacity-30 rounded-full blur-2xl"></div>
@@ -43,11 +51,21 @@ const Hero = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6">
-            Hire your <span className="text-green-600 italic">dream freelancer</span>
+          <h1
+            className={`text-4xl md:text-6xl font-extrabold leading-tight mb-6 ${
+              darkMode ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Hire your{" "}
+            <span className="text-green-500 italic">dream freelancer</span>
           </h1>
-          <p className="text-gray-700 text-lg mb-6">
-            Browse thousands of talented professionals ready to bring your vision to life.
+          <p
+            className={`text-lg mb-6 ${
+              darkMode ? "text-gray-300" : "text-gray-700"
+            }`}
+          >
+            Browse thousands of talented professionals ready to bring your
+            vision to life.
           </p>
           <div className="flex justify-center md:justify-start gap-4">
             <button
@@ -56,7 +74,13 @@ const Hero = () => {
             >
               Get Started
             </button>
-            <button className="bg-white text-green-600 border border-green-600 px-6 py-3 rounded-full font-semibold shadow hover:bg-green-50 transition">
+            <button
+              className={`px-6 py-3 rounded-full font-semibold shadow transition border ${
+                darkMode
+                  ? "bg-gray-900 text-green-400 border-green-500 hover:bg-gray-800"
+                  : "bg-white text-green-600 border-green-600 hover:bg-green-50"
+              }`}
+            >
               Learn More
             </button>
           </div>

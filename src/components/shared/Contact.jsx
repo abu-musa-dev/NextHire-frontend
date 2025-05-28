@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import { useDarkMode } from "../../context/DarkModeContext"; // path adjust করো
 
 const Contact = () => {
+  const { darkMode } = useDarkMode();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -21,7 +24,6 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
     Swal.fire({
       icon: "success",
       title: "Thank you!",
@@ -30,7 +32,6 @@ const Contact = () => {
       showConfirmButton: false,
     });
 
-    // ফর্ম রিসেট
     setFormData({
       firstName: "",
       lastName: "",
@@ -41,7 +42,11 @@ const Contact = () => {
   };
 
   return (
-    <>
+    <div
+      className={`min-h-screen transition-colors duration-300 ${
+        darkMode ? "bg-gray-900 text-gray-100" : "bg-white text-gray-900"
+      }`}
+    >
       <Helmet>
         <title>Contact Us | NextHire</title>
         <meta
@@ -49,10 +54,11 @@ const Contact = () => {
           content="Reach out to NextHire for support, inquiries, or questions. We're here to help!"
         />
       </Helmet>
-      <section className="max-w-7xl mx-auto px-4 py-20">
+
+      <section className="max-w-7xl mx-auto px-4 py-20 w-full">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold">Contact Us</h2>
-          <p className="text-gray-600 mt-2">
+          <p className={`${darkMode ? "text-gray-300" : "text-gray-600"} mt-2`}>
             Have a question or need more information? Just drop us a line!
           </p>
         </div>
@@ -62,15 +68,21 @@ const Contact = () => {
           <div className="space-y-6">
             <div>
               <h4 className="text-lg font-semibold">Phone number</h4>
-              <p className="text-gray-700">(00) 723 445 793</p>
+              <p className={`${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                (00) 723 445 793
+              </p>
             </div>
             <div>
               <h4 className="text-lg font-semibold">Email address</h4>
-              <p className="text-gray-700">next@hire.co</p>
+              <p className={`${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                next@hire.co
+              </p>
             </div>
             <div>
               <h4 className="text-lg font-semibold">Address</h4>
-              <p className="text-gray-700">2866 Oakway Lane, New York, USA</p>
+              <p className={`${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                2866 Oakway Lane, New York, USA
+              </p>
             </div>
             <iframe
               title="Map"
@@ -86,7 +98,11 @@ const Contact = () => {
           </div>
 
           {/* Right Side - Form */}
-          <div className="bg-gray-50 p-6 rounded-xl shadow">
+          <div
+            className={`p-6 rounded-xl shadow ${
+              darkMode ? "bg-gray-800" : "bg-gray-100"
+            }`}
+          >
             <h4 className="text-lg font-semibold mb-4">Send us a message</h4>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="flex gap-4">
@@ -96,7 +112,11 @@ const Contact = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="First name"
-                  className="w-1/2 px-4 py-2 border rounded"
+                  className={`w-1/2 px-4 py-2 rounded border focus:outline-none transition ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-900 placeholder-gray-700"
+                  }`}
                   required
                 />
                 <input
@@ -105,7 +125,11 @@ const Contact = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   placeholder="Lastname"
-                  className="w-1/2 px-4 py-2 border rounded"
+                  className={`w-1/2 px-4 py-2 rounded border focus:outline-none transition ${
+                    darkMode
+                      ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                      : "bg-white border-gray-300 text-gray-900 placeholder-gray-700"
+                  }`}
                   required
                 />
               </div>
@@ -115,7 +139,11 @@ const Contact = () => {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="Enter your email"
-                className="w-full px-4 py-2 border rounded"
+                className={`w-full px-4 py-2 rounded border focus:outline-none transition ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-700"
+                }`}
                 required
               />
               <input
@@ -124,7 +152,11 @@ const Contact = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Enter your phone"
-                className="w-full px-4 py-2 border rounded"
+                className={`w-full px-4 py-2 rounded border focus:outline-none transition ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-700"
+                }`}
               />
               <textarea
                 rows="4"
@@ -132,7 +164,11 @@ const Contact = () => {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="Message"
-                className="w-full px-4 py-2 border rounded"
+                className={`w-full px-4 py-2 rounded border focus:outline-none transition ${
+                  darkMode
+                    ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400"
+                    : "bg-white border-gray-300 text-gray-900 placeholder-gray-700"
+                }`}
                 required
               ></textarea>
               <button
@@ -145,7 +181,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

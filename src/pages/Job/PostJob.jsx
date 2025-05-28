@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const PostJob = () => {
   const [form, setForm] = useState({
@@ -11,12 +12,13 @@ const PostJob = () => {
     description: "",
     logoUrl: "",
     price: "",
-    category: "", // Added category field
+    category: "",
   });
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
+  const { darkMode } = useDarkMode();
 
   const userEmail = user?.email;
 
@@ -38,16 +40,7 @@ const PostJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Form validation including category
-    if (
-      !form.title ||
-      !form.location ||
-      !form.type ||
-      !form.description ||
-      !form.price ||
-      !form.logoUrl ||
-      !form.category // check category
-    ) {
+    if (!form.title || !form.location || !form.type || !form.description || !form.price || !form.logoUrl || !form.category) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -67,7 +60,7 @@ const PostJob = () => {
         body: JSON.stringify({
           ...form,
           createdBy: userEmail,
-          createdAt: new Date().toISOString(), // Added createdAt
+          createdAt: new Date().toISOString(),
         }),
       });
 
@@ -85,7 +78,7 @@ const PostJob = () => {
           description: "",
           logoUrl: "",
           price: "",
-          category: "", // reset category too
+          category: "",
         });
       } else {
         Swal.fire({
@@ -106,43 +99,40 @@ const PostJob = () => {
   };
 
   return (
-    <div className="p-8 bg-[#f9fafb] min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">📄 Post a New Job</h1>
-      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow space-y-4">
-        {/* Job Title */}
+    <div className={`${darkMode ? "bg-gray-900 text-white" : "bg-[#f9fafb] text-gray-900"} p-8 min-h-screen`}>
+      <h1 className="text-3xl font-bold mb-6">📄 Post a New Job</h1>
+      <form onSubmit={handleSubmit} className={`${darkMode ? "bg-gray-800" : "bg-white"} p-6 rounded-xl shadow space-y-4`}>
         <div>
-          <label className="block text-sm font-medium text-gray-700">Job Title</label>
+          <label className="block text-sm font-medium">Job Title</label>
           <input
             name="title"
             type="text"
             value={form.title}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
         </div>
 
-        {/* Location */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Location</label>
+          <label className="block text-sm font-medium">Location</label>
           <input
             name="location"
             type="text"
             value={form.location}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
         </div>
 
-        {/* Job Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Job Type</label>
+          <label className="block text-sm font-medium">Job Type</label>
           <select
             name="type"
             value={form.type}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           >
             <option value="">Select job type</option>
@@ -154,59 +144,54 @@ const PostJob = () => {
           </select>
         </div>
 
-        {/* Category */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Job Category</label>
+          <label className="block text-sm font-medium">Job Category</label>
           <input
             name="category"
             type="text"
             value={form.category}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
         </div>
 
-        {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Job Description</label>
+          <label className="block text-sm font-medium">Job Description</label>
           <textarea
             name="description"
             value={form.description}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             rows="4"
             required
           />
         </div>
 
-        {/* Logo URL */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Company Logo URL</label>
+          <label className="block text-sm font-medium">Company Logo URL</label>
           <input
             name="logoUrl"
             type="text"
             value={form.logoUrl}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
         </div>
 
-        {/* Price */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">Salary / Price</label>
+          <label className="block text-sm font-medium">Salary / Price</label>
           <input
             name="price"
             type="number"
             value={form.price}
             onChange={handleChange}
-            className="mt-1 w-full border px-4 py-2 rounded-md"
+            className={`mt-1 w-full border px-4 py-2 rounded-md ${darkMode ? "bg-gray-700 text-white border-gray-600" : ""}`}
             required
           />
         </div>
 
-        {/* Submit Button */}
         <div className="flex justify-end">
           <button
             type="submit"

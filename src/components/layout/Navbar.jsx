@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { Menu, X, Moon, Sun } from "lucide-react";
+import { useDarkMode } from "../../context/DarkModeContext"; // Import context
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+
+  const { darkMode, toggleDarkMode } = useDarkMode(); // Use context
 
   const handleLogout = () => {
     logout();
@@ -16,7 +18,6 @@ const Navbar = () => {
   };
 
   const toggleMenu = () => setMenuOpen((prev) => !prev);
-  const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
   const navLinks = [
     { name: "Home", path: "/home" },
@@ -109,9 +110,7 @@ const Navbar = () => {
 
       {/* Mobile Nav Menu Overlay */}
       {menuOpen && (
-        <div
-          className={`fixed inset-0 top-[64px] z-40 bg-white ${darkMode ? "bg-gray-900 text-white" : ""} transition duration-300`}
-        >
+        <div className={`fixed inset-0 top-[64px] z-40 ${darkMode ? "bg-gray-900 text-white" : "bg-white"} transition duration-300`}>
           <ul className="flex flex-col items-start px-6 py-6 gap-4">
             {navLinks.map(({ name, path }) => (
               <li key={path} className="w-full">

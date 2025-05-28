@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useDarkMode } from "../../context/DarkModeContext"; // ✅ Import DarkMode context
 
 const EmployerDashboard = () => {
   const [applicants, setApplicants] = useState([]);
@@ -26,6 +27,7 @@ const EmployerDashboard = () => {
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { darkMode } = useDarkMode(); // ✅ Use dark mode
 
   const email = user?.email;
   const role = user?.role;
@@ -58,38 +60,35 @@ const EmployerDashboard = () => {
   if (loading) return <p className="text-center text-gray-500 mt-20">Loading...</p>;
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-[#f9fafb] relative">
-
-      {/* Mobile Menu Button */}
+    <div className={`flex flex-col md:flex-row min-h-screen transition-colors duration-300 ${darkMode ? "bg-gray-900 text-white" : "bg-[#f9fafb] text-gray-800"}`}>
+      {/* Mobile Sidebar Toggle */}
       <button
         onClick={() => setSidebarOpen(!sidebarOpen)}
-        className={`md:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-full shadow-md ${
-          sidebarOpen ? "hidden" : "block"
-        }`}
+        className="md:hidden absolute top-4 left-4 z-50 bg-white p-2 rounded-full shadow-md"
         aria-label="Open sidebar menu"
       >
         <Menu size={24} />
       </button>
 
-      {/* Overlay */}
+      {/* Sidebar Overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30 md:hidden"
+          className="fixed inset-0 bg-black bg-opacity-40 z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
           aria-hidden="true"
         />
       )}
 
       {/* Sidebar */}
-      <Sidebar logout={logout} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar logout={logout} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} darkMode={darkMode} />
 
       {/* Main Content */}
       <main className="flex-1 p-4 sm:p-6 md:p-10 mt-16 md:mt-0">
-        <h1 className="text-3xl font-bold text-gray-800 mb-6">👔 Employer Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-6">👔 Employer Dashboard</h1>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-          <StatCard title="Total Jobs" value={jobs.length} icon={<Briefcase size={24} />} color="green" />
-          <StatCard title="Applicants" value={applicants.length} icon={<Users size={24} />} color="blue" />
+          <StatCard title="Total Jobs" value={jobs.length} icon={<Briefcase size={24} />} color="green" darkMode={darkMode} />
+          <StatCard title="Applicants" value={applicants.length} icon={<Users size={24} />} color="blue" darkMode={darkMode} />
         </div>
 
         <div className="flex justify-end mb-6">
@@ -100,10 +99,11 @@ const EmployerDashboard = () => {
           </Link>
         </div>
 
-        <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border overflow-x-auto">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">📋 Recent Applicants</h2>
-          <table className="min-w-full text-left text-sm text-gray-700">
-            <thead className="text-gray-500 border-b">
+        {/* Applicants Table */}
+        <div className={`p-4 sm:p-6 rounded-2xl shadow-sm border overflow-x-auto ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>
+          <h2 className="text-xl font-semibold mb-4">📋 Recent Applicants</h2>
+          <table className={`min-w-full text-left text-sm ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+            <thead className={`${darkMode ? "text-gray-400 border-b border-gray-600" : "text-gray-500 border-b"}`}>
               <tr>
                 <th className="py-2 px-4">Name</th>
                 <th className="py-2 px-4">Job</th>
@@ -115,7 +115,7 @@ const EmployerDashboard = () => {
             </thead>
             <tbody>
               {applicants.map((applicant) => (
-                <tr key={applicant._id} className="border-b hover:bg-gray-50">
+                <tr key={applicant._id} className={`border-b ${darkMode ? "border-gray-700 hover:bg-gray-700" : "hover:bg-gray-50"}`}>
                   <td className="py-2 px-4">{applicant.applicantName}</td>
                   <td className="py-2 px-4">{applicant.jobTitle}</td>
                   <td className="py-2 px-4">{new Date(applicant.createdAt).toLocaleDateString()}</td>
@@ -138,8 +138,7 @@ const EmployerDashboard = () => {
   );
 };
 
-// Sidebar component
-const Sidebar = ({ logout, sidebarOpen, setSidebarOpen }) => {
+const Sidebar = ({ logout, sidebarOpen, setSidebarOpen, darkMode }) => {
   const links = [
     { to: "/dashboard/employer", icon: <LayoutDashboard size={20} />, label: "Dashboard" },
     { to: "/post-job", icon: <FilePlus size={20} />, label: "Post Job" },
@@ -153,12 +152,7 @@ const Sidebar = ({ logout, sidebarOpen, setSidebarOpen }) => {
   ];
 
   return (
-    <aside
-      className={`bg-white shadow-md p-6 w-64 fixed md:static top-14 left-0 h-full z-40 transform transition-transform duration-300 ${
-        sidebarOpen ? "translate-x-0" : "-translate-x-full"
-      } md:translate-x-0 flex flex-col justify-between`}
-    >
-      {/* Close button for mobile */}
+    <aside className={`shadow-md p-6 w-64 fixed md:static top-14 left-0 h-full z-40 transform transition-transform duration-300 flex flex-col justify-between ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 ${darkMode ? "bg-gray-800 text-gray-100" : "bg-white text-gray-800"}`}>
       <button
         onClick={() => setSidebarOpen(false)}
         className="md:hidden absolute top-4 right-4 bg-gray-100 p-2 rounded-full shadow"
@@ -168,10 +162,10 @@ const Sidebar = ({ logout, sidebarOpen, setSidebarOpen }) => {
       </button>
 
       <div>
-        <div className="text-2xl font-bold text-gray-800 mb-8">
+        <div className="text-2xl font-bold mb-8">
           <span className="text-green-700">Next</span>Hire
         </div>
-        <nav className="flex flex-col gap-6 text-gray-700 font-medium">
+        <nav className="flex flex-col gap-6 font-medium">
           {links.map(({ to, icon, label }) => (
             <Link
               key={to}
@@ -195,21 +189,20 @@ const Sidebar = ({ logout, sidebarOpen, setSidebarOpen }) => {
   );
 };
 
-// Stat card component
-const StatCard = ({ title, value, icon, color }) => {
+const StatCard = ({ title, value, icon, color, darkMode }) => {
   const colorMap = {
-    green: "bg-green-100 text-green-700",
-    blue: "bg-blue-100 text-blue-700",
-    purple: "bg-purple-100 text-purple-700",
+    green: darkMode ? "bg-green-900 text-green-300" : "bg-green-100 text-green-700",
+    blue: darkMode ? "bg-blue-900 text-blue-300" : "bg-blue-100 text-blue-700",
+    purple: darkMode ? "bg-purple-900 text-purple-300" : "bg-purple-100 text-purple-700",
   };
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border hover:shadow-md transition">
+    <div className={`p-5 rounded-2xl shadow-sm border transition-colors duration-300 hover:shadow-md ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>
       <div className="flex items-center gap-4 mb-3">
         <div className={`p-3 rounded-full ${colorMap[color]}`}>{icon}</div>
         <div>
-          <p className="text-sm text-gray-500">{title}</p>
-          <h3 className="text-xl font-bold text-gray-800">{value}</h3>
+          <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>{title}</p>
+          <h3 className={`text-xl font-bold ${darkMode ? "text-white" : "text-gray-800"}`}>{value}</h3>
         </div>
       </div>
     </div>

@@ -6,8 +6,11 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from "firebase/auth";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const Settings = () => {
+  const { darkMode } = useDarkMode();
+
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [notifications, setNotifications] = useState({
@@ -50,82 +53,99 @@ const Settings = () => {
   };
 
   const handleSavePreferences = () => {
-    // এখানে চাইলে Firestore এ সেভ করতে পারো
     Swal.fire("Saved", "Notification preferences updated!", "success");
     console.log("Preferences:", notifications);
   };
 
+  const inputClass = `mt-1 block w-full border rounded-md p-2 transition duration-200 ${
+    darkMode
+      ? "bg-gray-800 border-gray-600 text-white placeholder-gray-400"
+      : "bg-white border-gray-300 text-gray-900"
+  }`;
+
+  const boxClass = `rounded-lg shadow-md p-6 transition-colors duration-300 ${
+    darkMode ? "bg-gray-900 border border-gray-700 text-white" : "bg-white border border-gray-200 text-gray-800"
+  }`;
+
+  const labelText = darkMode ? "text-gray-200" : "text-gray-700";
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-10">
-      <h2 className="text-3xl font-bold mb-8 text-center">Account Settings</h2>
+    <div
+      className={`min-h-screen py-10 px-4 transition-colors duration-300 ${
+        darkMode ? "bg-gray-950 text-white" : "bg-gray-100 text-gray-900"
+      }`}
+    >
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-3xl font-bold mb-8 text-center">Account Settings</h2>
 
-      {/* Password Section */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h3 className="text-xl font-semibold mb-4">Change Password</h3>
-        <form onSubmit={handlePasswordChange} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Current Password
-            </label>
-            <input
-              type="password"
-              value={currentPassword}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              placeholder="Current password"
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              New Password
-            </label>
-            <input
-              type="password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              placeholder="New password"
-              className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-          >
-            Change Password
-          </button>
-        </form>
-      </div>
-
-      {/* Notification Preferences */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h3 className="text-xl font-semibold mb-4">Notification Settings</h3>
-        <div className="space-y-3">
-          <label className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              checked={notifications.email}
-              onChange={() => handleNotificationChange("email")}
-              className="form-checkbox h-5 w-5"
-            />
-            <span className="text-gray-700">Email notifications</span>
-          </label>
-          <label className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              checked={notifications.push}
-              onChange={() => handleNotificationChange("push")}
-              className="form-checkbox h-5 w-5"
-            />
-            <span className="text-gray-700">Push notifications</span>
-          </label>
+        {/* Password Section */}
+        <div className={`${boxClass} mb-6`}>
+          <h3 className="text-xl font-semibold mb-4">Change Password</h3>
+          <form onSubmit={handlePasswordChange} className="space-y-4">
+            <div>
+              <label className={`block text-sm font-medium ${labelText}`}>
+                Current Password
+              </label>
+              <input
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                placeholder="Current password"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={`block text-sm font-medium ${labelText}`}>
+                New Password
+              </label>
+              <input
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="New password"
+                className={inputClass}
+              />
+            </div>
+            <button
+              type="submit"
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+            >
+              Change Password
+            </button>
+          </form>
         </div>
-        <div className="mt-4">
-          <button
-            onClick={handleSavePreferences}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Save Preferences
-          </button>
+
+        {/* Notification Preferences */}
+        <div className={boxClass}>
+          <h3 className="text-xl font-semibold mb-4">Notification Settings</h3>
+          <div className="space-y-3">
+            <label className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                checked={notifications.email}
+                onChange={() => handleNotificationChange("email")}
+                className="form-checkbox h-5 w-5"
+              />
+              <span className={labelText}>Email notifications</span>
+            </label>
+            <label className="flex items-center space-x-3">
+              <input
+                type="checkbox"
+                checked={notifications.push}
+                onChange={() => handleNotificationChange("push")}
+                className="form-checkbox h-5 w-5"
+              />
+              <span className={labelText}>Push notifications</span>
+            </label>
+          </div>
+          <div className="mt-4">
+            <button
+              onClick={handleSavePreferences}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Save Preferences
+            </button>
+          </div>
         </div>
       </div>
     </div>

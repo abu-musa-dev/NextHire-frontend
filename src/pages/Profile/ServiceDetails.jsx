@@ -9,7 +9,8 @@ import {
 } from "@stripe/react-stripe-js";
 import axios from "axios";
 import { useAuth } from "../../context/AuthContext";
-import Login from "../Auth/Login"; // 👉 Login component import করো
+import { useDarkMode } from "../../context/DarkModeContext";
+import Login from "../Auth/Login";
 import CustomSpinner from "../../components/shared/CustomSpinner";
 
 const stripePromise = loadStripe(
@@ -71,19 +72,19 @@ const ServiceDetails = () => {
   const { id } = useParams();
   const [service, setService] = useState(null);
   const [paid, setPaid] = useState(false);
-  const [loadingSpinner, setLoadingSpinner] = useState(true); // 👈 New state for 2s spinner
+  const [loadingSpinner, setLoadingSpinner] = useState(true);
 
   const { user, loading: authLoading } = useAuth();
+  const { darkMode } = useDarkMode();
 
   useEffect(() => {
-       window.scrollTo({ top: 0, behavior: "smooth" });
-    // ⏳ Simulate loading for 2 seconds
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     const timer = setTimeout(() => {
       setLoadingSpinner(false);
     }, 2000);
 
-    // Fetch the service
-    fetch("/services.json")
+    fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => {
         setService(data.find((s) => s.id === Number(id)));
@@ -92,18 +93,15 @@ const ServiceDetails = () => {
     return () => clearTimeout(timer);
   }, [id]);
 
-  // 🌀 Show spinner for 2 seconds
   if (loadingSpinner) {
-    return (
-      <CustomSpinner></CustomSpinner>
-    );
+    return <CustomSpinner />;
   }
 
   if (authLoading) return <p>Checking authentication...</p>;
 
   if (!user || user.role !== "Employer") {
     return (
-      <div className="max-w-3xl mx-auto p-8 mt-20">
+      <div className={`max-w-3xl mx-auto p-8 mt-20 ${darkMode ? "bg-gray-900 text-white" : ""}`}>
         <div className="bg-red-100 text-red-700 rounded-lg text-center font-semibold shadow p-6 mb-6">
           Access Denied. Only logged-in employers can view this page.
         </div>
@@ -115,18 +113,29 @@ const ServiceDetails = () => {
   if (!service) return <p>Loading service details...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 mb-10 p-8 bg-white rounded-xl shadow-lg">
-      <h1 className="text-3xl font-bold mb-4">{service.title}</h1>
-      <p className="mb-6">Category: {service.category}</p>
-      {!paid ? (
-        <Elements stripe={stripePromise}>
-          <CheckoutForm amount={service.price * 100} onSuccess={() => setPaid(true)} />
-        </Elements>
-      ) : (
-        <div className="p-6 bg-green-100 text-green-800 rounded-lg text-center">
-          Payment Successful! Thank you.
-        </div>
-      )}
+    <div
+      className={`min-h-screen px-4 py-10 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      }`}
+    >
+      <div
+        className={`max-w-3xl mx-auto mt-10 mb-10 p-8 rounded-xl shadow-lg ${
+          darkMode ? "bg-gray-800 border border-gray-700" : "bg-white"
+        }`}
+      >
+        <h1 className="text-3xl font-bold mb-4">{service.title}</h1>
+        <p className="mb-6">Category: {service.category}</p>
+
+        {!paid ? (
+          <Elements stripe={stripePromise}>
+            <CheckoutForm amount={service.price * 100} onSuccess={() => setPaid(true)} />
+          </Elements>
+        ) : (
+          <div className="p-6 bg-green-100 text-green-800 rounded-lg text-center">
+            Payment Successful! Thank you.
+          </div>
+        )}
+      </div>
     </div>
   );
 };
