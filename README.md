@@ -2,7 +2,7 @@
 
 **NextHire** is a full-stack job portal application designed to connect **employers** and **job seekers** seamlessly. Built with modern frontend technologies and a clean, intuitive UI/UX, it provides a smooth and dynamic experience for both parties.
 
-**Live Site**: [nexthire-demo.netlify.app](https://next-hire-web.netlify.app/)  |  **Backend Repository**: [NextHire Backend](https://github.com/abu-musa-dev/NextHire-Backend)
+**Live Site**: [nexthire-web.netlify.app](https://next-hire-web.netlify.app/)  |  **Backend Repository**: [NextHire Backend](https://github.com/abu-musa-dev/NextHire-Backend)
 
 ---
 
