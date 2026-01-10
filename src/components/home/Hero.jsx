@@ -2,19 +2,27 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDarkMode } from "../../context/DarkModeContext"; // ✅ import dark mode context
+import man1 from "../../assets/man1.jpg";
+import man2 from "../../assets/man2.jpg";
+import man3 from "../../assets/man3.jpg";
+import man4 from "../../assets/man4.jpg";
+import man5 from "../../assets/man5.jpg";
+import man6 from "../../assets/man6.jpg";
+import man7 from "../../assets/man7.jpg";
+
 
 const Hero = () => {
   const navigate = useNavigate();
   const { darkMode } = useDarkMode(); // ✅ get current dark mode state
 
   const imageUrls = [
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-370.svg",
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-373.svg",
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-372.svg",
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-378.svg",
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-368.svg",
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-371.svg",
-    "https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Ellipse-369.svg",
+    man1,
+    man2,
+    man3,
+    man7,
+    man5,
+    man6,
+    man4,
   ];
 
   const imagePositions = [
