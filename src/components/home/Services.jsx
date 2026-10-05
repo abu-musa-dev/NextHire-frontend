@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Star } from "lucide-react";
-import { useDarkMode } from "../../context/DarkModeContext"; // Adjust path as needed
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const Services = () => {
   const location = useLocation();
   const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const { darkMode } = useDarkMode();
@@ -19,17 +20,43 @@ const Services = () => {
   useEffect(() => {
     fetch("https://next-haire-backend-now.vercel.app/services")
       .then((res) => res.json())
-      .then((data) => setServices(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setServices(data);
+        } else if (Array.isArray(data?.services)) {
+          setServices(data.services);
+        } else if (Array.isArray(data?.data)) {
+          setServices(data.data);
+        } else {
+          setServices([]);
+        }
+      })
+      .catch((err) => {
+        console.error("Error fetching services:", err);
+        setServices([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
-  const filteredServices = services.filter((service) => {
-    const matchesSearch = service.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory
-      ? service.category.toLowerCase() === selectedCategory.toLowerCase()
-      : true;
-    return matchesSearch && matchesCategory;
-  });
+  // Safe Filtering: services 
+  const filteredServices = Array.isArray(services)
+    ? services.filter((service) => {
+        const title = service?.title || "";
+        const category = service?.category || "";
+
+        const matchesSearch = title
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+
+        const matchesCategory = selectedCategory
+          ? category.toLowerCase() === selectedCategory.toLowerCase()
+          : true;
+
+        return matchesSearch && matchesCategory;
+      })
+    : [];
 
   return (
     <section
@@ -40,7 +67,11 @@ const Services = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold">All Services</h2>
-          <p className={`mt-2 text-base ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
+          <p
+            className={`mt-2 text-base ${
+              darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
             Explore all available services
           </p>
 
@@ -65,78 +96,102 @@ const Services = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {filteredServices.length > 0 ? (
-            filteredServices.map((service) => (
-              <Link
-                to={`/services/${service.id}`}
-                key={service.id}
-                className={`rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-xl ${
-                  darkMode ? "bg-gray-800 border-gray-700" : "bg-white border"
-                }`}
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-52 object-cover"
-                />
-                <div className="p-5">
-                  <span
-                    className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-2 ${
-                      darkMode ? "text-green-400 bg-green-900" : "text-green-700 bg-green-100"
-                    }`}
-                  >
-                    {service.category}
-                  </span>
+        {loading ? (
+          <div className="text-center py-12 text-gray-500">
+            Loading services...
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            {filteredServices.length > 0 ? (
+              filteredServices.map((service, index) => (
+                <Link
+                  to={`/services/${service?._id || service?.id || index}`}
+                  key={service?._id || service?.id || index}
+                  className={`rounded-2xl border overflow-hidden transition-all duration-300 hover:shadow-xl ${
+                    darkMode
+                      ? "bg-gray-800 border-gray-700"
+                      : "bg-white border-gray-200"
+                  }`}
+                >
+                  <img
+                    src={service?.image || "https://via.placeholder.com/300"}
+                    alt={service?.title || "Service"}
+                    className="w-full h-52 object-cover"
+                  />
+                  <div className="p-5">
+                    <span
+                      className={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-2 ${
+                        darkMode
+                          ? "text-green-400 bg-green-900"
+                          : "text-green-700 bg-green-100"
+                      }`}
+                    >
+                      {service?.category || "General"}
+                    </span>
 
-                  <h3
-                    className={`text-lg font-semibold line-clamp-2 ${
-                      darkMode ? "text-white" : "text-gray-800"
-                    }`}
-                  >
-                    {service.title}
-                  </h3>
+                    <h3
+                      className={`text-lg font-semibold line-clamp-2 ${
+                        darkMode ? "text-white" : "text-gray-800"
+                      }`}
+                    >
+                      {service?.title}
+                    </h3>
 
-                  <div className="flex items-center gap-3 mt-4">
-                    <img
-                      src={service.user.avatar}
-                      alt="avatar"
-                      className="w-9 h-9 rounded-full object-cover"
-                    />
-                    <div className="text-sm">
-                      <p className={`font-medium ${darkMode ? "text-white" : "text-gray-800"}`}>
-                        {service.user.name}
-                      </p>
-                      <div
-                        className={`flex items-center text-sm ${
-                          darkMode ? "text-gray-400" : "text-gray-500"
-                        }`}
-                      >
-                        <Star size={14} className="text-yellow-500 mr-1" />
-                        {service.user.rating} ({service.user.reviews} reviews)
+                    <div className="flex items-center gap-3 mt-4">
+                      <img
+                        src={
+                          service?.user?.avatar ||
+                          "https://via.placeholder.com/40"
+                        }
+                        alt="avatar"
+                        className="w-9 h-9 rounded-full object-cover"
+                      />
+                      <div className="text-sm">
+                        <p
+                          className={`font-medium ${
+                            darkMode ? "text-white" : "text-gray-800"
+                          }`}
+                        >
+                          {service?.user?.name || "Anonymous"}
+                        </p>
+                        <div
+                          className={`flex items-center text-sm ${
+                            darkMode ? "text-gray-400" : "text-gray-500"
+                          }`}
+                        >
+                          <Star size={14} className="text-yellow-500 mr-1" />
+                          {service?.user?.rating || 0} (
+                          {service?.user?.reviews || 0} reviews)
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div
-                    className={`mt-4 border-t pt-3 text-sm flex justify-between items-center ${
-                      darkMode ? "text-gray-400 border-gray-700" : "text-gray-500"
-                    }`}
-                  >
-                    <span>Starting at</span>
-                    <span className="text-green-600 font-semibold text-lg">
-                      ${service.price}
-                    </span>
+                    <div
+                      className={`mt-4 border-t pt-3 text-sm flex justify-between items-center ${
+                        darkMode
+                          ? "text-gray-400 border-gray-700"
+                          : "text-gray-500"
+                      }`}
+                    >
+                      <span>Starting at</span>
+                      <span className="text-green-600 font-semibold text-lg">
+                        ${service?.price || 0}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <p className={`text-center col-span-3 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
-              No services found.
-            </p>
-          )}
-        </div>
+                </Link>
+              ))
+            ) : (
+              <p
+                className={`text-center col-span-3 ${
+                  darkMode ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
+                No services found.
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );

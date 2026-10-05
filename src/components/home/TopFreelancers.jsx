@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useDarkMode } from "../../context/DarkModeContext"; // ✅ Import DarkMode context
+import { useDarkMode } from "../../context/DarkModeContext";
 
 const FreelancerCard = ({ freelancer, id, darkMode }) => (
   <div
@@ -10,49 +10,50 @@ const FreelancerCard = ({ freelancer, id, darkMode }) => (
   >
     <div className="flex items-center space-x-4 mb-4">
       <img
-        src={freelancer.img}
-        alt={freelancer.name}
+        src={freelancer?.img || "https://via.placeholder.com/150"}
+        alt={freelancer?.name || "Freelancer"}
         className="w-12 h-12 rounded-full object-cover"
       />
       <div>
-        <h3 className="font-semibold text-lg">{freelancer.name}</h3>
-        <p className="text-green-500 font-medium">{freelancer.role}</p>
+        <h3 className="font-semibold text-lg">{freelancer?.name}</h3>
+        <p className="text-green-500 font-medium">{freelancer?.role}</p>
         <div
           className={`flex items-center text-sm space-x-2 ${
             darkMode ? "text-gray-400" : "text-gray-500"
           }`}
         >
-          <span>{freelancer.location}</span>
+          <span>{freelancer?.location}</span>
           <span>•</span>
           <span className="text-green-600 font-semibold">
-            ★ {freelancer.rating}
+            ★ {freelancer?.rating}
           </span>
         </div>
       </div>
     </div>
 
     <p className={`text-sm mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
-      {freelancer.description}
+      {freelancer?.description}
     </p>
 
     <div className="flex flex-wrap gap-2 mb-4">
-      {freelancer.tags.map((tag, index) => (
-        <span
-          key={index}
-          className={`text-sm px-3 py-1 rounded-full ${
-            darkMode
-              ? "bg-gray-700 text-gray-200"
-              : "bg-gray-100 text-gray-700"
-          }`}
-        >
-          {tag}
-        </span>
-      ))}
+      {Array.isArray(freelancer?.tags) &&
+        freelancer.tags.map((tag, index) => (
+          <span
+            key={index}
+            className={`text-sm px-3 py-1 rounded-full ${
+              darkMode
+                ? "bg-gray-700 text-gray-200"
+                : "bg-gray-100 text-gray-700"
+            }`}
+          >
+            {tag}
+          </span>
+        ))}
     </div>
 
-    <div className="text-xl font-bold text-green-600">{freelancer.price}</div>
+    <div className="text-xl font-bold text-green-600">{freelancer?.price}</div>
 
-    <Link to={`/freelancer/${id}`}>
+    <Link to={`/freelancer/${freelancer?._id || freelancer?.id || id}`}>
       <button
         className={`mt-4 w-full border rounded-full py-2 transition ${
           darkMode
@@ -68,13 +69,32 @@ const FreelancerCard = ({ freelancer, id, darkMode }) => (
 
 export default function TopFreelancers() {
   const [freelancers, setFreelancers] = useState([]);
-  const { darkMode } = useDarkMode(); // ✅ Get darkMode value
+  const [loading, setLoading] = useState(true);
+  const { darkMode } = useDarkMode();
 
   useEffect(() => {
     fetch("https://next-haire-backend-now.vercel.app/freelancers")
       .then((res) => res.json())
-      .then((data) => setFreelancers(data))
-      .catch((err) => console.error("Failed to load freelancers:", err));
+      .then((data) => {
+        console.log("Fetched data:", data);
+
+        if (Array.isArray(data)) {
+          setFreelancers(data);
+        } else if (Array.isArray(data?.freelancers)) {
+          setFreelancers(data.freelancers);
+        } else if (Array.isArray(data?.data)) {
+          setFreelancers(data.data);
+        } else {
+          setFreelancers([]); 
+        }
+      })
+      .catch((err) => {
+        console.error("Failed to load freelancers:", err);
+        setFreelancers([]);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -89,16 +109,25 @@ export default function TopFreelancers() {
           Top rated freelancer of the week
         </p>
       </div>
-      <div className="flex flex-wrap justify-center gap-6">
-        {freelancers.map((freelancer, index) => (
-          <FreelancerCard
-            key={index}
-            freelancer={freelancer}
-            id={index}
-            darkMode={darkMode}
-          />
-        ))}
-      </div>
+
+      {loading ? (
+        <div className="text-center py-8">Loading freelancers...</div>
+      ) : (
+        <div className="flex flex-wrap justify-center gap-6">
+          {Array.isArray(freelancers) && freelancers.length > 0 ? (
+            freelancers.map((freelancer, index) => (
+              <FreelancerCard
+                key={freelancer?._id || freelancer?.id || index}
+                freelancer={freelancer}
+                id={freelancer?._id || freelancer?.id || index}
+                darkMode={darkMode}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500">No freelancers found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
