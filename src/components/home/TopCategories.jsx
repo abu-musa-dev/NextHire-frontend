@@ -8,7 +8,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 import CustomSpinner from "../shared/CustomSpinner";
-import { useDarkMode } from "../../context/DarkModeContext"; // ✅ Dark Mode context
+import { useDarkMode } from "../../context/DarkModeContext"; //  Dark Mode context
 
 const rawCategories = [
   {

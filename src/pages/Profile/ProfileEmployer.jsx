@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { getAuth, updateEmail, updateProfile } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { auth, storage } from '../../firebase'; // আপনার প্রকল্প অনুযায়ী সঠিক path দিন
+import { auth, storage } from '../../firebase'; 
 import { useDarkMode } from '../../context/DarkModeContext'; // DarkMode context import
 
 const ProfileEmployer = () => {
-  const { darkMode } = useDarkMode();  // isDarkMode -> darkMode, Context এর সাথে মেলাতে
+  const { darkMode } = useDarkMode();  
 
   const [profile, setProfile] = useState({
     email: '',

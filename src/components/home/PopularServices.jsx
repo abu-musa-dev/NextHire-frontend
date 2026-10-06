@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useDarkMode } from "../../context/DarkModeContext"; // নিশ্চিত করো path ঠিক আছে
+import { useDarkMode } from "../../context/DarkModeContext"; 
 
 const PopularServices = () => {
-  const { darkMode } = useDarkMode(); // ডার্ক মোড কন্টেক্সট থেকে স্টেট আনো
+  const { darkMode } = useDarkMode();
   const [services, setServices] = useState([]);
   const [filter, setFilter] = useState("Featured");
   const [loading, setLoading] = useState(false);

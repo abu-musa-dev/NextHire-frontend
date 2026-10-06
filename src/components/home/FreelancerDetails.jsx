@@ -13,6 +13,7 @@ export default function FreelancerDetails() {
 
   const [freelancer, setFreelancer] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [showMessageForm, setShowMessageForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -22,22 +23,61 @@ export default function FreelancerDetails() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+    setLoading(true);
 
-    const timer = setTimeout(() => {
-      fetch("https://next-haire-backend-now.vercel.app/freelancers")
-        .then((res) => res.json())
-        .then((data) => {
-          const selected = data[parseInt(id)];
+    fetch("https://next-haire-backend-now.vercel.app/freelancers")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch freelancers");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        // ডেটা যদি সরাসরি অ্যারে না হয়ে { freelancers: [...] } এমন অবজেক্ট আকারে থাকে
+        const freelancersList = Array.isArray(data) ? data : data.freelancers || [];
+
+        // ১. প্রথমে _id বা id মিলিয়ে খোঁজা
+        // ২. যদি না মেলে তবে ইন্ডেক্স দিয়ে খোঁজা (fallback)
+        const selected =
+          freelancersList.find(
+            (item) => String(item._id) === String(id) || String(item.id) === String(id)
+          ) || freelancersList[parseInt(id)];
+
+        if (selected) {
           setFreelancer(selected);
-          setLoading(false);
-        });
-    }, 2000);
-
-    return () => clearTimeout(timer);
+        } else {
+          setError("Freelancer not found!");
+        }
+      })
+      .catch((err) => {
+        console.error("Fetch Error:", err);
+        setError("Failed to load freelancer details. Please try again.");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [id]);
 
-  if (loading || !freelancer) {
+  // লোডিং অবস্থা
+  if (loading) {
     return <CustomSpinner />;
+  }
+
+  // যদি ডেটা না পাওয়া যায় বা সার্ভার এরর হয়
+  if (error || !freelancer) {
+    return (
+      <div className={`min-h-screen flex flex-col items-center justify-center ${darkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"}`}>
+        <p className="text-xl font-semibold text-red-500 mb-4">
+          {error || "Freelancer not found!"}
+        </p>
+        <Link
+          to="/"
+          className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition"
+        >
+          ← Back to list
+        </Link>
+      </div>
+    );
   }
 
   const handleInputChange = (e) => {
@@ -87,8 +127,8 @@ export default function FreelancerDetails() {
     }
 
     setFormData({
-      name: user.name,
-      email: user.email,
+      name: user.name || "",
+      email: user.email || "",
       message: "",
     });
     setShowMessageForm(true);
@@ -148,7 +188,7 @@ export default function FreelancerDetails() {
           </div>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            {freelancer.tags.map((tag, idx) => (
+            {freelancer.tags?.map((tag, idx) => (
               <span
                 key={idx}
                 className={`px-3 py-1 rounded-full text-sm ${

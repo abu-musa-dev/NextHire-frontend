@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useDarkMode } from "../../context/DarkModeContext"; // ✅ Import DarkMode context
+import { useDarkMode } from "../../context/DarkModeContext"; //Import DarkMode context
 
 const EmployerDashboard = () => {
   const [applicants, setApplicants] = useState([]);
@@ -27,7 +27,7 @@ const EmployerDashboard = () => {
 
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const { darkMode } = useDarkMode(); // ✅ Use dark mode
+  const { darkMode } = useDarkMode(); // Use dark mode
 
   const email = user?.email;
   const role = user?.role;

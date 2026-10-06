@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import { useDarkMode } from "../../context/DarkModeContext"; // আপনার path ঠিক রাখুন
+import { useDarkMode } from "../../context/DarkModeContext"; 
 
 const SavedJobs = () => {
   const [savedJobs, setSavedJobs] = useState([]);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaQuoteRight } from 'react-icons/fa';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useDarkMode } from '../../context/DarkModeContext'; // তোমার ডার্ক মোড কনটেক্সটের পাথ অনুযায়ী ঠিক করো
+import { useDarkMode } from '../../context/DarkModeContext'; 
 
 const testimonials = [
   {

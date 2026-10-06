@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDarkMode } from '../../context/DarkModeContext';  // পাথ তোমার প্রজেক্ট অনুসারে ঠিক করো
+import { useDarkMode } from '../../context/DarkModeContext';  
 
 const MissionSection = () => {
   const { darkMode } = useDarkMode();

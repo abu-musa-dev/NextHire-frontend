@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Mail } from "lucide-react";
 import Swal from "sweetalert2";
-import { useDarkMode } from "../../context/DarkModeContext"; // path নিশ্চিত করো
+import { useDarkMode } from "../../context/DarkModeContext"; 
 
 const NewsletterSubscribe = () => {
-  const { darkMode } = useDarkMode(); // কন্টেক্সট থেকে darkMode আনো
+  const { darkMode } = useDarkMode(); 
   const [email, setEmail] = useState("");
 
   const handleSubmit = (e) => {

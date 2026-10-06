@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useDarkMode } from "../../context/DarkModeContext"; // ✅ import dark mode context
+import { useDarkMode } from "../../context/DarkModeContext"; // import dark mode context
 import man1 from "../../assets/man1.jpg";
 import man2 from "../../assets/man2.jpg";
 import man3 from "../../assets/man3.jpg";
@@ -13,7 +13,7 @@ import man7 from "../../assets/man7.jpg";
 
 const Hero = () => {
   const navigate = useNavigate();
-  const { darkMode } = useDarkMode(); // ✅ get current dark mode state
+  const { darkMode } = useDarkMode(); // get current dark mode state
 
   const imageUrls = [
     man1,

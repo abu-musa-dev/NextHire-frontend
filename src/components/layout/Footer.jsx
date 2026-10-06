@@ -6,10 +6,10 @@ import {
   FaInstagram,
   FaYoutube,
 } from 'react-icons/fa';
-import { useDarkMode } from '../../context/DarkModeContext'; // ✅ Import dark mode context
+import { useDarkMode } from '../../context/DarkModeContext'; //  Import dark mode context
 
 const Footer = () => {
-  const { darkMode } = useDarkMode(); // ✅ Get dark mode value
+  const { darkMode } = useDarkMode(); //  Get dark mode value
 
   return (
     <footer

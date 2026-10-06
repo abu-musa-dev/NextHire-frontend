@@ -1,6 +1,6 @@
 import React from "react";
 import { CheckCircle } from "lucide-react";
-import { useDarkMode } from "../../context/DarkModeContext"; // path ঠিকমত দাও
+import { useDarkMode } from "../../context/DarkModeContext"; 
 
 const FreelanceBanner = () => {
   const { darkMode } = useDarkMode();
@@ -58,13 +58,13 @@ const FreelanceBanner = () => {
       </div>
 
       {/* Right Image Section */}
-      <div className="w-full md:w-1/2 flex justify-center relative z-10 mb-8 md:mb-0">
+      {/* <div className="w-full md:w-1/2 flex justify-center relative z-10 mb-8 md:mb-0">
         <img
-          src="https://civi.uxper.co/freelance/wp-content/uploads/sites/4/2022/10/Group-48095751.webp"
+          src={imageBanner}
           alt="Freelancer Woman Illustration"
           className="w-full max-w-sm sm:max-w-md md:max-w-lg"
         />
-      </div>
+      </div> */}
 
       {/* Background Shapes */}
       <div className={`absolute right-0 top-10 md:top-0 w-[350px] h-[350px] rounded-[50%] md:rounded-[30%] z-0 translate-x-1/2 md:translate-x-1/4 ${

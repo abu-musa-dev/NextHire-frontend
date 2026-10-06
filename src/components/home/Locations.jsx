@@ -1,5 +1,5 @@
 import { MapPin } from 'lucide-react';
-import { useDarkMode } from '../../context/DarkModeContext'; // তোমার কনটেক্সট পাথ অনুসারে ঠিক করো
+import { useDarkMode } from '../../context/DarkModeContext';
 
 export default function Locations() {
   const { darkMode } = useDarkMode();

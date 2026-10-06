@@ -10,17 +10,22 @@ import { useDarkMode } from "../../context/DarkModeContext";
 const Login = () => {
   const { login } = useAuth();
   const { darkMode } = useDarkMode();
+  const [identifier, setIdentifier] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const togglePassword = () => setShowPassword(!showPassword);
 
+  const handleAutoFill = (roleName) => {
+    setIdentifier(roleName);
+    setPassword("musa123");
+    setError(null);
+  };
+
   const handleEmailLogin = async (e) => {
     e.preventDefault();
-    const form = e.target;
-    const identifier = form.identifier.value;
-    const password = form.password.value;
 
     try {
       const response = await fetch("https://next-haire-backend-now.vercel.app/login", {
@@ -57,7 +62,7 @@ const Login = () => {
         confirmButtonText: "Continue",
         width: 450,
         padding: "2rem",
-        background: darkMode ? "#1f2937" : "#fff", // dark bg for sweetalert if needed
+        background: darkMode ? "#1f2937" : "#fff",
         color: darkMode ? "#fff" : "#000",
       });
 
@@ -113,7 +118,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Info Box */}
         <div
           className={`p-3 rounded-md mb-4 text-sm ${
             darkMode ? "bg-gray-700 text-gray-300" : "bg-gray-100 text-gray-800"
@@ -139,6 +143,8 @@ const Login = () => {
             <input
               type="text"
               name="identifier"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
               placeholder="Enter email or username"
               className={`w-full px-3 py-2 rounded-md border placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 ${
                 darkMode
@@ -154,6 +160,8 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               className={`w-full px-3 py-2 rounded-md border pr-10 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 ${
                 darkMode
@@ -179,6 +187,29 @@ const Login = () => {
             Sign in
           </button>
         </form>
+
+        <div className="mt-5 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-xs text-gray-500 dark:text-gray-400 mb-2 text-center">
+            Click to auto-fill credentials:
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={() => handleAutoFill("Employer")}
+              className="flex-1 py-2 px-3 text-xs font-semibold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm"
+            >
+              Employer
+            </button>
+            <button
+              type="button"
+              onClick={() => handleAutoFill("Candidate")}
+              className="flex-1 py-2 px-3 text-xs font-semibold rounded-lg bg-blue-600 hover:bg-blue-700 text-white transition shadow-sm"
+            >
+              Candidate
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   );

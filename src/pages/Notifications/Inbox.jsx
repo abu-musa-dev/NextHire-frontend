@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDarkMode } from "../../context/DarkModeContext";
 
 const Inbox = () => {
-  const { darkMode } = useDarkMode();  // এখানে isDarkMode না, darkMode নিতে হবে
+  const { darkMode } = useDarkMode();  
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {

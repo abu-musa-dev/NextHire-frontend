@@ -3,7 +3,7 @@ import axios from "axios";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
-  const userEmail = localStorage.getItem("email"); // ইমেইল লোকালস্টোরেজে রাখতে হবে
+  const userEmail = localStorage.getItem("email"); 
 
   useEffect(() => {
     const fetchNotifications = async () => {

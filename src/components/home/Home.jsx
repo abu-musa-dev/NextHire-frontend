@@ -8,10 +8,10 @@ import Pricing from "./Pricing";
 import { Helmet } from "react-helmet-async";
 import TopCategories from "./TopCategories";
 import NewSeoServices from "./NewSeoServices";
-import { useDarkMode } from "../../context/DarkModeContext"; // ✅ Import context
+import { useDarkMode } from "../../context/DarkModeContext"; //  Import context
 
 const Home = () => {
-  const { darkMode } = useDarkMode(); // ✅ use context
+  const { darkMode } = useDarkMode(); //  use context
 
   return (
     <>

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useDarkMode } from "../../context/DarkModeContext"; // ✅ DarkMode context import
+import { useDarkMode } from "../../context/DarkModeContext"; // DarkMode context import
 
 export default function Pricing() {
   const [plans, setPlans] = useState([]);
   const navigate = useNavigate();
   const { user } = useAuth();
-  const { darkMode } = useDarkMode(); // ✅ use darkMode
+  const { darkMode } = useDarkMode(); // use darkMode
 
   useEffect(() => {
     fetch("https://next-haire-backend-now.vercel.app/pricing")
